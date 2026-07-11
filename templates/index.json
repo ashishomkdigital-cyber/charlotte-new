@@ -33,7 +33,7 @@
         "description_style": "body",
         "columns_desktop": 4,
         "enable_desktop_slider": false,
-        "full_width": false,
+        "full_width": true,
         "show_view_all": true,
         "view_all_style": "solid",
         "color_scheme": "",
@@ -239,7 +239,7 @@
       ],
       "custom_css": [
         ".image-with-text__media {border: 20px solid #f1dfca;}",
-        "p a {text-decoration: none; color:#C17A56; text-transform: uppercase;}"
+        "p a {text-decoration: none; color: #c17a56; text-transform: uppercase;}"
       ],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {

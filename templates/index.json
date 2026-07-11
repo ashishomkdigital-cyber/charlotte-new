@@ -22,13 +22,16 @@
     },
     "featured_collection_HUax9r": {
       "type": "featured-collection",
+      "custom_css": [
+        ".title{margin-bottom: 15px!important;}"
+      ],
       "name": "t:sections.featured-collection.presets.name",
       "settings": {
         "collection": "best-sellers",
         "products_to_show": 4,
         "title": "Featured collection",
         "heading_size": "h1",
-        "description": "",
+        "description": "<p>Discover the essential pieces from the Charlotte collection.</p>",
         "show_description": false,
         "description_style": "body",
         "columns_desktop": 4,

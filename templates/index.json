@@ -185,6 +185,7 @@
       ],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
+        "image": "shopify://shop_images/fadf89d2b2d91189e05e6925e0e9c845521b447f_4b6ea240-5912-4a9a-b2c9-03f1cf5e7aed.png",
         "height": "adapt",
         "desktop_image_width": "medium",
         "layout": "text_first",

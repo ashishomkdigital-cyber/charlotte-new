@@ -49,16 +49,6 @@
         "padding_bottom": 36
       }
     },
-    "store_features_nUc38W": {
-      "type": "store-features",
-      "name": "Store Features",
-      "settings": {
-        "title_1": "PAN-INDIA DELIVERY",
-        "title_2": "PREMIUM, HAND-CRAFTED MATERIALS",
-        "title_3": "SECURE CHECKOUT",
-        "title_4": "ELEGANT, PROTECTIVE PACKAGING"
-      }
-    },
     "collection_grid_QVdBh3": {
       "type": "collection-grid",
       "blocks": {
@@ -161,12 +151,70 @@
         "padding_top": 76,
         "padding_bottom": 60
       }
+    },
+    "image_with_text_MyTigw": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_qViwp8": {
+          "type": "heading",
+          "settings": {
+            "heading": "Crafted for Every Moment",
+            "heading_size": "h1"
+          }
+        },
+        "text_7QPMw7": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Our philosophy is simple: true luxury should live with you. Every bag is thoughtfully designed, each stitch a quiet expression of elegance. We create pieces not just for occasions, but for the feeling they evoke confidence, comfort, and the effortless grace of being authentically yourself.</p>",
+            "text_style": "body"
+          }
+        },
+        "button_bTUbwE": {
+          "type": "button",
+          "settings": {
+            "button_label": "Discover Our Story",
+            "button_link": "",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_qViwp8",
+        "text_7QPMw7",
+        "button_bTUbwE"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "text_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "store_features_nUc38W": {
+      "type": "store-features",
+      "name": "Store Features",
+      "settings": {
+        "title_1": "PAN-INDIA DELIVERY",
+        "title_2": "PREMIUM, HAND-CRAFTED MATERIALS",
+        "title_3": "SECURE CHECKOUT",
+        "title_4": "ELEGANT, PROTECTIVE PACKAGING"
+      }
     }
   },
   "order": [
     "hero_charlotte_r9JDkQ",
     "featured_collection_HUax9r",
     "collection_grid_QVdBh3",
+    "image_with_text_MyTigw",
     "store_features_nUc38W"
   ]
 }

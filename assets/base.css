@@ -3613,3 +3613,78 @@ details-disclosure > details {
     transform: translateX(100%) scaleX(0);
   }
 }
+
+/* Global Premium Overrides for Product Cards */
+.card-wrapper.product-card-wrapper {
+  background-color: #f7ebe1 !important; /* Premium light cream card background */
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 2.5rem !important;
+  transition: transform 0.3s ease !important;
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+}
+
+.card-wrapper.product-card-wrapper:hover {
+  transform: translateY(-5px) !important;
+}
+
+.card-wrapper.product-card-wrapper .card {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.card-wrapper.product-card-wrapper .card__inner {
+  background-color: transparent !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+.card-wrapper.product-card-wrapper .card__media {
+  background: transparent !important;
+  border: none !important;
+}
+
+.card-wrapper.product-card-wrapper .media {
+  background: transparent !important;
+  border: none !important;
+}
+
+.card-wrapper.product-card-wrapper .card__content {
+  padding: 2rem 0 0 0 !important;
+  text-align: center !important;
+}
+
+.card-wrapper.product-card-wrapper .card__heading {
+  font-family: var(--font-serif), serif !important;
+  font-size: 1.8rem !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.02em !important;
+  color: #3b3023 !important;
+  margin: 0 0 1rem 0 !important;
+  text-align: center !important;
+  text-transform: none !important;
+}
+
+.card-wrapper.product-card-wrapper .card__heading a {
+  color: #3b3023 !important;
+  text-decoration: none !important;
+}
+
+.card-wrapper.product-card-wrapper .price {
+  justify-content: center !important;
+  font-size: 1.5rem !important;
+  font-weight: 400 !important;
+  color: rgba(59, 48, 35, 0.7) !important;
+  font-family: var(--font-body-family), sans-serif !important;
+}
+
+.card-wrapper.product-card-wrapper .price__container {
+  justify-content: center !important;
+}
+
+.card-wrapper.product-card-wrapper .card-information {
+  text-align: center !important;
+}

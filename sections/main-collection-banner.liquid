@@ -7,11 +7,112 @@
       padding-bottom: calc({{ settings.media_shadow_vertical_offset | at_least: 0 }}px + 2rem);
     }
   }
+
+  /* Breadcrumbs styling */
+  .breadcrumbs {
+    font-size: 1.3rem;
+    color: #3b3023;
+    opacity: 0.8;
+    margin-bottom: 2rem;
+    text-transform: capitalize;
+  }
+  .breadcrumbs a {
+    color: #3b3023;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+  }
+  .breadcrumbs a:hover {
+    opacity: 0.7;
+  }
+  .breadcrumbs__separator {
+    margin: 0 0.8rem;
+  }
+
+  /* Category pills styling */
+  .collection-quick-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 1.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 3rem 0 1rem 0;
+  }
+  .collection-quick-links__link {
+    display: inline-block;
+    padding: 1.2rem 2.8rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-decoration: none;
+    border-radius: 3rem;
+    background-color: #f7ebe1;
+    color: #3b3023;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+  }
+  .collection-quick-links__link:hover {
+    background-color: #ebdccb;
+    transform: translateY(-1px);
+  }
+  .collection-quick-links__link.active {
+    background-color: #3b3023;
+    color: #ffffff;
+  }
+
+  /* Page background overrides */
+  .collection-hero {
+    background: #ebdccb !important;
+    padding-top: 5rem;
+    padding-bottom: 2rem;
+  }
+  .collection-hero__inner {
+    padding-bottom: 0 !important;
+  }
+  .collection-hero__title {
+    display: none !important; /* Hide large title as per reference */
+  }
 {%- endstyle -%}
 
 <div class="collection-hero{% if section.settings.show_collection_image and collection.image %} collection-hero--with-image{% endif %} color-{{ section.settings.color_scheme }} gradient">
   <div class="collection-hero__inner page-width {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
     <div class="collection-hero__text-wrapper">
+      <!-- Breadcrumbs -->
+      <nav class="breadcrumbs" role="navigation" aria-label="breadcrumbs">
+        <a href="{{ routes.root_url }}">Home</a>
+        <span class="breadcrumbs__separator" aria-hidden="true">&rsaquo;</span>
+        <span class="breadcrumbs__current">{{ collection.title }}</span>
+      </nav>
+
+      <!-- Category Filter Pills (Quick Links) -->
+      {%- if section.settings.quick_links_menu != blank -%}
+        <ul class="collection-quick-links">
+          {%- for link in linklists[section.settings.quick_links_menu].links -%}
+            <li class="collection-quick-links__item">
+              <a href="{{ link.url }}" class="collection-quick-links__link{% if link.active %} active{% endif %}">
+                {{ link.title | escape }}
+              </a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- else -%}
+        <!-- Fallback category filter pills if no menu is selected -->
+        <ul class="collection-quick-links">
+          <li class="collection-quick-links__item">
+            <a href="/collections/all" class="collection-quick-links__link {% if collection.handle == 'all' or request.path contains '/collections/all' %}active{% endif %}">All Product</a>
+          </li>
+          {%- for col in collections limit: 4 -%}
+            {%- unless col.handle == 'all' or col.handle == 'frontpage' -%}
+              <li class="collection-quick-links__item">
+                <a href="{{ col.url }}" class="collection-quick-links__link {% if collection.handle == col.handle %}active{% endif %}">
+                  {{ col.title | escape }}
+                </a>
+              </li>
+            {%- endunless -%}
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
       <h1 class="collection-hero__title">
         <span class="visually-hidden">{{ 'sections.collection_template.title' | t }}: </span>
         {{- collection.title | escape -}}
@@ -71,6 +172,12 @@
       "id": "color_scheme",
       "label": "t:sections.all.colors.label",
       "default": "scheme-1"
+    },
+    {
+      "type": "link_list",
+      "id": "quick_links_menu",
+      "label": "Collection Quick Links Menu",
+      "info": "Select a menu to show category pill links at the top of the collection page."
     }
   ]
 }

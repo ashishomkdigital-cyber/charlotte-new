@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Charlotte Theme Complete Preview</title>
+  
+  <!-- Cormorant Garamond Serif & Outfit Sans Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Reset & variables from Shopify theme */
+    :root {
+      --font-body-family: 'Outfit', sans-serif;
+      --font-serif: 'Cormorant Garamond', serif;
+    }
+    
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-body-family);
+      background-color: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Transparent Header styling */
+    .header-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: transparent;
+      border-bottom: none;
+      z-index: 1000;
+      padding: 2.5rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background-color 0.3s ease;
+    }
+    
+    .header__logo {
+      display: none; /* Hidden on transparent homepage header */
+    }
+    
+    .header__icons {
+      display: flex;
+      align-items: center;
+      margin-left: auto;
+      gap: 2.5rem;
+    }
+    
+    .header__icon {
+      color: #ffffff;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      cursor: pointer;
+    }
+    
+    .header__icon svg {
+      width: 2.2rem;
+      height: 2.2rem;
+      fill: #ffffff;
+    }
+    
+    .header__menu-text {
+      font-size: 1.2rem;
+      font-weight: 500;
+      letter-spacing: 0.15rem;
+      text-transform: uppercase;
+      margin-left: 0.8rem;
+      color: #ffffff;
+    }
+
+    /* Hero Section styling */
+    .hero-section {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background-color: #1a1a1a;
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('../../../../Downloads/charlotte-new/assets/hero-background.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      z-index: 1;
+    }
+
+    .hero-section::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.35); /* 35% overlay */
+      z-index: 2;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      color: #ffffff;
+      max-width: 800px;
+      padding: 0 30px;
+      margin-top: 50px;
+    }
+
+    .hero-title {
+      font-family: var(--font-serif), serif;
+      font-size: 8rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin: 0 0 2rem 0;
+      line-height: 1.1;
+    }
+
+    .hero-text {
+      font-size: 1.6rem;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      line-height: 1.6;
+      max-width: 500px;
+      margin: 0 auto 4rem auto;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .hero-button {
+      font-size: 1.3rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      padding: 1.5rem 4.5rem;
+      background: transparent;
+      transition: all 0.4s ease;
+      display: inline-block;
+    }
+
+    .hero-button:hover {
+      background: #ffffff;
+      color: #121212;
+      border-color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    /* Featured Collection styling */
+    .featured-collection {
+      background-color: #ebdccb; /* Soft warm tan background */
+      padding: 8rem 8%;
+      text-align: center;
+    }
+
+    .collection-title {
+      font-family: var(--font-serif), serif;
+      font-size: 3.2rem;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      color: #3b3023;
+      margin: 0 0 5rem 0;
+    }
+
+    .collection-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    @media screen and (max-width: 991px) {
+      .collection-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media screen and (max-width: 575px) {
+      .collection-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .product-card {
+      background-color: #f7ebe1; /* Lighter cream card background */
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.3s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-image-container {
+      width: 100%;
+      height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+
+    .product-image-container img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .product-title {
+      font-family: var(--font-serif), serif;
+      font-size: 1.8rem;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      color: #3b3023;
+      margin: 0 0 1rem 0;
+      text-decoration: none;
+    }
+
+    .product-price {
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: rgba(59, 48, 35, 0.7);
+      margin: 0;
+    }
+
+    /* Store Features styling */
+    .store-features {
+      background-color: #ebdccb;
+      padding: 6rem 8% 8rem 8%;
+      border-top: 1px solid rgba(59, 48, 35, 0.1);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    @media screen and (max-width: 991px) {
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+        row-gap: 40px;
+      }
+    }
+
+    @media screen and (max-width: 575px) {
+      .features-grid {
+        grid-template-columns: 1fr;
+        row-gap: 40px;
+      }
+    }
+
+    .feature-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .feature-icon-wrapper {
+      margin-bottom: 20px;
+      display: inline-flex;
+      color: #3b3023;
+    }
+
+    .feature-icon-wrapper svg {
+      width: 3.2rem;
+      height: 3.2rem;
+      fill: currentColor;
+    }
+
+    .feature-title {
+      font-size: 1.2rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #3b3023;
+      margin: 0;
+      line-height: 1.5;
+      max-width: 250px;
+    }
+
+    /* Footer styling */
+    .footer {
+      background-color: #D3A97C;
+      color: #3b3023;
+      padding: 60px 8% 30px 8%;
+      border-top: none;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    @media screen and (max-width: 991px) {
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media screen and (max-width: 575px) {
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .footer-column h2 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin: 0 0 20px 0;
+      color: #3b3023;
+    }
+
+    /* Column 1 Serif Logo */
+    .footer-brand-heading {
+      font-family: var(--font-serif), serif !important;
+      font-size: 2.6rem !important;
+      font-weight: 400 !important;
+      letter-spacing: 0.1em !important;
+      text-transform: uppercase !important;
+      margin: 0 0 15px 0 !important;
+    }
+
+    .footer-column p {
+      font-size: 1.4rem;
+      line-height: 1.6;
+      margin: 0 0 20px 0;
+      color: #3b3023;
+    }
+
+    .footer-social-icons {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      margin-top: 15px;
+    }
+
+    .footer-social-icons a {
+      color: #3b3023;
+      text-decoration: none;
+      display: inline-flex;
+    }
+
+    .footer-social-icons svg {
+      width: 1.8rem;
+      height: 1.8rem;
+      fill: currentColor;
+    }
+
+    /* Link list column */
+    .footer-menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-menu li {
+      margin-bottom: 12px;
+    }
+
+    .footer-menu a {
+      font-size: 1.4rem;
+      font-weight: 400;
+      text-decoration: none;
+      color: #3b3023;
+      transition: opacity 0.3s ease;
+      display: inline-block;
+    }
+
+    .footer-menu a:hover {
+      opacity: 0.7;
+    }
+
+    /* Newsletter styling */
+    .newsletter-form {
+      position: relative;
+      display: flex;
+      border-bottom: 1px solid #3b3023;
+      align-items: center;
+    }
+
+    .newsletter-input {
+      background: transparent;
+      border: none;
+      color: #3b3023;
+      padding: 12px 50px 12px 0;
+      font-size: 1.4rem;
+      font-family: var(--font-body-family);
+      width: 100%;
+      outline: none;
+    }
+
+    .newsletter-input::placeholder {
+      color: rgba(59, 48, 35, 0.6);
+    }
+
+    .newsletter-button {
+      background-color: #B56549; /* Brick red */
+      color: #ffffff;
+      width: 4rem;
+      height: 4rem;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      transition: background-color 0.3s ease;
+    }
+
+    .newsletter-button:hover {
+      background-color: #9d5036;
+    }
+
+    .newsletter-button svg {
+      width: 1.5rem;
+      height: 1.5rem;
+      fill: #ffffff;
+    }
+
+    /* Divider & bottom bar */
+    .footer-bottom {
+      border-top: 1px solid rgba(59, 48, 35, 0.15);
+      padding-top: 25px;
+      text-align: center;
+    }
+
+    .footer-copyright {
+      font-size: 1.3rem;
+      color: rgba(59, 48, 35, 0.8);
+      letter-spacing: 0.05em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header-wrapper">
+    <div class="header__logo"></div>
+    <div class="header__icons">
+      <!-- Search Icon -->
+      <a class="header__icon">
+        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </a>
+      <!-- Hamburger Menu Drawer Trigger -->
+      <a class="header__icon">
+        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+        <span class="header__menu-text">MENU</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h2 class="hero-title">CHARLOTTE</h2>
+      <p class="hero-text">Crafted for quiet moments and everyday grace. Timeless pieces that feel like home.</p>
+      <a href="#" class="hero-button">DISCOVER</a>
+    </div>
+  </section>
+
+  <!-- Featured Collection ("Our Most Loved") -->
+  <section class="featured-collection">
+    <h2 class="collection-title">Our Most Loved</h2>
+    <div class="collection-grid">
+      <!-- Product 1 -->
+      <div class="product-card">
+        <div class="product-image-container">
+          <svg viewBox="0 0 100 100" fill="none" stroke="#ebdccb" stroke-width="2" style="width:120px; height:120px;">
+            <circle cx="50" cy="50" r="30"></circle>
+            <rect x="40" y="30" width="20" height="40" rx="3"></rect>
+          </svg>
+        </div>
+        <a class="product-title">The Cashmere Crew</a>
+        <p class="product-price">$280.00</p>
+      </div>
+      <!-- Product 2 -->
+      <div class="product-card">
+        <div class="product-image-container">
+          <svg viewBox="0 0 100 100" fill="none" stroke="#ebdccb" stroke-width="2" style="width:120px; height:120px;">
+            <path d="M30 40h40v40H30z"></path>
+            <path d="M40 40V30a10 10 0 0 1 20 0v10"></path>
+          </svg>
+        </div>
+        <a class="product-title">The Cashmere Crew</a>
+        <p class="product-price">$280.00</p>
+      </div>
+      <!-- Product 3 -->
+      <div class="product-card">
+        <div class="product-image-container">
+          <svg viewBox="0 0 100 100" fill="none" stroke="#ebdccb" stroke-width="2" style="width:120px; height:120px;">
+            <circle cx="50" cy="50" r="30"></circle>
+            <rect x="40" y="30" width="20" height="40" rx="3"></rect>
+          </svg>
+        </div>
+        <a class="product-title">The Cashmere Crew</a>
+        <p class="product-price">$280.00</p>
+      </div>
+      <!-- Product 4 -->
+      <div class="product-card">
+        <div class="product-image-container">
+          <svg viewBox="0 0 100 100" fill="none" stroke="#ebdccb" stroke-width="2" style="width:120px; height:120px;">
+            <path d="M25 80l15-50h20l15 50z"></path>
+          </svg>
+        </div>
+        <a class="product-title">The Cashmere Crew</a>
+        <p class="product-price">$280.00</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Store Features Section -->
+  <section class="store-features">
+    <div class="features-grid">
+      <!-- Feature 1 -->
+      <div class="feature-item">
+        <div class="feature-icon-wrapper">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <rect x="1" y="6" width="3" height="1.5" rx="0.5"></rect>
+            <rect x="0" y="10" width="4.5" height="1.5" rx="0.5"></rect>
+            <rect x="2" y="14" width="2.5" height="1.5" rx="0.5"></rect>
+            <path d="M22.5 11l-3-3h-4.5c-.83 0-1.5.67-1.5 1.5v5.5h-5.5v-7.5c0-.83-.67-1.5-1.5-1.5h-1v2h1v5.5H5.5c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5h1c.46 0 .89-.13 1.25-.35.45.82 1.32 1.35 2.25 1.35s1.8-.53 2.25-1.35c.36.22.79.35 1.25.35h3c.46 0 .89-.13 1.25-.35.45.82 1.32 1.35 2.25 1.35s1.8-.53 2.25-1.35c.36.22.79.35 1.25-.35h.5c.83 0 1.5-.67 1.5-1.5v-4.5l-2.5-3.5zm-13.5 8c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm10 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"></path>
+          </svg>
+        </div>
+        <h3 class="feature-title">PAN-INDIA DELIVERY</h3>
+      </div>
+      <!-- Feature 2 -->
+      <div class="feature-item">
+        <div class="feature-icon-wrapper">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="fill:none;">
+            <path d="M2 22s8-2 12-6c4-4 4.5-10.5 4.5-10.5S12 1 8 5C4 9 2 17 2 17z"></path>
+            <path d="M2 22l6.5-6.5"></path>
+          </svg>
+        </div>
+        <h3 class="feature-title">PREMIUM, HAND-CRAFTED MATERIALS</h3>
+      </div>
+      <!-- Feature 3 -->
+      <div class="feature-item">
+        <div class="feature-icon-wrapper">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width: 2.8rem; height: 2.8rem;">
+            <rect x="5" y="10" width="14" height="11" rx="2" ry="2"></rect>
+            <path d="M12 2a5 5 0 0 0-5 5v3h10V7a5 5 0 0 0-5-5z" fill="none" stroke="currentColor" stroke-width="2" style="fill:none;"></path>
+          </svg>
+        </div>
+        <h3 class="feature-title">SECURE CHECKOUT</h3>
+      </div>
+      <!-- Feature 4 -->
+      <div class="feature-item">
+        <div class="feature-icon-wrapper">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="fill:none; width: 3rem; height: 3rem;">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+          </svg>
+        </div>
+        <h3 class="feature-title">ELEGANT, PROTECTIVE PACKAGING</h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <!-- Column 1: Brand Info -->
+      <div class="footer-column">
+        <h2 class="footer-brand-heading">CHARLOTTE</h2>
+        <p>Timeless comfort, thoughtfully designed for the art of living well.</p>
+        <div class="footer-social-icons">
+          <!-- Instagram -->
+          <a href="#">
+            <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="fill:none;">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+          </a>
+          <!-- Pinterest -->
+          <a href="#">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.08 3.16 9.42 7.63 11.16-.09-.94-.17-2.39.04-3.41.19-.93 1.23-5.22 1.23-5.22s-.31-.63-.31-1.57c0-1.47.85-2.57 1.91-2.57.9 0 1.34.68 1.34 1.49 0 .91-.58 2.27-.88 3.53-.25 1.05.52 1.91 1.56 1.91 1.87 0 3.31-1.97 3.31-4.82 0-2.52-1.81-4.28-4.4-4.28-3 0-4.76 2.25-4.76 4.58 0 .91.35 1.88.78 2.4.09.11.1.2.07.31-.08.33-.26 1.05-.29 1.19-.04.18-.15.22-.34.13-1.28-.6-2.08-2.47-2.08-3.98 0-3.24 2.36-6.22 6.79-6.22 3.57 0 6.34 2.54 6.34 5.94 0 3.55-2.24 6.4-5.34 6.4-1.04 0-2.02-.54-2.36-1.18l-.64 2.45c-.23.89-.86 2.01-1.28 2.69C8.98 23.82 10.44 24 12 24c6.63 0 12-5.37 12-12S18.63 0 12 0z"/>
+            </svg>
+          </a>
+          <!-- Facebook -->
+          <a href="#">
+            <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="fill:none;">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Column 2: SHOP -->
+      <div class="footer-column">
+        <h2>SHOP</h2>
+        <ul class="footer-menu">
+          <li><a href="#">New Arrivals</a></li>
+          <li><a href="#">Best Sellers</a></li>
+          <li><a href="#">Clothing</a></li>
+          <li><a href="#">Accessories</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: ABOUT -->
+      <div class="footer-column">
+        <h2>ABOUT</h2>
+        <ul class="footer-menu">
+          <li><a href="#">Our Story</a></li>
+          <li><a href="#">Fabrics</a></li>
+          <li><a href="#">Journal</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 4: JOIN OUR WORLD -->
+      <div class="footer-column">
+        <h2>JOIN OUR WORLD</h2>
+        <p>Receive weekly inspiration and first access to new collections.</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault();">
+          <input type="email" class="newsletter-input" placeholder="Your email address" required>
+          <button type="submit" class="newsletter-button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Bottom copyright -->
+    <div class="footer-bottom">
+      <div class="footer-copyright">
+        &copy; 2025 CHARLOTTE. All Rights Reserved. A creation of calm confidence.
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

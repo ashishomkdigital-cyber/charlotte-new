@@ -36,6 +36,104 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  /* Custom Premium overrides for Featured Collection */
+  #collection-{{ section.id }} {
+    background-color: #ebdccb !important; /* Soft warm tan background */
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+
+  #collection-{{ section.id }} .title {
+    font-family: var(--font-serif), serif !important;
+    font-size: 3.2rem !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.05em !important;
+    color: #3b3023 !important;
+    text-transform: none !important;
+    text-align: center !important;
+    margin-bottom: 4rem !important;
+  }
+
+  #collection-{{ section.id }} .collection__title {
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  /* Product cards styling */
+  #collection-{{ section.id }} .product-card-wrapper {
+    background-color: #f7ebe1 !important; /* Lighter cream card background */
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 2.5rem !important;
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  #collection-{{ section.id }} .product-card-wrapper:hover {
+    transform: translateY(-5px);
+  }
+
+  #collection-{{ section.id }} .card {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  #collection-{{ section.id }} .card__inner {
+    background-color: transparent !important;
+    padding: 0 !important;
+    border: none !important;
+  }
+
+  #collection-{{ section.id }} .card__media {
+    background: transparent !important;
+    border: none !important;
+  }
+
+  #collection-{{ section.id }} .media {
+    background: transparent !important;
+    border: none !important;
+  }
+
+  #collection-{{ section.id }} .card__content {
+    padding: 2rem 0 0 0 !important;
+    text-align: center !important;
+  }
+
+  #collection-{{ section.id }} .card__heading {
+    font-family: var(--font-serif), serif !important;
+    font-size: 1.8rem !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.02em !important;
+    color: #3b3023 !important;
+    margin: 0 0 1rem 0 !important;
+    text-align: center !important;
+    text-transform: none !important;
+  }
+
+  #collection-{{ section.id }} .card__heading a {
+    color: #3b3023 !important;
+    text-decoration: none;
+  }
+
+  #collection-{{ section.id }} .price {
+    justify-content: center !important;
+    font-size: 1.5rem !important;
+    font-weight: 400 !important;
+    color: rgba(59, 48, 35, 0.7) !important;
+    font-family: var(--font-body-family), sans-serif !important;
+  }
+
+  #collection-{{ section.id }} .price__container {
+    justify-content: center !important;
+  }
+  
+  #collection-{{ section.id }} .card-information {
+    text-align: center !important;
+  }
 {%- endstyle -%}
 
 {%- liquid

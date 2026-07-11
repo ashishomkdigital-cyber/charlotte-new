@@ -1,0 +1,160 @@
+{%- style -%}
+  .store-features-{{ section.id }} {
+    background-color: #ebdccb !important; /* Soft warm tan background */
+    padding: 6rem 3rem;
+    color: #3b3023;
+  }
+
+  .store-features__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem;
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+    text-align: center;
+  }
+
+  @media screen and (max-width: 989px) {
+    .store-features__grid {
+      grid-template-columns: repeat(2, 1fr);
+      row-gap: 4rem;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .store-features__grid {
+      grid-template-columns: 1fr;
+      row-gap: 4rem;
+    }
+  }
+
+  .store-features__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .store-features__icon-wrapper {
+    margin-bottom: 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #3b3023;
+  }
+
+  .store-features__icon-wrapper svg {
+    width: 3.2rem;
+    height: 3.2rem;
+    fill: currentColor;
+    stroke: currentColor;
+    stroke-width: 0;
+  }
+
+  /* Specific SVG overrides if stroke is needed */
+  .store-features__icon-wrapper svg.stroke-icon {
+    stroke-width: 1.5;
+    fill: none;
+  }
+
+  .store-features__title {
+    font-family: var(--font-body-family), sans-serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #3b3023;
+    margin: 0;
+    line-height: 1.5;
+    max-width: 250px;
+  }
+{%- endstyle -%}
+
+<div class="store-features-{{ section.id }}">
+  <ul class="store-features__grid">
+    <li class="store-features__item">
+      <div class="store-features__icon-wrapper">
+        <!-- Delivery Truck with speed lines -->
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <rect x="1" y="6" width="3" height="1.5" rx="0.5"></rect>
+          <rect x="0" y="10" width="4.5" height="1.5" rx="0.5"></rect>
+          <rect x="2" y="14" width="2.5" height="1.5" rx="0.5"></rect>
+          <path d="M22.5 11l-3-3h-4.5c-.83 0-1.5.67-1.5 1.5v5.5h-5.5v-7.5c0-.83-.67-1.5-1.5-1.5h-1v2h1v5.5H5.5c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5h1c.46 0 .89-.13 1.25-.35.45.82 1.32 1.35 2.25 1.35s1.8-.53 2.25-1.35c.36.22.79.35 1.25.35h3c.46 0 .89-.13 1.25-.35.45.82 1.32 1.35 2.25 1.35s1.8-.53 2.25-1.35c.36.22.79.35 1.25-.35h.5c.83 0 1.5-.67 1.5-1.5v-4.5l-2.5-3.5zm-13.5 8c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm10 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"></path>
+        </svg>
+      </div>
+      <h3 class="store-features__title">{{ section.settings.title_1 }}</h3>
+    </li>
+    <li class="store-features__item">
+      <div class="store-features__icon-wrapper">
+        <!-- Leaf Icon -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="stroke-icon">
+          <path d="M2 22s8-2 12-6c4-4 4.5-10.5 4.5-10.5S12 1 8 5C4 9 2 17 2 17z"></path>
+          <path d="M2 22l6.5-6.5"></path>
+        </svg>
+      </div>
+      <h3 class="store-features__title">{{ section.settings.title_2 }}</h3>
+    </li>
+    <li class="store-features__item">
+      <div class="store-features__icon-wrapper">
+        <!-- Secure Padlock -->
+        <svg viewBox="0 0 24 24" fill="currentColor" style="width: 2.8rem; height: 2.8rem;">
+          <rect x="5" y="10" width="14" height="11" rx="2" ry="2"></rect>
+          <path d="M12 2a5 5 0 0 0-5 5v3h10V7a5 5 0 0 0-5-5z" fill="none" stroke="currentColor" stroke-width="2" class="stroke-icon"></path>
+        </svg>
+      </div>
+      <h3 class="store-features__title">{{ section.settings.title_3 }}</h3>
+    </li>
+    <li class="store-features__item">
+      <div class="store-features__icon-wrapper">
+        <!-- Open Box flap icon -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="stroke-icon" style="width: 3rem; height: 3rem;">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+          <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+          <line x1="12" y1="22.08" x2="12" y2="12"></line>
+        </svg>
+      </div>
+      <h3 class="store-features__title">{{ section.settings.title_4 }}</h3>
+    </li>
+  </ul>
+</div>
+
+{% schema %}
+{
+  "name": "Store Features",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title_1",
+      "label": "Feature 1 Title",
+      "default": "PAN-INDIA DELIVERY"
+    },
+    {
+      "type": "text",
+      "id": "title_2",
+      "label": "Feature 2 Title",
+      "default": "PREMIUM, HAND-CRAFTED MATERIALS"
+    },
+    {
+      "type": "text",
+      "id": "title_3",
+      "label": "Feature 3 Title",
+      "default": "SECURE CHECKOUT"
+    },
+    {
+      "type": "text",
+      "id": "title_4",
+      "label": "Feature 4 Title",
+      "default": "ELEGANT, PROTECTIVE PACKAGING"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Store Features"
+    }
+  ]
+}
+{% endschema %}

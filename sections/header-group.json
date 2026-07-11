@@ -37,9 +37,7 @@
     },
     "header": {
       "type": "header",
-      "custom_css": [
-        "sticky-header{background: transparent;}"
-      ],
+      "custom_css": [],
       "settings": {
         "logo_position": "middle-left",
         "mobile_logo_position": "center",

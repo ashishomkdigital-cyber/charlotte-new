@@ -187,6 +187,9 @@
         "text_Lb6hQB",
         "buttons_3aW6CX"
       ],
+      "custom_css": [
+        ".button{background: transparent;}"
+      ],
       "name": "t:sections.image-banner.presets.name",
       "settings": {
         "image": "shopify://shop_images/fadf89d2b2d91189e05e6925e0e9c845521b447f_4b6ea240-5912-4a9a-b2c9-03f1cf5e7aed.png",

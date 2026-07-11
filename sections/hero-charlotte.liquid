@@ -1,0 +1,187 @@
+{{ 'section-image-banner.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .hero-charlotte-{{ section.id }} {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: #1a1a1a;
+  }
+
+  .hero-charlotte-{{ section.id }}::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('{{ 'hero-background.png' | asset_url }}');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 1;
+    {% if section.settings.image != blank %}
+      background-image: url('{{ section.settings.image | image_url: width: 2000 }}');
+    {% endif %}
+  }
+
+  /* Overlay to make text readable */
+  .hero-charlotte-{{ section.id }}::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, {{ section.settings.image_overlay_opacity | divided_by: 100.0 }});
+    z-index: 2;
+  }
+
+  .hero-charlotte__content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    color: #ffffff;
+    max-width: 80rem;
+    padding: 0 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5rem; /* account for header overlay */
+  }
+
+  .hero-charlotte__title {
+    font-family: var(--font-serif), serif;
+    font-size: 8rem;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin: 0 0 2rem 0;
+    color: #ffffff;
+    line-height: 1.1;
+  }
+
+  @media screen and (max-width: 749px) {
+    .hero-charlotte__title {
+      font-size: 4.5rem;
+      letter-spacing: 0.1em;
+    }
+  }
+
+  .hero-charlotte__text {
+    font-family: var(--font-body-family), sans-serif;
+    font-size: 1.6rem;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    line-height: 1.6;
+    max-width: 50rem;
+    margin: 0 auto 4rem auto;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  @media screen and (max-width: 749px) {
+    .hero-charlotte__text {
+      font-size: 1.4rem;
+      margin-bottom: 3rem;
+    }
+  }
+
+  .hero-charlotte__button {
+    font-family: var(--font-body-family), sans-serif;
+    font-size: 1.3rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    padding: 1.5rem 4.5rem;
+    background: transparent;
+    transition: all 0.4s ease;
+    display: inline-block;
+    cursor: pointer;
+  }
+
+  .hero-charlotte__button:hover {
+    background: #ffffff;
+    color: #121212;
+    border-color: #ffffff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .hero-charlotte__button:active {
+    transform: translateY(0);
+  }
+{%- endstyle -%}
+
+<div class="hero-charlotte-{{ section.id }}">
+  <div class="hero-charlotte__content">
+    <h2 class="hero-charlotte__title">{{ section.settings.heading }}</h2>
+    <div class="hero-charlotte__text">{{ section.settings.subheading }}</div>
+    {%- if section.settings.button_label != blank -%}
+      <a href="{{ section.settings.button_link }}" class="hero-charlotte__button">
+        {{ section.settings.button_label }}
+      </a>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Hero Charlotte",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background Image (Optional)"
+    },
+    {
+      "type": "range",
+      "id": "image_overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "%",
+      "label": "Overlay Opacity",
+      "default": 30
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "CHARLOTTE"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Crafted for quiet moments and everyday grace. Timeless pieces that feel like home."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "DISCOVER"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link",
+      "default": "/"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Charlotte"
+    }
+  ]
+}
+{% endschema %}

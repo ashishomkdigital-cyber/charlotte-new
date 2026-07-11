@@ -152,6 +152,56 @@
         "padding_bottom": 60
       }
     },
+    "image_banner_FENWtp": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_6AdYAf": {
+          "type": "heading",
+          "settings": {
+            "heading": "The Handbag Collection",
+            "heading_size": "h1"
+          }
+        },
+        "text_Lb6hQB": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "Give customers details about the banner image(s) or content on the template.",
+            "text_style": "body"
+          }
+        },
+        "buttons_3aW6CX": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Explore the Collection",
+            "button_link_1": "",
+            "button_style_secondary_1": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_6AdYAf",
+        "text_Lb6hQB",
+        "buttons_3aW6CX"
+      ],
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/fadf89d2b2d91189e05e6925e0e9c845521b447f_4b6ea240-5912-4a9a-b2c9-03f1cf5e7aed.png",
+        "image_overlay_opacity": 0,
+        "image_height": "medium",
+        "image_behavior": "none",
+        "desktop_content_position": "middle-center",
+        "desktop_content_alignment": "center",
+        "show_text_box": true,
+        "color_scheme": "scheme-0c786709-1084-4bc1-9855-f487016b81ec",
+        "stack_images_on_mobile": true,
+        "mobile_content_alignment": "center",
+        "show_text_below": true
+      }
+    },
     "image_with_text_MyTigw": {
       "type": "image-with-text",
       "blocks": {
@@ -215,6 +265,7 @@
     "hero_charlotte_r9JDkQ",
     "featured_collection_HUax9r",
     "collection_grid_QVdBh3",
+    "image_banner_FENWtp",
     "image_with_text_MyTigw",
     "store_features_nUc38W"
   ]

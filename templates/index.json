@@ -173,7 +173,7 @@
         "buttons_3aW6CX": {
           "type": "buttons",
           "settings": {
-            "button_label_1": "Explore the Collection",
+            "button_label_1": "EXPLORE THE COLLECTION",
             "button_link_1": "#",
             "button_style_secondary_1": true,
             "button_label_2": "",
@@ -188,7 +188,7 @@
         "buttons_3aW6CX"
       ],
       "custom_css": [
-        ".button{background: transparent;}"
+        ".button {background: transparent;}"
       ],
       "name": "t:sections.image-banner.presets.name",
       "settings": {

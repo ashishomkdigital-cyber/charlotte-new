@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "name": "t:sections.footer.name",
   "type": "footer",
@@ -5,45 +14,45 @@
     "footer": {
       "type": "footer",
       "blocks": {
-        "brand_info": {
+        "brand_information_CbiQw4": {
           "type": "brand_information",
           "settings": {
             "show_social": true
           }
         },
-        "shop_menu": {
+        "link_list_J8We4B": {
           "type": "link_list",
           "settings": {
-            "heading": "SHOP",
-            "menu": "main-menu"
+            "heading": "Shop",
+            "menu": "shop-1"
           }
         },
-        "about_menu": {
+        "link_list_dUVarh": {
           "type": "link_list",
           "settings": {
-            "heading": "ABOUT",
-            "menu": "footer"
+            "heading": "About",
+            "menu": "about"
           }
         }
       },
       "block_order": [
-        "brand_info",
-        "shop_menu",
-        "about_menu"
+        "brand_information_CbiQw4",
+        "link_list_J8We4B",
+        "link_list_dUVarh"
       ],
       "settings": {
         "color_scheme": "scheme-1",
         "newsletter_enable": true,
-        "newsletter_heading": "JOIN OUR WORLD",
-        "enable_follow_on_shop": false,
-        "show_social": false,
-        "enable_country_selector": false,
-        "enable_language_selector": false,
-        "payment_enable": false,
-        "show_policy": false,
+        "newsletter_heading": "Join our world",
+        "enable_follow_on_shop": true,
+        "show_social": true,
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "payment_enable": true,
+        "show_policy": true,
         "margin_top": 0,
-        "padding_top": 60,
-        "padding_bottom": 30
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     }
   },

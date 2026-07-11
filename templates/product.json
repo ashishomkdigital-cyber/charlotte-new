@@ -67,6 +67,24 @@
             "icon_3": "none",
             "heading_3": ""
           }
+        },
+        "collapsible_tab_bcfjyN": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "PRODUCT DETAILS",
+            "icon": "none",
+            "content": "<ul><li>Premium Italian full-grain leather</li><li>Hand-stitched construction</li><li>Soft suede interior lining</li><li>Internal zippered pocket and card slots</li><li>Magnetic closure</li><li>Dimensions: 14\" W x 12\" H x 6\" D</li><li>Handle drop: 8 inches</li></ul>",
+            "page": ""
+          }
+        },
+        "collapsible_tab_aNVmTd": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "CARE INSTRUCTIONS",
+            "icon": "none",
+            "content": "<ul><li>Store in provided dust bag when not in use</li><li>Keep away from direct sunlight and heat</li><li>Clean with a soft, dry cloth</li><li>Avoid contact with water and oils</li><li>Professional leather cleaning recommended</li></ul>",
+            "page": ""
+          }
         }
       },
       "block_order": [
@@ -78,7 +96,9 @@
         "variant_picker",
         "buy_buttons",
         "share",
-        "icon_with_text_Jrmei4"
+        "icon_with_text_Jrmei4",
+        "collapsible_tab_bcfjyN",
+        "collapsible_tab_aNVmTd"
       ],
       "settings": {
         "enable_sticky_info": true,

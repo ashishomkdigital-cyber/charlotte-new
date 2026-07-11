@@ -218,12 +218,13 @@
         "text_7QPMw7": {
           "type": "text",
           "settings": {
-            "text": "<p>Our philosophy is simple: true luxury should live with you. Every bag is thoughtfully designed, each stitch a quiet expression of elegance. We create pieces not just for occasions, but for the feeling they evoke confidence, comfort, and the effortless grace of being authentically yourself.</p>",
+            "text": "<p>Our philosophy is simple: true luxury should live with you. Every bag is thoughtfully designed, each stitch a quiet expression of elegance. We create pieces not just for occasions, but for the feeling they evoke confidence, comfort, and the effortless grace of being authentically yourself.</p><p><a href=\"#\" title=\"#\">Discover Our Story</a></p>",
             "text_style": "body"
           }
         },
         "button_bTUbwE": {
           "type": "button",
+          "disabled": true,
           "settings": {
             "button_label": "Discover Our Story",
             "button_link": "",
@@ -238,7 +239,7 @@
       ],
       "custom_css": [
         ".image-with-text__media {border: 20px solid #f1dfca;}",
-        ".button{border: none; background: none; color: #C17A56; padding: 0; margin: 0; border: 0!important;}"
+        "p a {text-decoration: none; color:#C17A56; text-transform: uppercase;}"
       ],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {

@@ -44,6 +44,7 @@
         "color_scheme": "scheme-1",
         "newsletter_enable": true,
         "newsletter_heading": "Join our world",
+        "newsletter_description": "Receive weekly inspiration and first access to new collections.",
         "enable_follow_on_shop": true,
         "show_social": true,
         "enable_country_selector": true,

@@ -237,7 +237,8 @@
         "button_bTUbwE"
       ],
       "custom_css": [
-        ".image-with-text__media{border: 20px solid #F1DFCA;}"
+        ".image-with-text__media {border: 20px solid #f1dfca;}",
+        ".button{border: none; background: none; color: #C17A56; padding: 0; margin: 0; border: 0!important;}"
       ],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {

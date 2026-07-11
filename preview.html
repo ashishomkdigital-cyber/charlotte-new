@@ -48,7 +48,15 @@
     }
     
     .header__logo {
-      display: none; /* Hidden on transparent homepage header */
+      font-family: var(--font-serif), serif;
+      font-size: 1.8rem;
+      font-weight: 500;
+      color: #3b3023;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0;
+      visibility: hidden;
+      display: block;
     }
     
     .header__icons {
@@ -475,7 +483,7 @@
 
   <!-- Header -->
   <header class="header-wrapper">
-    <div class="header__logo"></div>
+    <div class="header__logo">CHARLOTTE</div>
     <div class="header__icons">
       <!-- Search Icon -->
       <a class="header__icon">
@@ -681,5 +689,75 @@
     </div>
   </footer>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const heroTitle = document.querySelector('.hero-title');
+      const logo = document.querySelector('.header__logo');
+      
+      if (heroTitle && logo) {
+        heroTitle.style.transition = 'none';
+        logo.style.transition = 'none';
+        
+        const threshold = 350; // Scroll range (pixels)
+        
+        const updateScrollAnimation = () => {
+          const scrollTop = window.scrollY;
+          
+          // Calculate bounding boxes dynamically
+          const logoRect = logo.getBoundingClientRect();
+          const titleRect = heroTitle.getBoundingClientRect();
+          
+          // Absolute center position of the logo in page coordinates
+          const logoCenterY = logoRect.top + scrollTop + (logoRect.height / 2);
+          
+          // Find if there is an active translation on the hero title
+          const computedStyle = window.getComputedStyle(heroTitle);
+          const transform = computedStyle.transform;
+          let currentYOffset = 0;
+          if (transform && transform !== 'none') {
+            const matrixValues = transform.match(/matrix.*\((.+)\)/);
+            if (matrixValues) {
+              const values = matrixValues[1].split(', ');
+              if (values.length === 6) {
+                currentYOffset = parseFloat(values[5]);
+              } else if (values.length === 16) {
+                currentYOffset = parseFloat(values[13]);
+              }
+            }
+          }
+          
+          // Absolute center of title at scroll = 0 in page coordinates
+          const titleCenterY = titleRect.top + scrollTop + (titleRect.height / 2) - currentYOffset;
+          
+          // Vertical distance from title center to logo center
+          const targetY = logoCenterY - titleCenterY;
+          
+          // Scroll progress ratio from 0 to 1
+          const progress = Math.min(scrollTop / threshold, 1);
+          
+          // Transformations
+          const scale = 1 - (progress * 0.72); // Shrinks to ~28%
+          const yOffset = progress * targetY;
+          const opacity = 1 - progress;
+          
+          // Apply style changes to the title
+          heroTitle.style.transform = `translate3d(0, ${yOffset}px, 0) scale(${scale})`;
+          heroTitle.style.opacity = opacity;
+          
+          // Apply style changes to the logo
+          logo.style.opacity = progress;
+          if (progress > 0) {
+            logo.style.visibility = 'visible';
+          } else {
+            logo.style.visibility = 'hidden';
+          }
+        };
+        
+        updateScrollAnimation();
+        window.addEventListener('scroll', updateScrollAnimation, { passive: true });
+        window.addEventListener('resize', updateScrollAnimation);
+      }
+    });
+  </script>
 </body>
 </html>

@@ -411,14 +411,17 @@
     {%- endif -%}
 
     <script>
-      let stickyHeader = document.querySelector('sticky-header');
-      document.addEventListener('scroll', (e)=>{
-        if(window.scrollY > 100){
-          stickyHeader.classList.remove('sticky-class')
-        }else{
-          stickyHeader.classList.add('sticky-class')
-        }
-      })
-    </script>
+document.addEventListener('DOMContentLoaded', () => {
+  const header = document.querySelector('sticky-header');
+  if (!header) return;
+
+  const onScroll = () => {
+    header.classList.toggle('sticky-class', window.scrollY <= 100);
+  };
+
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+});
+</script>
   </body>
 </html>

@@ -412,7 +412,7 @@
 
     <script>
       let stickyHeader = document.querySelector('sticky-header');
-      document.body.addEventListener('scroll', (e)=>{
+      document.addEventListener('scroll', (e)=>{
         if(window.scrollY > 50){
           stickyHeader.classList.add('sticky-class')
         }

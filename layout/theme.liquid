@@ -319,6 +319,121 @@
         document.documentElement.classList.add('shopify-design-mode');
       }
     </script>
+
+    {%- if template.name == 'collection' or template.name == 'list-collections' -%}
+      <style>
+        main[data-template="collection"],
+        main[data-template="list-collections"] {
+          background-image: url('{{ "collection-background.jpg" | asset_url }}') !important;
+          background-size: cover !important;
+          background-position: top center !important;
+          background-repeat: no-repeat !important;
+          background-attachment: scroll !important;
+        }
+
+        /* Remove default backgrounds to let wood show through */
+        .collection-hero,
+        [class*="section-"][class*="-padding"],
+        .collection,
+        .gradient,
+        .page-width {
+          background: transparent !important;
+          background-image: none !important;
+        }
+
+        /* Set text colors to light beige/cream for contrast */
+        .breadcrumbs,
+        .breadcrumbs a,
+        .product-count,
+        .product-count__text,
+        .facet-filters__label label,
+        .facet-filters__sort,
+        .facets__heading,
+        .facets__summary,
+        .facets__disclosure,
+        .facets__label,
+        .collection-hero__description,
+        .title,
+        .title--primary,
+        .pagination__item,
+        .active-facets__button,
+        .active-facets__button a,
+        .active-facets__button-wrapper a {
+          color: #ebdccb !important;
+        }
+
+        /* Category Filter Pills (Quick Links) */
+        .collection-quick-links__link {
+          background-color: rgba(247, 235, 225, 0.15) !important;
+          color: #f7ebe1 !important;
+          border: 1px solid rgba(247, 235, 225, 0.3) !important;
+        }
+
+        .collection-quick-links__link:hover {
+          background-color: rgba(247, 235, 225, 0.3) !important;
+          color: #ffffff !important;
+        }
+
+        .collection-quick-links__link.active {
+          background-color: #ebdccb !important;
+          color: #3b3023 !important;
+        }
+      </style>
+    {%- endif -%}
+
+    <style>
+      /* Golden border overlay for all product cards */
+      .product-card-wrapper .card__inner {
+        position: relative !important;
+        background: transparent !important;
+        border: none !important;
+        /* Add padding inside the frame to prevent image overlapping the golden border */
+        padding: 2.2rem 2rem !important;
+        box-sizing: border-box !important;
+      }
+
+      /* Use pseudo-element to display the frame on top of the image */
+      .product-card-wrapper .card__inner::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url('{{ "golden-card-border.png" | asset_url }}');
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        pointer-events: none;
+        z-index: 5;
+      }
+
+      /* Hide standard borders and shadows for product cards */
+      .product-card-wrapper .card--card,
+      .product-card-wrapper .card--standard .card__inner {
+        border: none !important;
+        box-shadow: none !important;
+      }
+
+      .product-card-wrapper .card--card::after,
+      .product-card-wrapper .card--standard .card__inner::after {
+        display: none !important;
+      }
+
+      /* Adjust text colors of product card details when in collection page (dark background) */
+      main[data-template="collection"] .card__heading a,
+      main[data-template="collection"] .price,
+      main[data-template="collection"] .price-item,
+      main[data-template="collection"] .card-information,
+      main[data-template="collection"] .card__information,
+      main[data-template="collection"] .card__heading {
+        color: #ebdccb !important;
+      }
+
+      /* Make sure links inside cards on hover display correctly */
+      main[data-template="collection"] .underline-links-hover:hover a {
+        text-decoration-color: #ebdccb !important;
+      }
+    </style>
   </head>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">

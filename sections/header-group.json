@@ -38,8 +38,7 @@
     "header": {
       "type": "header",
       "custom_css": [
-        ".header__icon--cart,.header__icon--account {display: none;}",
-        "sticky-header{position: absolute; width: 100%;}"
+        ".header__icon--cart,.header__icon--account {display: none;}"
       ],
       "settings": {
         "logo_position": "middle-left",

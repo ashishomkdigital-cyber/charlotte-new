@@ -410,18 +410,14 @@
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
 
-    {% comment %} <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const header = document.querySelector('sticky-header');
-  if (!header) return;
-
-  const onScroll = () => {
-    header.classList.toggle('sticky-class', window.scrollY <= 100);
-  };
-
-  onScroll();
-  window.addEventListener('scroll', onScroll, { passive: true });
-});
-</script> {% endcomment %}
+    <script>
+      document.addEventListener('DOMContentLoaded', (e)=>{
+        document.addEventListener('scroll', (e)=>{
+          if(window.scrollY > 350){
+            document.querySelector('sticky-header').style.backdropFilter = 'blur(10px)';
+          }
+        })
+      })
+    </script>
   </body>
 </html>

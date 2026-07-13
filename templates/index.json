@@ -23,7 +23,7 @@
     "featured_collection_HUax9r": {
       "type": "featured-collection",
       "custom_css": [
-        ".title{margin-bottom: 15px!important;}"
+        ".title {margin-bottom: 15px !important;}"
       ],
       "name": "t:sections.featured-collection.presets.name",
       "settings": {
@@ -90,6 +90,7 @@
         },
         "artwork_Lnai9p": {
           "type": "artwork",
+          "disabled": true,
           "settings": {
             "hover_open_amount": 44,
             "title": "",
@@ -101,6 +102,7 @@
         },
         "artwork_zq39KE": {
           "type": "artwork",
+          "disabled": true,
           "settings": {
             "hover_open_amount": 48,
             "title": "",
@@ -112,6 +114,7 @@
         },
         "artwork_38hK99": {
           "type": "artwork",
+          "disabled": true,
           "settings": {
             "hover_open_amount": 52,
             "title": "",

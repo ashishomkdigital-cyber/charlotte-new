@@ -37,7 +37,9 @@
     },
     "header": {
       "type": "header",
-      "custom_css": [],
+      "custom_css": [
+        ".header__icon--cart,.header__icon--account {display: none;}"
+      ],
       "settings": {
         "logo_position": "middle-left",
         "mobile_logo_position": "center",
@@ -45,7 +47,8 @@
         "menu_type_desktop": "drawer",
         "sticky_header_type": "always",
         "show_line_separator": true,
-        "color_scheme": "scheme-1",
+        "enable_transparent_header": true,
+        "color_scheme": "scheme-0c786709-1084-4bc1-9855-f487016b81ec",
         "menu_color_scheme": "scheme-1",
         "enable_country_selector": true,
         "enable_language_selector": true,

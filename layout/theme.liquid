@@ -409,5 +409,14 @@
     {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+
+    <script>
+      let stickyHeader = document.querySelector('sticky-header');
+      document.body.addEventListener('scroll', (e)=>{
+        if(window.scrollY > 50){
+          stickyHeader.classList.add('sticky-class')
+        }
+      })
+    </script>
   </body>
 </html>

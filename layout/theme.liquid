@@ -410,7 +410,7 @@
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
 
-    <script>
+    {% comment %} <script>
 document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('sticky-header');
   if (!header) return;
@@ -422,6 +422,6 @@ document.addEventListener('DOMContentLoaded', () => {
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 });
-</script>
+</script> {% endcomment %}
   </body>
 </html>

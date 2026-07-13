@@ -757,6 +757,7 @@
 
     <script>
       document.addEventListener('DOMContentLoaded', (e)=>{
+        if (window.location.pathname !== '/') {return}
         document.addEventListener('scroll', (e)=>{
           if(window.scrollY > 350){
             document.querySelector('sticky-header').style.backdropFilter = 'blur(10px)';
@@ -766,6 +767,7 @@
             document.querySelector('sticky-header').style.backgroundColor = 'rgba(0,0,0,0.0)';
           }
         })
+
       })
     </script>
   </body>

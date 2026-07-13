@@ -195,11 +195,12 @@
       letter-spacing: 0.05em;
       color: #ebdccb;
       margin: 0 0 5rem 0;
+      display: none !important; /* Hide title just like in section */
     }
 
     .collection-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 30px;
       max-width: 1200px;
       margin: 0 auto;
@@ -217,9 +218,194 @@
       }
     }
 
+    /* Custom Breadcrumbs Nav Layout */
+    .collection-header-nav {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      margin-bottom: 3rem !important;
+      width: 100% !important;
+    }
+
+    .breadcrumbs__back-link {
+      text-decoration: none !important;
+      font-weight: 500 !important;
+      color: #ebdccb !important;
+      margin-right: 1.5rem !important;
+      font-size: 1.4rem !important;
+    }
+
+    .breadcrumbs__separator-bar {
+      margin: 0 1.5rem 0 0 !important;
+      opacity: 0.4 !important;
+      color: #ebdccb !important;
+    }
+
+    /* Toggle switch styling */
+    .theme-toggle-switch {
+      position: relative !important;
+      display: inline-block !important;
+      width: 5rem !important;
+      height: 2.6rem !important;
+    }
+
+    .theme-toggle-switch input {
+      opacity: 0 !important;
+      width: 0 !important;
+      height: 0 !important;
+    }
+
+    .theme-toggle-slider {
+      position: absolute !important;
+      cursor: pointer !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      background-color: rgba(235, 220, 203, 0.2) !important;
+      transition: .4s !important;
+      border-radius: 3.4rem !important;
+      border: 1px solid rgba(235, 220, 203, 0.4) !important;
+    }
+
+    .theme-toggle-slider:before {
+      position: absolute !important;
+      content: "" !important;
+      height: 1.8rem !important;
+      width: 1.8rem !important;
+      left: 0.3rem !important;
+      bottom: 0.3rem !important;
+      background-color: #ebdccb !important;
+      transition: .4s !important;
+      border-radius: 50% !important;
+    }
+
+    .theme-toggle-switch input:checked + .theme-toggle-slider {
+      background-color: rgba(235, 220, 203, 0.4) !important;
+    }
+
+    .theme-toggle-switch input:checked + .theme-toggle-slider:before {
+      transform: translateX(2.4rem) !important;
+    }
+
+    /* Category Filter Pills (Quick Links) */
+    .collection-quick-links {
+      display: flex !important;
+      flex-wrap: wrap !important;
+      gap: 1.5rem !important;
+      list-style: none !important;
+      padding: 0 !important;
+      margin: 3rem auto 2rem auto !important;
+    }
+
+    .collection-quick-links__link {
+      display: inline-block !important;
+      padding: 1.2rem 2.8rem !important;
+      font-size: 1.2rem !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.12em !important;
+      text-decoration: none !important;
+      border-radius: 3rem !important;
+      background-color: rgba(59, 48, 35, 0.4) !important;
+      color: #ebdccb !important;
+      transition: all 0.3s ease !important;
+      text-transform: uppercase !important;
+      border: 1px solid rgba(235, 220, 203, 0.15) !important;
+    }
+
+    .collection-quick-links__link:hover {
+      background-color: rgba(235, 220, 203, 0.25) !important;
+      color: #ffffff !important;
+    }
+
+    .collection-quick-links__link.active {
+      background-color: #ebdccb !important;
+      color: #3b3023 !important;
+      border-color: #ebdccb !important;
+    }
+
+    /* Toolbar styles */
+    .collection-toolbar {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      padding: 1.5rem 0 !important;
+      margin-bottom: 4rem !important;
+      border-top: 1px solid rgba(235, 220, 203, 0.15) !important;
+      border-bottom: 1px solid rgba(235, 220, 203, 0.15) !important;
+      width: 100% !important;
+    }
+
+    .collection-toolbar__left {
+      display: flex !important;
+      align-items: center !important;
+      gap: 2rem !important;
+    }
+
+    .grid-mode-btn {
+      background: transparent !important;
+      border: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      color: rgba(235, 220, 203, 0.4) !important;
+      cursor: pointer !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      transition: color 0.3s ease !important;
+    }
+
+    .grid-mode-btn:hover,
+    .grid-mode-btn.active {
+      color: #ebdccb !important;
+    }
+
+    .collection-toolbar__middle {
+      font-size: 1.2rem !important;
+      font-weight: 500 !important;
+      letter-spacing: 0.15em !important;
+      text-transform: uppercase !important;
+      color: #ebdccb !important;
+    }
+
+    .collection-toolbar__right {
+      display: flex !important;
+      align-items: center !important;
+    }
+
+    .collection-toolbar__sort .select {
+      position: relative !important;
+      display: inline-flex !important;
+      align-items: center !important;
+    }
+
+    .collection-toolbar__sort select {
+      background: transparent !important;
+      border: none !important;
+      color: #ebdccb !important;
+      font-size: 1.2rem !important;
+      font-weight: 500 !important;
+      letter-spacing: 0.15em !important;
+      text-transform: uppercase !important;
+      padding: 0.5rem 2rem 0.5rem 0 !important;
+      appearance: none !important;
+      -webkit-appearance: none !important;
+      -moz-appearance: none !important;
+      cursor: pointer !important;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+    .collection-toolbar__sort .sort-caret {
+      position: absolute !important;
+      right: 0 !important;
+      color: #ebdccb !important;
+      font-size: 1rem !important;
+      pointer-events: none !important;
+    }
+
     .product-card {
       background-color: transparent;
-      padding: 2.2rem 2rem 2.8rem 2rem;
+      padding: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -227,7 +413,26 @@
       transition: transform 0.3s ease;
     }
 
-    .product-card::after {
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-image-container {
+      width: 100%;
+      height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+      z-index: 2;
+      position: relative;
+      background: transparent;
+      padding: 2.2rem 2rem;
+      box-sizing: border-box;
+    }
+
+    .product-image-container::after {
       content: "";
       position: absolute;
       top: 0;
@@ -241,44 +446,79 @@
       z-index: 5;
     }
 
-    .product-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .product-image-container {
-      width: 100%;
-      height: 250px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 2rem;
-      overflow: hidden;
-      z-index: 2;
-    }
-
-    .product-image-container img {
+    .product-image-container img,
+    .product-image-container svg {
       max-width: 100%;
       max-height: 100%;
       object-fit: contain;
     }
 
-    .product-title {
-      font-family: var(--font-serif), serif;
-      font-size: 1.8rem;
-      font-weight: 400;
-      letter-spacing: 0.02em;
-      color: #ebdccb;
-      margin: 0 0 1rem 0;
-      text-decoration: none;
-      z-index: 2;
+    /* Title & Price Overlay inside frame */
+    .card__overlay-info {
+      position: absolute !important;
+      bottom: 2.2rem !important;
+      left: 2rem !important;
+      right: 2rem !important;
+      background: rgba(0, 0, 0, 0.55) !important;
+      padding: 0.8rem 1rem !important;
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+      gap: 0.8rem !important;
+      z-index: 4 !important;
+      text-align: center !important;
+      border-bottom-left-radius: 4px !important;
+      border-bottom-right-radius: 4px !important;
+      pointer-events: none !important;
     }
 
-    .product-price {
-      font-size: 1.5rem;
-      font-weight: 400;
-      color: rgba(235, 220, 203, 0.8);
-      margin: 0;
-      z-index: 2;
+    .card__overlay-title {
+      margin: 0 !important;
+      font-family: var(--font-serif), serif !important;
+      font-size: 1.3rem !important;
+      font-weight: 400 !important;
+      letter-spacing: 0.05em !important;
+      color: #ffffff !important;
+      text-transform: uppercase !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      max-width: 150px !important;
+    }
+
+    .card__overlay-separator {
+      color: rgba(255, 255, 255, 0.6) !important;
+      font-size: 1.2rem !important;
+    }
+
+    .card__overlay-price {
+      color: #ffffff !important;
+      font-size: 1.3rem !important;
+      font-weight: 500 !important;
+      white-space: nowrap !important;
+    }
+
+    /* Custom Pagination Dots */
+    .card__image-dots {
+      display: flex !important;
+      justify-content: center !important;
+      gap: 0.8rem !important;
+      margin-top: 1rem !important;
+      margin-bottom: 1rem !important;
+      width: 100% !important;
+    }
+
+    .card__image-dot {
+      width: 0.8rem !important;
+      height: 0.8rem !important;
+      border-radius: 50% !important;
+      background-color: rgba(235, 220, 203, 0.3) !important;
+      transition: background-color 0.3s ease !important;
+      display: inline-block !important;
+    }
+
+    .card__image-dot.active {
+      background-color: #ebdccb !important;
     }
 
     /* Store Features styling */
@@ -536,8 +776,85 @@
 
   <!-- Featured Collection ("Our Most Loved") -->
   <section class="featured-collection">
-    <h2 class="collection-title">Our Most Loved</h2>
-    <div class="collection-grid">
+    <!-- Custom Breadcrumbs and Toggle Switch -->
+    <div class="collection-header-nav" style="max-width: 1200px; margin: 0 auto 3rem auto; padding: 0 15px;">
+      <nav class="breadcrumbs" role="navigation" aria-label="breadcrumbs" style="text-align: left;">
+        <a href="javascript:history.back()" class="breadcrumbs__back-link">&lsaquo; Back</a>
+        <span class="breadcrumbs__separator-bar">|</span>
+        <a href="#">Home</a>
+        <span class="breadcrumbs__separator" aria-hidden="true">&rsaquo;</span>
+        <span class="breadcrumbs__current">Collection</span>
+      </nav>
+      
+      <div class="collection-header-toggle">
+        <label class="theme-toggle-switch">
+          <input type="checkbox" id="layoutToggleCheckbox" checked>
+          <span class="theme-toggle-slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Category Filter Pills -->
+    <ul class="collection-quick-links" style="max-width: 1200px; margin: 0 auto 3rem auto; justify-content: flex-start; padding: 0 15px;">
+      <li class="collection-quick-links__item"><a href="#" class="collection-quick-links__link active">ALL PRODUCT</a></li>
+      <li class="collection-quick-links__item"><a href="#" class="collection-quick-links__link">CLOTHING</a></li>
+      <li class="collection-quick-links__item"><a href="#" class="collection-quick-links__link">ACCESSORIES</a></li>
+      <li class="collection-quick-links__item"><a href="#" class="collection-quick-links__link">NEW ARRIVALS</a></li>
+      <li class="collection-quick-links__item"><a href="#" class="collection-quick-links__link">BEST SELLERS</a></li>
+    </ul>
+
+    <!-- Toolbar -->
+    <div class="collection-toolbar" style="max-width: 1200px; margin: 0 auto 4rem auto; padding: 1.5rem 15px;">
+      <div class="collection-toolbar__left">
+        <button class="grid-mode-btn" data-mode="2" aria-label="2 columns grid">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor">
+            <rect x="0" y="0" width="7" height="7"/>
+            <rect x="11" y="0" width="7" height="7"/>
+            <rect x="0" y="11" width="7" height="7"/>
+            <rect x="11" y="11" width="7" height="7"/>
+          </svg>
+        </button>
+        <button class="grid-mode-btn active" data-mode="3" aria-label="3 columns grid">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor">
+            <rect x="0" y="0" width="4" height="4"/>
+            <rect x="7" y="0" width="4" height="4"/>
+            <rect x="14" y="0" width="4" height="4"/>
+            <rect x="0" y="7" width="4" height="4"/>
+            <rect x="7" y="7" width="4" height="4"/>
+            <rect x="14" y="7" width="4" height="4"/>
+            <rect x="0" y="14" width="4" height="4"/>
+            <rect x="7" y="14" width="4" height="4"/>
+            <rect x="14" y="14" width="4" height="4"/>
+          </svg>
+        </button>
+        <button class="grid-mode-btn" data-mode="list" aria-label="List view">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor">
+            <rect x="0" y="2" width="18" height="2"/>
+            <rect x="0" y="8" width="18" height="2"/>
+            <rect x="0" y="14" width="18" height="2"/>
+          </svg>
+        </button>
+      </div>
+      <div class="collection-toolbar__middle">
+        <span class="toolbar-product-count">4 PRODUCTS</span>
+      </div>
+      <div class="collection-toolbar__right">
+        <div class="collection-toolbar__sort">
+          <div class="select">
+            <select name="sort_by" class="select__select" id="SortByToolbar">
+              <option value="" disabled selected>SORT BY</option>
+              <option value="featured">Featured</option>
+              <option value="best-selling">Best selling</option>
+              <option value="price-ascending">Price, low to high</option>
+              <option value="price-descending">Price, high to low</option>
+            </select>
+            <span class="sort-caret">&#9662;</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="collection-grid" id="preview-collection-grid">
       <!-- Product 1 -->
       <div class="product-card">
         <div class="product-image-container">
@@ -545,9 +862,18 @@
             <circle cx="50" cy="50" r="30"></circle>
             <rect x="40" y="30" width="20" height="40" rx="3"></rect>
           </svg>
+          <div class="card__overlay-info">
+            <span class="card__overlay-title">The Cashmere Crew</span>
+            <span class="card__overlay-separator">|</span>
+            <span class="card__overlay-price">$280.00</span>
+          </div>
         </div>
-        <a class="product-title">The Cashmere Crew</a>
-        <p class="product-price">$280.00</p>
+        <div class="card__image-dots">
+          <span class="card__image-dot active"></span>
+          <span class="card__image-dot"></span>
+          <span class="card__image-dot"></span>
+          <span class="card__image-dot"></span>
+        </div>
       </div>
       <!-- Product 2 -->
       <div class="product-card">
@@ -556,9 +882,18 @@
             <path d="M30 40h40v40H30z"></path>
             <path d="M40 40V30a10 10 0 0 1 20 0v10"></path>
           </svg>
+          <div class="card__overlay-info">
+            <span class="card__overlay-title">The Cashmere Crew</span>
+            <span class="card__overlay-separator">|</span>
+            <span class="card__overlay-price">$280.00</span>
+          </div>
         </div>
-        <a class="product-title">The Cashmere Crew</a>
-        <p class="product-price">$280.00</p>
+        <div class="card__image-dots">
+          <span class="card__image-dot active"></span>
+          <span class="card__image-dot"></span>
+          <span class="card__image-dot"></span>
+          <span class="card__image-dot"></span>
+        </div>
       </div>
       <!-- Product 3 -->
       <div class="product-card">
@@ -567,9 +902,18 @@
             <circle cx="50" cy="50" r="30"></circle>
             <rect x="40" y="30" width="20" height="40" rx="3"></rect>
           </svg>
+          <div class="card__overlay-info">
+            <span class="card__overlay-title">The Cashmere Crew</span>
+            <span class="card__overlay-separator">|</span>
+            <span class="card__overlay-price">$280.00</span>
+          </div>
         </div>
-        <a class="product-title">The Cashmere Crew</a>
-        <p class="product-price">$280.00</p>
+        <div class="card__image-dots">
+          <span class="card__image-dot active"></span>
+          <span class="card__image-dot"></span>
+          <span class="card__image-dot"></span>
+          <span class="card__image-dot"></span>
+        </div>
       </div>
       <!-- Product 4 -->
       <div class="product-card">
@@ -577,12 +921,45 @@
           <svg viewBox="0 0 100 100" fill="none" stroke="#ebdccb" stroke-width="2" style="width:120px; height:120px;">
             <path d="M25 80l15-50h20l15 50z"></path>
           </svg>
+          <div class="card__overlay-info">
+            <span class="card__overlay-title">The Cashmere Crew</span>
+            <span class="card__overlay-separator">|</span>
+            <span class="card__overlay-price">$280.00</span>
+          </div>
         </div>
-        <a class="product-title">The Cashmere Crew</a>
-        <p class="product-price">$280.00</p>
+        <div class="card__image-dots">
+          <span class="card__image-dot active"></span>
+          <span class="card__image-dot"></span>
+          <span class="card__image-dot"></span>
+          <span class="card__image-dot"></span>
+        </div>
       </div>
     </div>
   </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const gridBtns = document.querySelectorAll('.grid-mode-btn');
+      const collectionGrid = document.getElementById('preview-collection-grid');
+      if (gridBtns && collectionGrid) {
+        gridBtns.forEach(btn => {
+          btn.addEventListener('click', () => {
+            gridBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const mode = btn.dataset.mode;
+            
+            if (mode === '2') {
+              collectionGrid.style.gridTemplateColumns = 'repeat(2, 1fr)';
+            } else if (mode === '3') {
+              collectionGrid.style.gridTemplateColumns = 'repeat(3, 1fr)';
+            } else if (mode === 'list') {
+              collectionGrid.style.gridTemplateColumns = '1fr';
+            }
+          });
+        });
+      }
+    });
+  </script>
 
   <!-- Store Features Section -->
   <section class="store-features">

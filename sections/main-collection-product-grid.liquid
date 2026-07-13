@@ -196,6 +196,101 @@
               class="collection{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}"
             >
               <div class="loading-overlay gradient"></div>
+              
+              <!-- Custom Toolbar -->
+              <div class="collection-toolbar">
+                <div class="collection-toolbar__left">
+                  <button class="grid-mode-btn" data-mode="2" aria-label="2 columns grid">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor">
+                      <rect x="0" y="0" width="7" height="7"/>
+                      <rect x="11" y="0" width="7" height="7"/>
+                      <rect x="0" y="11" width="7" height="7"/>
+                      <rect x="11" y="11" width="7" height="7"/>
+                    </svg>
+                  </button>
+                  <button class="grid-mode-btn active" data-mode="3" aria-label="3 columns grid">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor">
+                      <rect x="0" y="0" width="4" height="4"/>
+                      <rect x="7" y="0" width="4" height="4"/>
+                      <rect x="14" y="0" width="4" height="4"/>
+                      <rect x="0" y="7" width="4" height="4"/>
+                      <rect x="7" y="7" width="4" height="4"/>
+                      <rect x="14" y="7" width="4" height="4"/>
+                      <rect x="0" y="14" width="4" height="4"/>
+                      <rect x="7" y="14" width="4" height="4"/>
+                      <rect x="14" y="14" width="4" height="4"/>
+                    </svg>
+                  </button>
+                  <button class="grid-mode-btn" data-mode="list" aria-label="List view">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor">
+                      <rect x="0" y="2" width="18" height="2"/>
+                      <rect x="0" y="8" width="18" height="2"/>
+                      <rect x="0" y="14" width="18" height="2"/>
+                    </svg>
+                  </button>
+                </div>
+                
+                <div class="collection-toolbar__middle">
+                  <span class="toolbar-product-count">{{ collection.products_count }} PRODUCTS</span>
+                </div>
+                
+                <div class="collection-toolbar__right">
+                  <div class="collection-toolbar__sort">
+                    <div class="select">
+                      {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+                      <select
+                        name="sort_by"
+                        class="select__select"
+                        id="SortByToolbar"
+                        onchange="var url = new URL(window.location.href); url.searchParams.set('sort_by', this.value); window.location.href = url.toString();"
+                      >
+                        <option value="" disabled selected>SORT BY</option>
+                        {%- for option in collection.sort_options -%}
+                          <option
+                            value="{{ option.value | escape }}"
+                            {% if option.value == sort_by %}
+                              selected="selected"
+                            {% endif %}
+                          >
+                            {{ option.name | escape }}
+                          </option>
+                        {%- endfor -%}
+                      </select>
+                      <span class="sort-caret">&#9662;</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                  const gridBtns = document.querySelectorAll('.grid-mode-btn');
+                  const productGrid = document.getElementById('product-grid');
+                  if (gridBtns && productGrid) {
+                    gridBtns.forEach(btn => {
+                      btn.addEventListener('click', () => {
+                        gridBtns.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        const mode = btn.dataset.mode;
+                        
+                        // Reset classes
+                        productGrid.className = 'grid product-grid grid--{{ section.settings.columns_mobile }}-col-tablet-down';
+                        
+                        if (mode === '2') {
+                          productGrid.classList.add('grid--2-col-desktop');
+                          productGrid.style.setProperty('--grid-desktop-columns', '2');
+                        } else if (mode === '3') {
+                          productGrid.classList.add('grid--3-col-desktop');
+                          productGrid.style.setProperty('--grid-desktop-columns', '3');
+                        } else if (mode === 'list') {
+                          productGrid.classList.add('grid--1-col-desktop', 'product-grid--list');
+                          productGrid.style.setProperty('--grid-desktop-columns', '1');
+                        }
+                      });
+                    });
+                  }
+                });
+              </script>
               <ul
                 id="product-grid"
                 data-id="{{ section.id }}"

@@ -108,6 +108,15 @@
               </div>
             </div>
           {%- endif -%}
+          
+          <!-- Custom Golden Border and Overlay Info -->
+          <div class="card__golden-border"></div>
+          <div class="card__overlay-info">
+            <span class="card__overlay-title">{{ card_product.title | escape }}</span>
+            <span class="card__overlay-separator">|</span>
+            <span class="card__overlay-price">{{ card_product.price | money }}</span>
+          </div>
+
           <div class="card__content">
             <div class="card__information">
               <h3
@@ -145,6 +154,15 @@
             </div>
           </div>
         </div>
+        
+        <!-- Custom Pagination Dots -->
+        <div class="card__image-dots">
+          <span class="card__image-dot active"></span>
+          <span class="card__image-dot"></span>
+          <span class="card__image-dot"></span>
+          <span class="card__image-dot"></span>
+        </div>
+
         <div class="card__content">
           <div class="card__information">
             <h3

@@ -77,12 +77,23 @@
 <div class="collection-hero{% if section.settings.show_collection_image and collection.image %} collection-hero--with-image{% endif %} color-{{ section.settings.color_scheme }} gradient">
   <div class="collection-hero__inner page-width {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
     <div class="collection-hero__text-wrapper">
-      <!-- Breadcrumbs -->
-      <nav class="breadcrumbs" role="navigation" aria-label="breadcrumbs">
-        <a href="{{ routes.root_url }}">Home</a>
-        <span class="breadcrumbs__separator" aria-hidden="true">&rsaquo;</span>
-        <span class="breadcrumbs__current">{{ collection.title }}</span>
-      </nav>
+      <!-- Breadcrumbs and Toggle Container -->
+      <div class="collection-header-nav">
+        <nav class="breadcrumbs" role="navigation" aria-label="breadcrumbs">
+          <a href="javascript:history.back()" class="breadcrumbs__back-link">&lsaquo; Back</a>
+          <span class="breadcrumbs__separator-bar">|</span>
+          <a href="{{ routes.root_url }}">Home</a>
+          <span class="breadcrumbs__separator" aria-hidden="true">&rsaquo;</span>
+          <span class="breadcrumbs__current">{{ collection.title }}</span>
+        </nav>
+        
+        <div class="collection-header-toggle">
+          <label class="theme-toggle-switch">
+            <input type="checkbox" id="layoutToggleCheckbox" checked>
+            <span class="theme-toggle-slider"></span>
+          </label>
+        </div>
+      </div>
 
       <!-- Category Filter Pills (Quick Links) -->
       {%- if section.settings.quick_links_menu != blank -%}

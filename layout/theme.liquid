@@ -416,6 +416,9 @@
           if(window.scrollY > 350){
             document.querySelector('sticky-header').style.backdropFilter = 'blur(10px)';
             document.querySelector('sticky-header').style.backgroundColor = 'rgba(0,0,0,0.2)';
+          }else{
+            document.querySelector('sticky-header').style.backdropFilter = 'blur(0px)';
+            document.querySelector('sticky-header').style.backgroundColor = 'rgba(0,0,0,0.0)';
           }
         })
       })

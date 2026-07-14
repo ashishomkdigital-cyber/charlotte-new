@@ -349,6 +349,16 @@
           background-image: none !important;
         }
 
+        .header-wrapper,
+        sticky-header {
+          background-color: #4C220299 !important;
+          background-image: none !important;
+        }
+        .footer {
+          background-color: #4C220299 !important;
+          background-image: none !important;
+        }
+
         /* Set text colors to light beige/cream for contrast */
         .breadcrumbs,
         .breadcrumbs a,
@@ -575,10 +585,22 @@
         position: relative !important;
         background: transparent !important;
         border: none !important;
-        /* Padding to frame content */
-        padding: 2.2rem 2rem !important;
+        /* Remove padding to let image sit behind golden border */
+        padding: 0 !important;
         box-sizing: border-box !important;
         border-radius: 0 !important;
+      }
+
+      .product-card-wrapper .card__media {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        margin: 0 !important;
+        z-index: 1 !important;
       }
 
       .card__golden-border {

@@ -117,6 +117,7 @@
         </div>
           <!-- Custom Golden Border and Overlay Info -->
           <div class="card__golden-border"></div>
+          <a href="{{ card_product.url }}" class="card__link-overlay" aria-label="{{ card_product.title | escape }}"></a>
           <div class="card__overlay-info">
             <span class="card__overlay-title">{{ card_product.title | escape }}</span>
             <span class="card__overlay-separator">|</span>

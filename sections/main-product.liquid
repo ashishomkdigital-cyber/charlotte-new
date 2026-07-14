@@ -85,8 +85,19 @@
             class="product__info-container{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}"
           >
             {%- assign product_form_id = 'product-form-' | append: section.id -%}
-
+            {%- assign in_card = false -%}
             {%- for block in section.blocks -%}
+              {%- if block.type == 'variant_picker' or block.type == 'quantity_selector' -%}
+                {%- if in_card == false -%}
+                  <div class="product-options-card">
+                  {%- assign in_card = true -%}
+                {%- endif -%}
+              {%- else -%}
+                {%- if in_card -%}
+                  </div>
+                  {%- assign in_card = false -%}
+                {%- endif -%}
+              {%- endif -%}
               {%- case block.type -%}
                 {%- when '@app' -%}
                   {% render block %}
@@ -690,6 +701,9 @@
                   {% render 'icon-with-text', block: block %}
               {%- endcase -%}
             {%- endfor -%}
+            {%- if in_card -%}
+              </div>
+            {%- endif -%}
             <a href="{{ product.url }}" class="link product__view-details animate-arrow">
               {{ 'products.product.view_full_details' | t }}
               {{- 'icon-arrow.svg' | inline_asset_content -}}

@@ -54,6 +54,11 @@
   style="--ratio: {{ media.aspect_ratio | default: 1.0 }}; --preview-ratio: {{ media.preview_image.aspect_ratio | default: 1.0 }};"
 >
   <div class="card__golden-border"></div>
+  <div class="card__overlay-info">
+    <span class="card__overlay-title">{{ product.title | escape }}</span>
+    <span class="card__overlay-separator">|</span>
+    <span class="card__overlay-price">{{ product.selected_or_first_available_variant.price | money }}</span>
+  </div>
   <modal-opener
     class="product__modal-opener product__modal-opener--{{ media.media_type }}"
     data-modal="#ProductModal-{{ modal_id }}"

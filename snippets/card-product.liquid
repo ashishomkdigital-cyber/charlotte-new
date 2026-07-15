@@ -120,7 +120,7 @@
           <a href="{{ card_product.url }}" class="card__link-overlay" aria-label="{{ card_product.title | escape }}"></a>
           <div class="card__overlay-info">
             <span class="card__overlay-title">{{ card_product.title | escape }}</span>
-            <span class="card__overlay-separator">|</span>
+            {% comment %} <span class="card__overlay-separator">|</span> {% endcomment %}
             <span class="card__overlay-price">{{ card_product.price | money }}</span>
           </div>
 

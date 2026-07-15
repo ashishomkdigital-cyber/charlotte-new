@@ -1492,3 +1492,16 @@ a.product__text {
     border: none;
   }
 }
+
+.product__media-golden-border {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background-image: url('./golden-card-border.png') !important;
+  background-size: 100% 100% !important;
+  background-repeat: no-repeat !important;
+  pointer-events: none !important;
+  z-index: 5 !important;
+}

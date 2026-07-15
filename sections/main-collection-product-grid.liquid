@@ -200,7 +200,7 @@
               <!-- Custom Toolbar -->
               <div class="collection-toolbar">
                 <div class="collection-toolbar__left">
-                  <button class="grid-mode-btn" data-mode="2" aria-label="2 columns grid">
+                  <button class="grid-mode-btn{% if section.settings.columns_desktop == 2 %} active{% endif %}" data-mode="2" aria-label="2 columns grid">
                     <svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor">
                       <rect x="0" y="0" width="7" height="7"/>
                       <rect x="11" y="0" width="7" height="7"/>
@@ -208,7 +208,7 @@
                       <rect x="11" y="11" width="7" height="7"/>
                     </svg>
                   </button>
-                  <button class="grid-mode-btn" data-mode="3" aria-label="3 columns grid">
+                  <button class="grid-mode-btn{% if section.settings.columns_desktop == 3 %} active{% endif %}" data-mode="3" aria-label="3 columns grid">
                     <svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor">
                       <rect x="0" y="0" width="4" height="4"/>
                       <rect x="7" y="0" width="4" height="4"/>
@@ -221,7 +221,7 @@
                       <rect x="14" y="14" width="4" height="4"/>
                     </svg>
                   </button>
-                  <button class="grid-mode-btn active" data-mode="4" aria-label="4 columns grid">
+                  <button class="grid-mode-btn{% if section.settings.columns_desktop == 4 %} active{% endif %}" data-mode="4" aria-label="4 columns grid">
                     <svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor">
                       <rect x="0" y="0" width="3" height="3"/>
                       <rect x="5" y="0" width="3" height="3"/>
@@ -241,7 +241,7 @@
                       <rect x="15" y="15" width="3" height="3"/>
                     </svg>
                   </button>
-                  <button class="grid-mode-btn" data-mode="list" aria-label="List view">
+                  <button class="grid-mode-btn{% if section.settings.columns_desktop == 1 %} active{% endif %}" data-mode="list" aria-label="List view">
                     <svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor">
                       <rect x="0" y="2" width="18" height="2"/>
                       <rect x="0" y="8" width="18" height="2"/>
@@ -388,7 +388,7 @@
       "min": 1,
       "max": 6,
       "step": 1,
-      "default": 4,
+      "default": 3,
       "label": "t:sections.main-collection-product-grid.settings.columns_desktop.label"
     },
     {

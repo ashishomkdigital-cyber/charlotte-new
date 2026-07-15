@@ -22,6 +22,7 @@
     },
     "featured_collection_HUax9r": {
       "type": "featured-collection",
+      "disabled": true,
       "custom_css": [
         ".title {margin-bottom: 15px !important;}"
       ],

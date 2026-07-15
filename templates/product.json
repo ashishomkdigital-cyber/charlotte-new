@@ -28,10 +28,6 @@
           "type": "price",
           "settings": {}
         },
-        "description": {
-          "type": "description",
-          "settings": {}
-        },
         "quantity_selector": {
           "type": "quantity_selector",
           "settings": {}
@@ -49,6 +45,10 @@
             "show_dynamic_checkout": true,
             "show_gift_card_recipient": true
           }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
         },
         "share": {
           "type": "share",
@@ -91,10 +91,10 @@
         "vendor",
         "title",
         "price",
-        "description",
         "quantity_selector",
         "variant_picker",
         "buy_buttons",
+        "description",
         "share",
         "icon_with_text_Jrmei4",
         "collapsible_tab_bcfjyN",

@@ -12,6 +12,14 @@
     "main": {
       "type": "main-product",
       "blocks": {
+        "wishlistsuite_wishlist_block_ycYjhJ": {
+          "type": "shopify://apps/wishlistsuite/blocks/wishlist_block/c2905ea4-a4c7-46db-b02a-fc294afa02e5",
+          "settings": {
+            "product": "{{product}}",
+            "customcss": "",
+            "customjs": ""
+          }
+        },
         "vendor": {
           "type": "text",
           "disabled": true,
@@ -88,6 +96,7 @@
         }
       },
       "block_order": [
+        "wishlistsuite_wishlist_block_ycYjhJ",
         "vendor",
         "title",
         "price",

@@ -111,7 +111,8 @@
       ],
       "custom_css": [
         ".wishlist-trigger--block {background-color: #4c2202 !important; color: #ebdccb !important; border: none !important; border-radius: 30px !important; height: 5.5rem !important; font-size: 1.6rem !important; font-weight: 500 !important; letter-spacing: 0.1rem !important; cursor: pointer !important; transition: opacity 0.2s ease !important; box-shadow: none !important;}",
-        ".wishlist__icon {background: transparent;}"
+        ".wishlist__icon {background: transparent;}",
+        ".wishlist__icon--svg {stroke: #ebdccb !important;}"
       ],
       "settings": {
         "enable_sticky_info": true,

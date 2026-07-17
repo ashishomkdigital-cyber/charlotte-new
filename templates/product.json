@@ -109,6 +109,10 @@
         "collapsible_tab_bcfjyN",
         "collapsible_tab_aNVmTd"
       ],
+      "custom_css": [
+        ".wishlist-trigger--block {background-color: #4c2202 !important; color: #ebdccb !important; border: none !important; border-radius: 30px !important;}",
+        ".wishlist__icon {background: transparent;}"
+      ],
       "settings": {
         "enable_sticky_info": true,
         "color_scheme": "scheme-1",

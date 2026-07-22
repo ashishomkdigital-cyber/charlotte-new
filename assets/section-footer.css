@@ -614,9 +614,9 @@
 }
 
 .footer-block__newsletter .field__input {
-  background: #F1DFCA !important;
+  background: #4C2202 !important;
   border: none !important;
-  color: #3b3023 !important;
+  color: #ffffff !important;
   padding: 1.2rem 5rem 1.2rem 1.2rem !important; /* Padding right to prevent overlap with button */
   font-size: 1.4rem !important;
   font-family: var(--font-body-family), sans-serif;

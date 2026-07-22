@@ -510,8 +510,8 @@
 
 /* Custom Premium Footer Styling */
 .footer {
-  background-color: #D3A97C !important;
-  color: #3b3023 !important; /* Dark text for contrast against beige */
+  background-color: #4C2202; !important;
+  color: #ffffff !important; /* Dark text for contrast against beige */
   border-top: none !important;
 }
 

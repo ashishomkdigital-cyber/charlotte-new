@@ -3619,7 +3619,7 @@ details-disclosure > details {
 .card-wrapper.product-card-wrapper {
   background-color: #f7ebe1 !important; /* Premium light cream card background */
   border: none !important;
-  border-radius: 0 !important;
+  border-radius: 10px !important;
   padding: 2.5rem !important;
   transition: transform 0.3s ease !important;
   display: flex !important;

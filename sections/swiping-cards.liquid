@@ -252,7 +252,7 @@
 }
 </style>
 
-<script>
+{% comment %} <script>
 document.addEventListener('DOMContentLoaded', () => {
   const modal = document.getElementById('SwipeModal');
   const openBtn = document.getElementById('OpenSwipeDeckBtn');
@@ -372,6 +372,165 @@ document.addEventListener('DOMContentLoaded', () => {
       document.dispatchEvent(new CustomEvent('cart:updated'));
     })
     .catch((error) => console.error('Error adding to cart:', error));
+  }
+});
+</script> {% endcomment %}
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const modal = document.getElementById('SwipeModal');
+  const openBtn = document.getElementById('OpenSwipeDeckBtn');
+  const closeBtn = document.getElementById('CloseSwipeDeckBtn');
+  const backdrop = document.getElementById('SwipeModalBackdrop');
+  const deck = document.getElementById('SwipeCardsDeck');
+  const cards = deck ? deck.querySelectorAll('.swipe-card') : [];
+
+  // Toggle Modal Logic
+  const openModal = () => {
+    modal.classList.add('is-active');
+    modal.setAttribute('aria-hidden', 'false');
+  };
+
+  const closeModal = () => {
+    modal.classList.remove('is-active');
+    modal.setAttribute('aria-hidden', 'true');
+  };
+
+  if (openBtn) openBtn.addEventListener('click', openModal);
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  if (backdrop) backdrop.addEventListener('click', closeModal);
+
+  // Swipe Engine
+  cards.forEach(card => initSwipe(card));
+
+  function initSwipe(card) {
+    let startX = 0;
+    let startY = 0;
+    let currentX = 0;
+    let currentY = 0;
+    let isDragging = false;
+
+    const likeBadge = card.querySelector('.swipe-badge-like');
+    const passBadge = card.querySelector('.swipe-badge-pass');
+
+    const onStart = (e) => {
+      isDragging = true;
+      startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+      startY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+      card.style.transition = 'none';
+    };
+
+    const onMove = (e) => {
+      if (!isDragging) return;
+
+      const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+      const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+
+      currentX = clientX - startX;
+      currentY = clientY - startY;
+
+      const rotate = currentX * 0.08;
+      card.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) rotate(${rotate}deg)`;
+
+      if (currentX > 40) {
+        likeBadge.style.opacity = Math.min(currentX / 100, 1);
+        passBadge.style.opacity = 0;
+      } else if (currentX < -40) {
+        passBadge.style.opacity = Math.min(Math.abs(currentX) / 100, 1);
+        likeBadge.style.opacity = 0;
+      } else {
+        likeBadge.style.opacity = 0;
+        passBadge.style.opacity = 0;
+      }
+    };
+
+    const onEnd = () => {
+      if (!isDragging) return;
+      isDragging = false;
+      card.style.transition = 'transform 0.4s ease, opacity 0.4s ease';
+
+      const threshold = 100;
+
+      if (currentX > threshold) {
+        // SWIPE RIGHT: Add to Cart
+        card.style.transform = `translate3d(${window.innerWidth}px, ${currentY}px, 0) rotate(45deg)`;
+        card.style.opacity = '0';
+        addToCart(card.dataset.variantId);
+        setTimeout(() => card.remove(), 400);
+      } else if (currentX < -threshold) {
+        // SWIPE LEFT: Pass / Remove
+        card.style.transform = `translate3d(-${window.innerWidth}px, ${currentY}px, 0) rotate(-45deg)`;
+        card.style.opacity = '0';
+        setTimeout(() => card.remove(), 400);
+      } else {
+        card.style.transform = 'translate3d(0, 0, 0) rotate(0deg)';
+        likeBadge.style.opacity = 0;
+        passBadge.style.opacity = 0;
+      }
+    };
+
+    card.addEventListener('touchstart', onStart, { passive: true });
+    card.addEventListener('touchmove', onMove, { passive: true });
+    card.addEventListener('touchend', onEnd);
+
+    card.addEventListener('mousedown', onStart);
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onEnd);
+  }
+
+  // Universal Shopify AJAX Add to Cart
+  function addToCart(variantId) {
+    const cartDrawer = document.querySelector('cart-drawer');
+    const cartNotification = document.querySelector('cart-notification');
+
+    // Request section renders for Dawn/OS 2.0 theme components
+    const sectionsToFetch = [];
+    if (cartDrawer) sectionsToFetch.push('cart-drawer', 'cart-icon-bubble');
+    if (cartNotification) sectionsToFetch.push('cart-notification', 'cart-icon-bubble');
+
+    const formData = {
+      items: [{
+        id: parseInt(variantId, 10),
+        quantity: 1
+      }],
+      sections: sectionsToFetch.join(',')
+    };
+
+    fetch(window.Shopify.routes.root + 'cart/add.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/javascript'
+      },
+      body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+      // 1. Dawn & OS 2.0 Drawer / Notification Handlers
+      if (cartDrawer && data.sections && data.sections['cart-drawer']) {
+        cartDrawer.renderContents(data);
+      } else if (cartNotification && data.sections && data.sections['cart-notification']) {
+        cartNotification.renderContents(data);
+      }
+
+      // 2. Trigger Shopify PubSub Event (Dawn Standard)
+      if (typeof publish === 'function' && window.PUB_SUB_EVENTS) {
+        publish(PUB_SUB_EVENTS.cartUpdate, { source: 'swipe-card', cart: data });
+      }
+
+      // 3. Broad Theme Event Dispatchers (Prestige, Impulse, Motion, etc.)
+      document.dispatchEvent(new CustomEvent('cart:refresh'));
+      document.dispatchEvent(new CustomEvent('cart:updated', { detail: { cart: data } }));
+      document.dispatchEvent(new CustomEvent('cart:build', { detail: data }));
+      document.dispatchEvent(new CustomEvent('theme:cart:change', { detail: { cart: data } }));
+
+      // 4. Fallback: Automatically click theme's cart icon to pop open cart drawer
+      const cartIconBtn = document.querySelector('#cart-icon-bubble, .header__icon--cart, [data-cart-drawer-toggle], .js-drawer-open-right');
+      if (cartIconBtn && !cartDrawer?.classList.contains('active')) {
+        cartIconBtn.click();
+      }
+    })
+    .catch((error) => console.error('Error adding product to cart:', error));
   }
 });
 </script>

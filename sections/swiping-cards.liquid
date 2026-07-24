@@ -1,0 +1,288 @@
+{% comment %}
+  Tinder-Style Swipe Cards Section
+{% endcomment %}
+
+{% liquid
+  if template.name == 'product' and product.collections.first
+    assign products_list = product.collections.first.products
+  elsif template.name == 'collection'
+    assign products_list = collection.products
+  else
+    assign products_list = collections.all.products
+  endif
+%}
+
+<div class="swipe-container-wrapper">
+  <div class="swipe-cards-deck" id="SwipeCardsDeck">
+    {% for prod in products_list limit: 20 %}
+      {% assign variant = prod.first_available_variant %}
+      {% if variant %}
+        <div class="swipe-card" 
+             data-variant-id="{{ variant.id }}" 
+             style="z-index: {{ forloop.rindex }};">
+          <div class="card-frame">
+            <img src="{{ prod.featured_image | image_url: width: 800 }}" alt="{{ prod.title }}" loading="lazy">
+            <div class="card-overlay">
+              <span class="card-title">{{ prod.title }}</span>
+              <span class="card-divider">|</span>
+              <span class="card-price">{{ prod.price | money }}</span>
+            </div>
+            <div class="swipe-badge swipe-badge-like">ADDED</div>
+            <div class="swipe-badge swipe-badge-pass">PASS</div>
+          </div>
+        </div>
+      {% endif %}
+    {% else %}
+      <div class="no-products-msg">No products found to swipe!</div>
+    {% endfor %}
+  </div>
+
+  <div class="swipe-instruction-btn">Swipe to Add</div>
+</div>
+
+<style>
+.swipe-container-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  max-width: 450px;
+  margin: 0 auto;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.swipe-cards-deck {
+  position: relative;
+  width: 100%;
+  height: 520px;
+}
+
+.swipe-card {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  cursor: grab;
+  touch-action: none;
+  transition: transform 0.2s ease-out;
+  will-change: transform;
+}
+
+.swipe-card:active {
+  cursor: grabbing;
+}
+
+/* Frame styling matching luxury aesthetic */
+.card-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  border: 10px solid #CBA158; /* Gold inner trim */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  background: #000;
+}
+
+.card-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.card-overlay {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  padding: 8px 18px;
+  border-radius: 20px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.card-title { font-size: 1.1rem; font-weight: 500; }
+.card-price { font-size: 1.1rem; opacity: 0.9; }
+
+/* Swiping visual feedback badges */
+.swipe-badge {
+  position: absolute;
+  top: 30px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1.5rem;
+  opacity: 0;
+  transition: opacity 0.1s ease;
+}
+
+.swipe-badge-like {
+  left: 30px;
+  border: 3px solid #2ecc71;
+  color: #2ecc71;
+  transform: rotate(-15deg);
+}
+
+.swipe-badge-pass {
+  right: 30px;
+  border: 3px solid #e74c3c;
+  color: #e74c3c;
+  transform: rotate(15deg);
+}
+
+.swipe-instruction-btn {
+  margin-top: 25px;
+  width: 100%;
+  background: #2b170c;
+  color: #e0b07a;
+  text-align: center;
+  padding: 16px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const deck = id = document.getElementById('SwipeCardsDeck');
+  const cards = deck.querySelectorAll('.swipe-card');
+
+  cards.forEach(card => initSwipe(card));
+
+  function initSwipe(card) {
+    let startX = 0;
+    let startY = 0;
+    let currentX = 0;
+    let currentY = 0;
+    let isDragging = false;
+
+    const likeBadge = card.querySelector('.swipe-badge-like');
+    const passBadge = card.querySelector('.swipe-badge-pass');
+
+    // Pointer Down (Touch or Mouse)
+    const onStart = (e) => {
+      isDragging = true;
+      startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+      startY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+      card.style.transition = 'none';
+    };
+
+    // Pointer Move
+    const onMove = (e) => {
+      if (!isDragging) return;
+
+      const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+      const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+
+      currentX = clientX - startX;
+      currentY = clientY - startY;
+
+      const rotate = currentX * 0.08;
+      card.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) rotate(${rotate}deg)`;
+
+      // Show action badges depending on direction
+      if (currentX > 40) {
+        likeBadge.style.opacity = Math.min(currentX / 100, 1);
+        passBadge.style.opacity = 0;
+      } else if (currentX < -40) {
+        passBadge.style.opacity = Math.min(Math.abs(currentX) / 100, 1);
+        likeBadge.style.opacity = 0;
+      } else {
+        likeBadge.style.opacity = 0;
+        passBadge.style.opacity = 0;
+      }
+    };
+
+    // Pointer Up / End
+    const onEnd = () => {
+      if (!isDragging) return;
+      isDragging = false;
+      card.style.transition = 'transform 0.4s ease, opacity 0.4s ease';
+
+      const threshold = 120; // threshold distance to fire action
+
+      if (currentX > threshold) {
+        // SWIPE RIGHT: Add to Cart
+        card.style.transform = `translate3d(${window.innerWidth}px, ${currentY}px, 0) rotate(45deg)`;
+        card.style.opacity = '0';
+        addToCart(card.dataset.variantId);
+        setTimeout(() => card.remove(), 400);
+      } else if (currentX < -threshold) {
+        // SWIPE LEFT: Pass / Remove
+        card.style.transform = `translate3d(-${window.innerWidth}px, ${currentY}px, 0) rotate(-45deg)`;
+        card.style.opacity = '0';
+        setTimeout(() => card.remove(), 400);
+      } else {
+        // RESET Position
+        card.style.transform = 'translate3d(0, 0, 0) rotate(0deg)';
+        likeBadge.style.opacity = 0;
+        passBadge.style.opacity = 0;
+      }
+    };
+
+    // Event listeners for touch & mouse
+    card.addEventListener('touchstart', onStart, { passive: true });
+    card.addEventListener('touchmove', onMove, { passive: true });
+    card.addEventListener('touchend', onEnd);
+
+    card.addEventListener('mousedown', onStart);
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onEnd);
+  }
+
+  // Shopify AJAX Add to Cart
+  function addToCart(variantId) {
+    const formData = {
+      items: [{
+        id: parseInt(variantId, 10),
+        quantity: 1
+      }]
+    };
+
+    fetch(window.Shopify.routes.root + 'cart/add.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+      // Trigger standard Shopify Theme Cart Update Events
+      document.dispatchEvent(new CustomEvent('cart:refresh'));
+      document.dispatchEvent(new CustomEvent('cart:updated'));
+      
+      // Fetch updated cart JSON if required by your theme drawer
+      fetch(window.Shopify.routes.root + 'cart.js')
+        .then(res => res.json())
+        .then(cart => {
+          document.dispatchEvent(new CustomEvent('cart:build', { detail: cart }));
+        });
+    })
+    .catch((error) => {
+      console.error('Error adding to cart:', error);
+    });
+  }
+});
+</script>
+
+{% schema %}
+{
+  "name": "Swipe Cards Deck",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Swipe Cards Deck"
+    }
+  ]
+}
+{% endschema %}

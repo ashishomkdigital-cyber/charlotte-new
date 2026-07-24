@@ -483,7 +483,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cartDrawer = document.querySelector('cart-drawer');
     const cartNotification = document.querySelector('cart-notification');
 
-    // Request section renders for Dawn/OS 2.0 theme components
+    // Build array of section IDs to request from Shopify API
     const sectionsToFetch = [];
     if (cartDrawer) sectionsToFetch.push('cart-drawer', 'cart-icon-bubble');
     if (cartNotification) sectionsToFetch.push('cart-notification', 'cart-icon-bubble');
@@ -493,7 +493,7 @@ document.addEventListener('DOMContentLoaded', () => {
         id: parseInt(variantId, 10),
         quantity: 1
       }],
-      sections: sectionsToFetch.join(',')
+      sections: sectionsToFetch // FIXED: Must be an Array
     };
 
     fetch(window.Shopify.routes.root + 'cart/add.js', {
@@ -506,11 +506,24 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .then(response => response.json())
     .then(data => {
-      // 1. Dawn & OS 2.0 Drawer / Notification Handlers
+      // 1. Dawn & OS 2.0 Web Components (Drawer / Notification)
       if (cartDrawer && data.sections && data.sections['cart-drawer']) {
         cartDrawer.renderContents(data);
       } else if (cartNotification && data.sections && data.sections['cart-notification']) {
         cartNotification.renderContents(data);
+      } else if (cartDrawer) {
+        // Fallback: Fetch cart-drawer HTML directly if section parsing was skipped
+        fetch(window.Shopify.routes.root + '?section_id=cart-drawer')
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const newContent = doc.querySelector('.drawer__inner') || doc.querySelector('#CartDrawer');
+            const currentContent = cartDrawer.querySelector('.drawer__inner') || cartDrawer.querySelector('#CartDrawer');
+            if (newContent && currentContent) {
+              currentContent.innerHTML = newContent.innerHTML;
+            }
+          });
       }
 
       // 2. Trigger Shopify PubSub Event (Dawn Standard)
@@ -518,16 +531,20 @@ document.addEventListener('DOMContentLoaded', () => {
         publish(PUB_SUB_EVENTS.cartUpdate, { source: 'swipe-card', cart: data });
       }
 
-      // 3. Broad Theme Event Dispatchers (Prestige, Impulse, Motion, etc.)
+      // 3. Custom Theme Dispatchers
       document.dispatchEvent(new CustomEvent('cart:refresh'));
       document.dispatchEvent(new CustomEvent('cart:updated', { detail: { cart: data } }));
       document.dispatchEvent(new CustomEvent('cart:build', { detail: data }));
       document.dispatchEvent(new CustomEvent('theme:cart:change', { detail: { cart: data } }));
 
-      // 4. Fallback: Automatically click theme's cart icon to pop open cart drawer
-      const cartIconBtn = document.querySelector('#cart-icon-bubble, .header__icon--cart, [data-cart-drawer-toggle], .js-drawer-open-right');
-      if (cartIconBtn && !cartDrawer?.classList.contains('active')) {
-        cartIconBtn.click();
+      // 4. Open Cart Drawer
+      if (cartDrawer && typeof cartDrawer.open === 'function') {
+        cartDrawer.open();
+      } else {
+        const cartIconBtn = document.querySelector('#cart-icon-bubble, .header__icon--cart, [data-cart-drawer-toggle], .js-drawer-open-right');
+        if (cartIconBtn && !cartDrawer?.classList.contains('active')) {
+          cartIconBtn.click();
+        }
       }
     })
     .catch((error) => console.error('Error adding product to cart:', error));

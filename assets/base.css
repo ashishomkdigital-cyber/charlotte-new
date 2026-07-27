@@ -3689,3 +3689,9 @@ details-disclosure > details {
 .card-wrapper.product-card-wrapper .card-information {
   text-align: center !important;
 }
+
+@media(max-width:640px){
+  .card-wrapper.product-card-wrapper{
+    padding:1.8rem!important;
+  }
+}

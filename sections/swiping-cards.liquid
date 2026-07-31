@@ -36,11 +36,28 @@
       {% for prod in products_list limit: 20 %}
         {% assign variant = prod.first_available_variant %}
         {% if variant %}
+          {% assign images_count = prod.images.size %}
           <div class="swipe-card" 
                data-variant-id="{{ variant.id }}" 
                style="z-index: {{ forloop.rindex }};">
             <div class="card-frame">
-              <img src="{{ prod.featured_image | image_url: width: 800 }}" alt="{{ prod.title }}" loading="lazy">
+              <div class="card-images-container">
+                {% if images_count > 0 %}
+                  {% for image in prod.images limit: 5 %}
+                    <img src="{{ image | image_url: width: 800 }}" 
+                         alt="{{ prod.title }}" 
+                         class="card-image {% if forloop.first %}is-active{% endif %}" 
+                         data-image-index="{{ forloop.index0 }}"
+                         loading="lazy">
+                  {% endfor %}
+                {% else %}
+                  <img src="{{ prod.featured_image | image_url: width: 800 }}" 
+                       alt="{{ prod.title }}" 
+                       class="card-image is-active" 
+                       data-image-index="0"
+                       loading="lazy">
+                {% endif %}
+              </div>
               <div class="card-overlay">
                 <span class="card-title">{{ prod.title }}</span>
                 <span class="card-divider">|</span>
@@ -49,6 +66,15 @@
               <div class="swipe-badge swipe-badge-like">ADDED</div>
               <div class="swipe-badge swipe-badge-pass">PASS</div>
             </div>
+            {% if images_count > 1 %}
+              <div class="card-nav-dots">
+                <div class="nav-dots-container">
+                  {% for image in prod.images limit: 5 %}
+                    <span class="nav-dot {% if forloop.first %}is-active{% endif %}" data-dot-index="{{ forloop.index0 }}"></span>
+                  {% endfor %}
+                </div>
+              </div>
+            {% endif %}
           </div>
         {% endif %}
       {% else %}
@@ -148,7 +174,7 @@
 .swipe-cards-deck {
   position: relative;
   width: 100%;
-  height: 500px;
+  height: 540px;
 }
 
 .swipe-card {
@@ -169,7 +195,7 @@
 .card-frame {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: calc(100% - 65px);
   border-radius: 8px;
   border: 8px solid #CBA158;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
@@ -177,31 +203,115 @@
   background: #000;
 }
 
-.card-frame img {
+.card-images-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.card-image {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.3s ease;
   pointer-events: none;
+}
+
+.card-image.is-active {
+  opacity: 1;
+  z-index: 1;
 }
 
 .card-overlay {
   position: absolute;
-  bottom: 20px;
+  bottom: 24px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(6px);
-  padding: 8px 18px;
-  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 10px 24px;
+  border-radius: 30px;
   color: #fff;
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+  gap: 12px;
   white-space: nowrap;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  z-index: 5;
 }
 
-.card-title { font-size: 1rem; font-weight: 500; }
-.card-price { font-size: 1rem; opacity: 0.9; }
+.card-title {
+  font-family: Georgia, Didot, "Playfair Display", serif;
+  font-size: 1.15rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  color: #ffffff;
+}
+
+.card-divider {
+  font-family: Georgia, Didot, "Playfair Display", serif;
+  font-size: 1.15rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 300;
+}
+
+.card-price {
+  font-family: Georgia, Didot, "Playfair Display", serif;
+  font-size: 1.15rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  color: #ffffff;
+}
+
+.card-nav-dots {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.nav-dots-container {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(80, 70, 60, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 6px 12px;
+  border-radius: 20px;
+  gap: 8px;
+  height: 24px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.nav-dot {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.6);
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+              background-color 0.3s ease, 
+              border-radius 0.3s ease;
+}
+
+.nav-dot.is-active {
+  width: 28px;
+  border-radius: 4px;
+  background-color: #542d13;
+}
 
 .swipe-badge {
   position: absolute;
@@ -212,6 +322,7 @@
   font-size: 1.3rem;
   opacity: 0;
   transition: opacity 0.1s ease;
+  z-index: 5;
 }
 
 .swipe-badge-like {
@@ -229,7 +340,7 @@
 }
 
 .swipe-instruction-btn {
-  margin-top: 20px;
+  margin-top: 30px;
   width: 100%;
   background: #2b170c;
   color: #e0b07a;
@@ -409,14 +520,57 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentX = 0;
     let currentY = 0;
     let isDragging = false;
+    let startTime = 0;
 
     const likeBadge = card.querySelector('.swipe-badge-like');
     const passBadge = card.querySelector('.swipe-badge-pass');
 
+    const handleCardTap = (clientX) => {
+      const cardRect = card.getBoundingClientRect();
+      const tapX = clientX - cardRect.left;
+      const isLeft = tapX < cardRect.width / 2;
+
+      const images = card.querySelectorAll('.card-image');
+      if (images.length <= 1) return;
+
+      let activeIndex = 0;
+      images.forEach((img, index) => {
+        if (img.classList.contains('is-active')) {
+          activeIndex = index;
+        }
+      });
+
+      let newIndex = activeIndex;
+      if (isLeft) {
+        newIndex = (activeIndex - 1 + images.length) % images.length;
+      } else {
+        newIndex = (activeIndex + 1) % images.length;
+      }
+
+      images[activeIndex].classList.remove('is-active');
+      images[newIndex].classList.add('is-active');
+
+      const dots = card.querySelectorAll('.nav-dot');
+      if (dots.length > 0) {
+        dots.forEach((dot, index) => {
+          if (index === newIndex) {
+            dot.classList.add('is-active');
+          } else {
+            dot.classList.remove('is-active');
+          }
+        });
+      }
+    };
+
     const onStart = (e) => {
       isDragging = true;
-      startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-      startY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+      const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+      const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+      startX = clientX;
+      startY = clientY;
+      currentX = 0;
+      currentY = 0;
+      startTime = Date.now();
       card.style.transition = 'none';
     };
 
@@ -444,10 +598,23 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
 
-    const onEnd = () => {
+    const onEnd = (e) => {
       if (!isDragging) return;
       isDragging = false;
       card.style.transition = 'transform 0.4s ease, opacity 0.4s ease';
+
+      const endTime = Date.now();
+      const duration = endTime - startTime;
+      const moveThreshold = 10;
+      const clickDuration = 250;
+
+      const absX = Math.abs(currentX);
+      const absY = Math.abs(currentY);
+
+      if (absX < moveThreshold && absY < moveThreshold && duration < clickDuration) {
+        handleCardTap(startX);
+        return;
+      }
 
       const threshold = 100;
 

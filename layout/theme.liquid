@@ -600,9 +600,18 @@
               pointer-events: none !important;
             }
 
-            /* Hide default search/filter sidebar wrapper */
-            .facets-wrapper {
-              display: none !important;
+            /* Mobile Toolbar Styling overrides */
+            @media screen and (max-width: 749px) {
+              .collection-toolbar__left {
+                display: none !important;
+              }
+              .collection-toolbar__right .select:before,
+              .collection-toolbar__right .select:after {
+                content: none !important;
+                box-shadow: none !important;
+                border: none !important;
+                display: none !important;
+              }
             }
 
             /* Product Page Option Card & Inputs */

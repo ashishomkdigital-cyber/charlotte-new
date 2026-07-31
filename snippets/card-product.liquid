@@ -135,6 +135,16 @@
               {%- endif -%}
             </div>
           </div>
+          {%- assign images_count = card_product.media.size -%}
+          {%- if settings.card_dots_position == 'inside' and images_count > 1 -%}
+            <div class="card__image-dots card__image-dots--inside" data-total-images="{{ images_count | at_most: 5 }}">
+              <div class="card__image-dots-container">
+                {%- for media in card_product.media limit: 5 -%}
+                  <span class="card__image-dot {% if forloop.first %}active{% endif %}" data-dot-index="{{ forloop.index0 }}"></span>
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- endif -%}
         </div>
         
        
@@ -562,9 +572,11 @@
             {%- endif -%}
           </div>
         </div>
-        {%- assign images_count = card_product.media.size -%}
+      </div>
+      {%- assign images_count = card_product.media.size -%}
+      {%- if settings.card_dots_position == 'outside' or settings.card_dots_position == blank -%}
         {%- if images_count > 1 -%}
-          <div class="card__image-dots" data-total-images="{{ images_count | at_most: 5 }}">
+          <div class="card__image-dots card__image-dots--outside" data-total-images="{{ images_count | at_most: 5 }}">
             <div class="card__image-dots-container">
               {%- for media in card_product.media limit: 5 -%}
                 <span class="card__image-dot {% if forloop.first %}active{% endif %}" data-dot-index="{{ forloop.index0 }}"></span>
@@ -572,7 +584,7 @@
             </div>
           </div>
         {%- endif -%}
-      </div>
+      {%- endif -%}
     </div>
   </product-component>
 {%- else -%}

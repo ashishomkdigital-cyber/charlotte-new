@@ -504,6 +504,22 @@
         "label": "t:settings_schema.cards.settings.style.label"
       },
       {
+        "type": "select",
+        "id": "card_dots_position",
+        "options": [
+          {
+            "value": "outside",
+            "label": "Outside the gold frame"
+          },
+          {
+            "value": "inside",
+            "label": "Inside the gold frame"
+          }
+        ],
+        "default": "outside",
+        "label": "Navigation dots position"
+      },
+      {
         "type": "range",
         "id": "card_image_padding",
         "min": 0,

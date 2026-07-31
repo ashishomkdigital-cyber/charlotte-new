@@ -39,6 +39,7 @@
           {% assign images_count = prod.images.size %}
           <div class="swipe-card" 
                data-variant-id="{{ variant.id }}" 
+               data-dots-position="{{ section.settings.dots_position | default: 'outside' }}"
                style="z-index: {{ forloop.rindex }};">
             <div class="card-frame">
               <div class="card-images-container">
@@ -63,17 +64,28 @@
                 <span class="card-divider">|</span>
                 <span class="card-price">{{ prod.price | money }}</span>
               </div>
+              {% if section.settings.dots_position == 'inside' and images_count > 1 %}
+                <div class="card-nav-dots card-nav-dots--inside">
+                  <div class="nav-dots-container">
+                    {% for image in prod.images limit: 5 %}
+                      <span class="nav-dot {% if forloop.first %}is-active{% endif %}" data-dot-index="{{ forloop.index0 }}"></span>
+                    {% endfor %}
+                  </div>
+                </div>
+              {% endif %}
               <div class="swipe-badge swipe-badge-like">ADDED</div>
               <div class="swipe-badge swipe-badge-pass">PASS</div>
             </div>
-            {% if images_count > 1 %}
-              <div class="card-nav-dots">
-                <div class="nav-dots-container">
-                  {% for image in prod.images limit: 5 %}
-                    <span class="nav-dot {% if forloop.first %}is-active{% endif %}" data-dot-index="{{ forloop.index0 }}"></span>
-                  {% endfor %}
+            {% if section.settings.dots_position == 'outside' or section.settings.dots_position == blank %}
+              {% if images_count > 1 %}
+                <div class="card-nav-dots card-nav-dots--outside">
+                  <div class="nav-dots-container">
+                    {% for image in prod.images limit: 5 %}
+                      <span class="nav-dot {% if forloop.first %}is-active{% endif %}" data-dot-index="{{ forloop.index0 }}"></span>
+                    {% endfor %}
+                  </div>
                 </div>
-              </div>
+              {% endif %}
             {% endif %}
           </div>
         {% endif %}
@@ -195,12 +207,20 @@
 .card-frame {
   position: relative;
   width: 100%;
-  height: calc(100% - 65px);
   border-radius: 8px;
   border: 8px solid #CBA158;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   overflow: hidden;
   background: #000;
+}
+
+.swipe-card[data-dots-position="outside"] .card-frame {
+  height: calc(100% - 65px);
+}
+
+.swipe-card[data-dots-position="inside"] .card-frame,
+.swipe-card:not([data-dots-position]) .card-frame {
+  height: 100%;
 }
 
 .card-images-container {
@@ -269,12 +289,24 @@
   color: #ffffff;
 }
 
-.card-nav-dots {
+.card-nav-dots--outside {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   height: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.card-nav-dots--inside {
+  position: absolute;
+  bottom: 15px;
+  left: 0;
+  right: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -722,7 +754,24 @@ document.addEventListener('DOMContentLoaded', () => {
 {% schema %}
 {
   "name": "Swipe Cards Modal",
-  "settings": [],
+  "settings": [
+    {
+      "type": "select",
+      "id": "dots_position",
+      "options": [
+        {
+          "value": "outside",
+          "label": "Outside the card frame"
+        },
+        {
+          "value": "inside",
+          "label": "Inside the card frame"
+        }
+      ],
+      "default": "outside",
+      "label": "Navigation dots position"
+    }
+  ],
   "presets": [
     {
       "name": "Swipe Cards Modal"

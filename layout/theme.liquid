@@ -1017,6 +1017,7 @@
         gap: 8px !important;
         height: 24px !important;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3) !important;
+        pointer-events: auto !important;
       }
 
       .card__image-dot {
@@ -1028,6 +1029,8 @@
         transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
                     background-color 0.3s ease, 
                     border-radius 0.3s ease !important;
+        pointer-events: auto !important;
+        cursor: pointer !important;
       }
 
       .card__image-dot.active {
@@ -1161,12 +1164,12 @@
 
         // Product Cards Multi-image Slider Initialization
         const initProductCards = () => {
-          const cardWrappers = document.querySelectorAll('.product-card-wrapper:not([data-card-initialized])');
-          cardWrappers.forEach(wrapper => {
-            wrapper.setAttribute('data-card-initialized', 'true');
+          const productComponents = document.querySelectorAll('product-component:not([data-card-initialized])');
+          productComponents.forEach(component => {
+            component.setAttribute('data-card-initialized', 'true');
             
-            const images = wrapper.querySelectorAll('.card-image');
-            const dots = wrapper.querySelectorAll('.card__image-dot');
+            const images = component.querySelectorAll('.card-image');
+            const dots = component.querySelectorAll('.card__image-dot');
             if (images.length <= 1) return;
 
             let activeIndex = 0;
@@ -1189,7 +1192,7 @@
               activeIndex = index;
             };
 
-            const linkOverlay = wrapper.querySelector('.card__link-overlay');
+            const linkOverlay = component.querySelector('.card__link-overlay');
             if (linkOverlay) {
               linkOverlay.addEventListener('click', (e) => {
                 const rect = linkOverlay.getBoundingClientRect();
@@ -1210,6 +1213,15 @@
                 }
               });
             }
+
+            // Click listener for individual dots to navigate images directly
+            dots.forEach((dot, index) => {
+              dot.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                showImage(index);
+              });
+            });
           });
         };
 

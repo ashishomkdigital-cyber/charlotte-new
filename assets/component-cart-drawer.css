@@ -24,6 +24,7 @@
   border-right: 0;
   overflow: hidden;
   display: flex;
+  background-color: #4c2202 !important;
   flex-direction: column;
   transform: translateX(100%);
   transition: transform var(--duration-default) ease;

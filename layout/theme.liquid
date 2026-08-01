@@ -488,11 +488,21 @@
             /* Category Filter Pills (Quick Links) */
             .collection-quick-links {
               display: flex !important;
-              flex-wrap: wrap !important;
+              flex-wrap: nowrap !important;
+              overflow-x: auto !important;
+              -webkit-overflow-scrolling: touch !important;
               gap: 1.5rem !important;
               list-style: none !important;
               padding: 0 !important;
               margin: 3rem 0 2rem 0 !important;
+              scrollbar-width: none !important; /* Firefox */
+              -ms-overflow-style: none !important; /* IE and Edge */
+            }
+            .collection-quick-links::-webkit-scrollbar {
+              display: none !important; /* Chrome, Safari, and Opera */
+            }
+            .collection-quick-links__item {
+              flex-shrink: 0 !important;
             }
 
             .collection-quick-links__link {

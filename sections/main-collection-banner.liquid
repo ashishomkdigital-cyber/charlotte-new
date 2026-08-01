@@ -31,12 +31,22 @@
   /* Category pills styling */
   .collection-quick-links {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
     justify-content: flex-start;
     gap: 1.5rem;
     list-style: none;
     padding: 0;
     margin: 3rem 0 1rem 0;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
+  .collection-quick-links::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, and Opera */
+  }
+  .collection-quick-links__item {
+    flex-shrink: 0;
   }
   .collection-quick-links__link {
     display: inline-block;

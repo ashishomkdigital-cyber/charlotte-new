@@ -827,16 +827,35 @@
           z-index: 1 !important;
         }
 
+        /* Force product page media container to adapt to actual image ratio */
         .product-media-container {
           position: relative !important;
           border: none !important;
           box-shadow: none !important;
           padding: 0 !important;
           border-radius: 0 !important;
+          aspect-ratio: var(--ratio) !important;
+          height: auto !important;
+        }
+
+        .product-media-container .product__modal-opener {
+          height: 100% !important;
+          display: block !important;
         }
 
         .product-media-container .media {
           z-index: 1 !important;
+          padding-top: 0 !important;
+          height: 100% !important;
+        }
+
+        .product-media-container img {
+          position: absolute !important;
+          top: 0 !important;
+          left: 0 !important;
+          width: 100% !important;
+          height: 100% !important;
+          object-fit: cover !important;
         }
 
         .card__link-overlay {

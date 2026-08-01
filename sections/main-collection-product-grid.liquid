@@ -272,7 +272,7 @@
                               selected="selected"
                             {% endif %}
                           >
-                            {{ option.name | escape }}
+                            {{ option.name | escape | upcase }}
                           </option>
                         {%- endfor -%}
                       </select>

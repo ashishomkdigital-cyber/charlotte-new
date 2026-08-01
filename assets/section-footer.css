@@ -522,7 +522,6 @@
 .footer a,
 .footer-block__heading,
 .footer-block__details-content,
-.footer__copyright,
 .copyright__content a {
   color: #ffffff !important; /* Elegant deep brown/dark charcoal */
 }
@@ -676,7 +675,6 @@
 .footer__copyright {
   text-align: center !important;
   font-size: 1.3rem;
-  color: rgba(59, 48, 35, 0.8) !important;
   letter-spacing: 0.05em;
   font-family: var(--font-body-family), sans-serif;
 }

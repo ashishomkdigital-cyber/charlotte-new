@@ -64,29 +64,9 @@
                 <span class="card-divider">|</span>
                 <span class="card-price">{{ prod.price | money }}</span>
               </div>
-              {% if section.settings.dots_position == 'inside' and images_count > 1 %}
-                <div class="card-nav-dots card-nav-dots--inside">
-                  <div class="nav-dots-container">
-                    {% for image in prod.images limit: 5 %}
-                      <span class="nav-dot {% if forloop.first %}is-active{% endif %}" data-dot-index="{{ forloop.index0 }}"></span>
-                    {% endfor %}
-                  </div>
-                </div>
-              {% endif %}
               <div class="swipe-badge swipe-badge-like">ADDED</div>
               <div class="swipe-badge swipe-badge-pass">PASS</div>
             </div>
-            {% if section.settings.dots_position == 'outside' or section.settings.dots_position == blank %}
-              {% if images_count > 1 %}
-                <div class="card-nav-dots card-nav-dots--outside">
-                  <div class="nav-dots-container">
-                    {% for image in prod.images limit: 5 %}
-                      <span class="nav-dot {% if forloop.first %}is-active{% endif %}" data-dot-index="{{ forloop.index0 }}"></span>
-                    {% endfor %}
-                  </div>
-                </div>
-              {% endif %}
-            {% endif %}
           </div>
         {% endif %}
       {% else %}
@@ -136,6 +116,10 @@
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
+  background-image: url('{{ "collection-background.jpg" | asset_url }}') !important;
+  background-size: cover !important;
+  background-position: top center !important;
+  background-repeat: no-repeat !important;
 }
 
 .swipe-modal.is-active {

@@ -199,6 +199,7 @@
   position: relative;
   width: 100%;
   height: 540px;
+  margin-bottom: -5rem;
 }
 
 .swipe-card {
@@ -572,7 +573,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      closeModal();
+      window.location.reload();
+    });
+  }
   if (backdrop) backdrop.addEventListener('click', closeModal);
 
   // Swipe Engine

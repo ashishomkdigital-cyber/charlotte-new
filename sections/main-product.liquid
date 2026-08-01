@@ -75,6 +75,24 @@
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
   <product-component view-event-payload="{{ product | standard_event_data: 'view', context: 'page' | escape }}">
     <div class="page-width">
+      <!-- Breadcrumbs and Toggle Container -->
+      <div class="collection-header-nav">
+        <nav class="breadcrumbs" role="navigation" aria-label="breadcrumbs">
+          <a href="javascript:history.back()" class="breadcrumbs__back-link">&lsaquo; Back</a>
+          <span class="breadcrumbs__separator-bar">|</span>
+          <a href="{{ routes.root_url }}">Home</a>
+          <span class="breadcrumbs__separator" aria-hidden="true">&rsaquo;</span>
+          <span class="breadcrumbs__current">{{ product.title }}</span>
+        </nav>
+        
+        <div class="collection-header-toggle">
+          <label class="theme-toggle-switch">
+            <input type="checkbox" id="layoutToggleCheckbox">
+            <span class="theme-toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+
       <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
         <div class="grid__item product__media-wrapper">
           {% render 'product-media-gallery', variant_images: variant_images %}

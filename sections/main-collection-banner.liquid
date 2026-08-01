@@ -82,9 +82,6 @@
   .collection-hero__title {
     display: none !important; /* Hide large title as per reference */
   }
-  .collection-header-toggle {
-    display: none !important;
-  }
 {%- endstyle -%}
 
 <div class="collection-hero{% if section.settings.show_collection_image and collection.image %} collection-hero--with-image{% endif %} color-{{ section.settings.color_scheme }} gradient">
@@ -102,7 +99,7 @@
         
         <div class="collection-header-toggle">
           <label class="theme-toggle-switch">
-            <input type="checkbox" id="layoutToggleCheckbox" checked>
+            <input type="checkbox" id="layoutToggleCheckbox">
             <span class="theme-toggle-slider"></span>
           </label>
         </div>

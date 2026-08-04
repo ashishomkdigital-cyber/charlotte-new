@@ -101,9 +101,30 @@
                   > {% endcomment %}
                 {%- endif -%}
 
-                {%- if reveal_title != blank -%}
+                {%- liquid
+                  assign reveal_image = block.settings.reveal_image
+                  if reveal_image == blank and block.settings.collection != blank
+                    assign reveal_image = block.settings.collection.featured_image
+                  endif
+                  if reveal_image == blank and block.settings.product != blank
+                    assign reveal_image = block.settings.product.featured_image
+                  endif
+                -%}
+
+                {%- if reveal_image != blank or reveal_title != blank -%}
                   <div class="charlotte-collection-grid__reveal" aria-hidden="true">
-                    <span>{{ reveal_title }}</span>
+                    {%- if reveal_image != blank -%}
+                      {{
+                        reveal_image
+                        | image_url: width: 800
+                        | image_tag:
+                          loading: 'lazy',
+                          class: 'charlotte-collection-grid__reveal-img',
+                          alt: reveal_title
+                      }}
+                    {%- else -%}
+                      <span>{{ reveal_title }}</span>
+                    {%- endif -%}
                   </div>
                 {%- endif -%}
 
@@ -321,9 +342,12 @@
     opacity: 0.88;
   }
 
-  #{{ section_id }} .charlotte-collection-grid__reveal span {
+  #{{ section_id }} .charlotte-collection-grid__reveal span,
+  #{{ section_id }} .charlotte-collection-grid__reveal-img {
     display: block;
-    max-width: 12ch;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
     color: var(--ccg-text);
     font-family: var(--font-heading-family);
     font-size: clamp(19px, 2.1vw, 32px);
@@ -335,6 +359,10 @@
     transition:
       transform var(--ccg-hover-duration) cubic-bezier(0.22, 1, 0.36, 1),
       opacity calc(var(--ccg-hover-duration) * 0.72) ease;
+  }
+
+  #{{ section_id }} .charlotte-collection-grid__reveal span {
+    max-width: 12ch;
   }
 
   #{{ section_id }} .charlotte-collection-grid__gate {
@@ -381,7 +409,9 @@
   }
 
   #{{ section_id }} .charlotte-collection-grid__link:hover .charlotte-collection-grid__reveal span,
-  #{{ section_id }} .charlotte-collection-grid__link:focus-visible .charlotte-collection-grid__reveal span {
+  #{{ section_id }} .charlotte-collection-grid__link:focus-visible .charlotte-collection-grid__reveal span,
+  #{{ section_id }} .charlotte-collection-grid__link:hover .charlotte-collection-grid__reveal-img,
+  #{{ section_id }} .charlotte-collection-grid__link:focus-visible .charlotte-collection-grid__reveal-img {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
@@ -748,6 +778,11 @@
           "type": "image_picker",
           "id": "simple_gate_image",
           "label": "Simple gate image"
+        },
+        {
+          "type": "image_picker",
+          "id": "reveal_image",
+          "label": "Reveal image (shows on hover)"
         },
         {
           "type": "range",

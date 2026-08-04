@@ -73,7 +73,7 @@
             "hover_open_amount": 46,
             "title": "",
             "caption": "",
-            "collection": "",
+            "collection": "all-products",
             "product": "",
             "custom_link": ""
           }
@@ -84,7 +84,7 @@
             "hover_open_amount": 50,
             "title": "",
             "caption": "",
-            "collection": "",
+            "collection": "frontpage",
             "product": "",
             "custom_link": ""
           }

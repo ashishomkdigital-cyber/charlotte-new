@@ -65,15 +65,21 @@
                   <span class="card-price">{{ prod.price | money }}</span>
                 </div>
                 
-                {% unless prod.has_only_default_variant %}
+                {% if prod.variants.size > 1 %}
                   <div class="card-variants-wrapper" data-swiping-card-variants>
                     {% for option in prod.options_with_values %}
                       <div class="card-variant-option" data-option-index="{{ forloop.index0 }}" data-option-name="{{ option.name | escape }}">
                         <span class="card-variant-label">{{ option.name }}:</span>
                         <div class="card-variant-values">
                           {% for value in option.values %}
+                            {% assign active = false %}
+                            {% if value.selected %}
+                              {% assign active = true %}
+                            {% elsif variant.options[forloop.parentloop.index0] == value %}
+                              {% assign active = true %}
+                            {% endif %}
                             <button type="button" 
-                                    class="card-variant-value-btn {% if value.selected %}is-active{% endif %}" 
+                                    class="card-variant-value-btn {% if active %}is-active{% endif %}" 
                                     data-value="{{ value | escape }}">
                               {{ value }}
                             </button>
@@ -95,7 +101,7 @@
                       ]
                     </script>
                   </div>
-                {% endunless %}
+                {% endif %}
               </div>
               
               <div class="swipe-badge swipe-badge-like">ADDED</div>

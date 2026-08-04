@@ -58,6 +58,39 @@
                        loading="lazy">
                 {% endif %}
               </div>
+              
+              {% unless prod.has_only_default_variant %}
+                <div class="card-variants-wrapper" data-swiping-card-variants>
+                  {% for option in prod.options_with_values %}
+                    <div class="card-variant-option" data-option-index="{{ forloop.index0 }}" data-option-name="{{ option.name | escape }}">
+                      <span class="card-variant-label">{{ option.name }}:</span>
+                      <div class="card-variant-values">
+                        {% for value in option.values %}
+                          <button type="button" 
+                                  class="card-variant-value-btn {% if value.selected %}is-active{% endif %}" 
+                                  data-value="{{ value | escape }}">
+                            {{ value }}
+                          </button>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  {% endfor %}
+                  <script type="application/json" class="card-variants-json">
+                    [
+                      {% for v in prod.variants %}
+                        {
+                          "id": {{ v.id }},
+                          "title": {{ v.title | json }},
+                          "available": {{ v.available | json }},
+                          "price": {{ v.price | money | json }},
+                          "options": {{ v.options | json }}
+                        }{% unless forloop.last %},{% endunless %}
+                      {% endfor %}
+                    ]
+                  </script>
+                </div>
+              {% endunless %}
+              
               <div class="card-overlay">
                 <span class="card-title">{{ prod.title }}</span>
                 <span class="card-divider">|</span>
@@ -406,6 +439,91 @@
   font-size: 1.2rem;
   text-align: center;
 }
+
+/* Card Variants Container */
+.card-variants-wrapper {
+  position: absolute;
+  bottom: 85px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 88%;
+  background: rgba(43, 23, 12, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(203, 161, 88, 0.6);
+  border-radius: 10px;
+  padding: 8px 12px;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.card-variant-option {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.card-variant-label {
+  font-family: Georgia, Didot, serif;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #ebdccb;
+  font-weight: 500;
+  opacity: 0.9;
+  text-align: left;
+}
+
+.card-variant-values {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.card-variant-value-btn {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ebdccb;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: var(--font-body-family), sans-serif;
+}
+
+.card-variant-value-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(203, 161, 88, 0.5);
+  color: #fff;
+}
+
+.card-variant-value-btn.is-active {
+  background: #CBA158;
+  color: #2b170c;
+  border-color: #CBA158;
+  font-weight: 600;
+}
+
+.card-variant-value-btn.is-disabled {
+  opacity: 0.3;
+  text-decoration: line-through;
+  pointer-events: none;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  20%, 60% { transform: translate3d(-10px, 0, 0) rotate(-1deg); }
+  40%, 80% { transform: translate3d(10px, 0, 0) rotate(1deg); }
+}
+
+.swipe-card.shake-anim {
+  animation: shake 0.5s ease;
+}
 </style>
 
 {% comment %} <script>
@@ -584,6 +702,68 @@ document.addEventListener('DOMContentLoaded', () => {
   // Swipe Engine
   cards.forEach(card => initSwipe(card));
 
+  function updateSelectedVariant(card) {
+    const variantsWrapper = card.querySelector('[data-swiping-card-variants]');
+    if (!variantsWrapper) return;
+    
+    // Gather selected values
+    const selectedOptions = [];
+    const optionEls = variantsWrapper.querySelectorAll('.card-variant-option');
+    optionEls.forEach(optionEl => {
+      const activeBtn = optionEl.querySelector('.card-variant-value-btn.is-active');
+      if (activeBtn) {
+        selectedOptions.push(activeBtn.getAttribute('data-value'));
+      } else {
+        selectedOptions.push(null);
+      }
+    });
+    
+    // Parse variants JSON
+    const jsonEl = variantsWrapper.querySelector('.card-variants-json');
+    if (!jsonEl) return;
+    try {
+      const variants = JSON.parse(jsonEl.textContent);
+      
+      // Find matching variant
+      const matchedVariant = variants.find(variant => {
+        return variant.options.every((optValue, idx) => {
+          return selectedOptions[idx] === optValue;
+        });
+      });
+      
+      if (matchedVariant) {
+        // Update variant id
+        card.setAttribute('data-variant-id', matchedVariant.id);
+        
+        // Update price
+        const priceEl = card.querySelector('.card-price');
+        if (priceEl) {
+          priceEl.textContent = matchedVariant.price;
+        }
+        
+        // Update availability
+        const likeBadge = card.querySelector('.swipe-badge-like');
+        if (matchedVariant.available) {
+          card.classList.remove('is-sold-out');
+          if (likeBadge) {
+            likeBadge.textContent = 'ADDED';
+            likeBadge.style.borderColor = '#2ecc71';
+            likeBadge.style.color = '#2ecc71';
+          }
+        } else {
+          card.classList.add('is-sold-out');
+          if (likeBadge) {
+            likeBadge.textContent = 'SOLD OUT';
+            likeBadge.style.borderColor = '#e74c3c';
+            likeBadge.style.color = '#e74c3c';
+          }
+        }
+      }
+    } catch (e) {
+      console.error('Error parsing variants JSON:', e);
+    }
+  }
+
   function initSwipe(card) {
     let startX = 0;
     let startY = 0;
@@ -594,6 +774,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const likeBadge = card.querySelector('.swipe-badge-like');
     const passBadge = card.querySelector('.swipe-badge-pass');
+
+    // Initialize variant click event handling and event propagation stopping
+    const variantsWrapper = card.querySelector('[data-swiping-card-variants]');
+    if (variantsWrapper) {
+      const stopDrag = (e) => {
+        e.stopPropagation();
+      };
+      
+      variantsWrapper.addEventListener('touchstart', stopDrag, { passive: true });
+      variantsWrapper.addEventListener('touchmove', stopDrag, { passive: true });
+      variantsWrapper.addEventListener('touchend', stopDrag);
+      variantsWrapper.addEventListener('mousedown', stopDrag);
+      variantsWrapper.addEventListener('mouseup', stopDrag);
+      variantsWrapper.addEventListener('click', stopDrag);
+      
+      const buttons = variantsWrapper.querySelectorAll('.card-variant-value-btn');
+      buttons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          const parent = btn.closest('.card-variant-values');
+          parent.querySelectorAll('.card-variant-value-btn').forEach(b => b.classList.remove('is-active'));
+          btn.classList.add('is-active');
+          
+          updateSelectedVariant(card);
+        });
+      });
+    }
 
     const handleCardTap = (clientX) => {
       const cardRect = card.getBoundingClientRect();
@@ -690,6 +899,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (currentX > threshold) {
         // SWIPE RIGHT: Add to Cart
+        if (card.classList.contains('is-sold-out')) {
+          card.style.transform = 'translate3d(0, 0, 0) rotate(0deg)';
+          likeBadge.style.opacity = 0;
+          passBadge.style.opacity = 0;
+          card.classList.add('shake-anim');
+          setTimeout(() => card.classList.remove('shake-anim'), 500);
+          return;
+        }
         card.style.transform = `translate3d(${window.innerWidth}px, ${currentY}px, 0) rotate(45deg)`;
         card.style.opacity = '0';
         addToCart(card.dataset.variantId);

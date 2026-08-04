@@ -1,6 +1,7 @@
 quantity-popover {
   position: relative;
   display: block;
+  color: #ebdccb;
 }
 
 quantity-popover volume-pricing li:nth-child(odd) {
@@ -151,7 +152,13 @@ quantity-popover .quantity__rules span:first-of-type {
 }
 
 quantity-popover .quantity {
-  background: rgb(var(--color-background));
+  background: transparent;
+  color: #ebdccb;
+}
+
+quantity-popover .quantity__input,
+quantity-popover .quantity__button {
+  color: #ebdccb;
 }
 
 quantity-popover .quantity__rules {

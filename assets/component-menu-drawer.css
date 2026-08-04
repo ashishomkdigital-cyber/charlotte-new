@@ -3,36 +3,39 @@
 }
 
 .js menu-drawer > details > summary::before,
-.js menu-drawer > details[open]:not(.menu-opening) > summary::before {
+.js menu-drawer > details[open]:not(.menu-opening) > summary::before,
+.js header-drawer > details > summary::before,
+.js header-drawer > details[open]:not(.menu-opening) > summary::before {
   content: '';
-  position: absolute;
+  position: fixed;
   cursor: default;
-  width: 100%;
-  height: calc(100vh - 100%);
-  height: calc(var(--viewport-height, 100vh) - (var(--header-bottom-position, 100%)));
-  top: 100%;
-  left: 0;
-  background: rgba(var(--color-foreground), 0.5);
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   opacity: 0;
   visibility: hidden;
-  z-index: 2;
-  transition: opacity 0s, visibility 0s;
+  z-index: 9999;
+  transition: opacity var(--duration-default) ease, visibility var(--duration-default) ease;
 }
 
-menu-drawer > details[open] > summary::before {
+menu-drawer > details[open] > summary::before,
+header-drawer > details[open] > summary::before {
   visibility: visible;
   opacity: 1;
   transition: opacity var(--duration-default) ease, visibility var(--duration-default) ease;
 }
 
 .menu-drawer {
-  position: absolute;
+  position: fixed;
   transform: translateX(100%);
   visibility: hidden;
-  z-index: 3;
+  z-index: 10000;
   right: 0;
   left: auto;
-  top: 100%;
+  top: 0;
   width: 30%;
   min-width: 300px;
   padding: 0;
@@ -46,8 +49,7 @@ menu-drawer > details[open] > summary::before {
 }
 
 .js .menu-drawer {
-  height: calc(100vh - 100%);
-  height: calc(var(--viewport-height, 100vh) - (var(--header-bottom-position, 100%)));
+  height: 100vh !important;
 }
 
 .js details[open] > .menu-drawer,

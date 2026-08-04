@@ -181,6 +181,9 @@
     text-decoration: none;
     color: rgb(var(--color-foreground));
     transition: opacity 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    margin-right: 2rem;
   }
   .header__contact-link:hover {
     opacity: 0.7;
@@ -188,9 +191,9 @@
   .template-index .header-wrapper .header__contact-link {
     color: #ffffff !important;
   }
-  @media screen and (max-width: 749px) {
+  @media screen and (max-width: 989px) {
     .header__contact-link {
-      display: none;
+      display: none !important;
     }
   }
   @media screen and (max-width: 989px) {
@@ -200,9 +203,6 @@
     .header__icon--cart {
       display: none !important;
     }
-    .header__logo-link {
-      display: none !important;
-    }
     .header {
       display: flex !important;
       justify-content: space-between !important;
@@ -210,24 +210,35 @@
       position: relative !important;
       width: 100% !important;
     }
-    .header__left-container {
-      display: none !important;
-    }
-    .header__heading, 
-    .header > a.header__heading-link {
-      position: absolute !important;
-      left: 50% !important;
-      top: 50% !important;
-      transform: translate(-50%, -50%) !important;
-      margin: 0 !important;
-      white-space: nowrap !important;
-      z-index: 1;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      max-width: calc(100% - 120px) !important;
-      text-align: center !important;
-    }
+    {%- if settings.logo != blank -%}
+      .header__left-container {
+        display: flex !important;
+        align-items: center !important;
+        grid-area: unset !important;
+        margin-right: auto !important;
+      }
+      .header__heading,
+      .header > a.header__heading-link {
+        display: none !important;
+      }
+    {%- else -%}
+      .header__left-container {
+        display: none !important;
+      }
+      .header__heading, 
+      .header > a.header__heading-link {
+        position: static !important;
+        transform: none !important;
+        margin: 0 !important;
+        white-space: nowrap !important;
+        z-index: 1;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        max-width: calc(100% - 120px) !important;
+        text-align: left !important;
+      }
+    {%- endif -%}
     .header__icons {
       margin-left: auto !important;
       z-index: 2;
@@ -259,9 +270,7 @@
     }
   }
 
-  {% if template.name == 'index' %}
-    .header__contact-link{display:none;}
-  {%endif %}
+
 {%- endstyle -%}
 
 <script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
@@ -325,7 +334,6 @@
           </div>
         </a>
       {%- endif -%}
-      <a href="/pages/contact" class="header__contact-link">Contact Us</a>
     </div>
 
     {%- if request.page_type == 'index' -%}
@@ -349,6 +357,7 @@
     -%}
 
     <div class="header__icons{% if section.settings.enable_country_selector or section.settings.enable_language_selector %} header__icons--localization header-localization{% endif %}">
+      <a href="/pages/contact" class="header__contact-link">Contact Us</a>
       <div class="desktop-localization-wrapper">
         {%- if section.settings.enable_country_selector and localization.available_countries.size > 1 -%}
           <localization-form class="small-hide medium-hide" data-prevent-hide>

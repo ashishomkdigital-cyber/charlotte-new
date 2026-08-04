@@ -96,14 +96,14 @@
         }
       },
       "block_order": [
-        "wishlistsuite_wishlist_block_ycYjhJ",
-        "vendor",
         "title",
+        "description",
+        "wishlistsuite_wishlist_block_ycYjhJ",
         "price",
         "quantity_selector",
         "variant_picker",
         "buy_buttons",
-        "description",
+        "vendor",
         "share",
         "icon_with_text_Jrmei4",
         "collapsible_tab_bcfjyN",

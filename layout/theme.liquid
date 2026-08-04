@@ -297,9 +297,7 @@
         color: #ebdccb!important;
       }
 
-      {% if template.name == 'collection' %}
-        .header__heading, .header > a.header__heading-link{display:block!important;}
-      {% endif %}
+
     {% endstyle %}
 
     {{ 'base.css' | asset_url | stylesheet_tag }}

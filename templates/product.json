@@ -16,6 +16,10 @@
           "type": "title",
           "settings": {}
         },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
         "collapsible_tab_bcfjyN": {
           "type": "collapsible_tab",
           "settings": {
@@ -45,11 +49,6 @@
             "icon_3": "none",
             "heading_3": ""
           }
-        },
-        "description": {
-          "type": "description",
-          "disabled": true,
-          "settings": {}
         },
         "wishlistsuite_wishlist_block_ycYjhJ": {
           "type": "shopify://apps/wishlistsuite/blocks/wishlist_block/c2905ea4-a4c7-46db-b02a-fc294afa02e5",
@@ -98,10 +97,10 @@
       },
       "block_order": [
         "title",
+        "description",
         "collapsible_tab_bcfjyN",
         "collapsible_tab_aNVmTd",
         "icon_with_text_Jrmei4",
-        "description",
         "wishlistsuite_wishlist_block_ycYjhJ",
         "price",
         "quantity_selector",

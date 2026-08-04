@@ -12,6 +12,45 @@
     "main": {
       "type": "main-product",
       "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "collapsible_tab_bcfjyN": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "PRODUCT DETAILS",
+            "icon": "none",
+            "content": "<ul><li>Premium Italian full-grain leather</li><li>Hand-stitched construction</li><li>Soft suede interior lining</li><li>Internal zippered pocket and card slots</li><li>Magnetic closure</li><li>Dimensions: 14\" W x 12\" H x 6\" D</li><li>Handle drop: 8 inches</li></ul>",
+            "page": ""
+          }
+        },
+        "collapsible_tab_aNVmTd": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "CARE INSTRUCTIONS",
+            "icon": "none",
+            "content": "<ul><li>Store in provided dust bag when not in use</li><li>Keep away from direct sunlight and heat</li><li>Clean with a soft, dry cloth</li><li>Avoid contact with water and oils</li><li>Professional leather cleaning recommended</li></ul>",
+            "page": ""
+          }
+        },
+        "icon_with_text_Jrmei4": {
+          "type": "icon-with-text",
+          "settings": {
+            "layout": "vertical",
+            "icon_1": "truck",
+            "heading_1": "Free Delivery",
+            "icon_2": "return",
+            "heading_2": "Easy Return",
+            "icon_3": "none",
+            "heading_3": ""
+          }
+        },
+        "description": {
+          "type": "description",
+          "disabled": true,
+          "settings": {}
+        },
         "wishlistsuite_wishlist_block_ycYjhJ": {
           "type": "shopify://apps/wishlistsuite/blocks/wishlist_block/c2905ea4-a4c7-46db-b02a-fc294afa02e5",
           "settings": {
@@ -19,18 +58,6 @@
             "customcss": "",
             "customjs": ""
           }
-        },
-        "vendor": {
-          "type": "text",
-          "disabled": true,
-          "settings": {
-            "text": "{{ product.vendor }}",
-            "text_style": "uppercase"
-          }
-        },
-        "title": {
-          "type": "title",
-          "settings": {}
         },
         "price": {
           "type": "price",
@@ -54,49 +81,26 @@
             "show_gift_card_recipient": true
           }
         },
-        "description": {
-          "type": "description",
-          "settings": {}
+        "vendor": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "{{ product.vendor }}",
+            "text_style": "uppercase"
+          }
         },
         "share": {
           "type": "share",
           "settings": {
             "share_label": "Share"
           }
-        },
-        "icon_with_text_Jrmei4": {
-          "type": "icon-with-text",
-          "settings": {
-            "layout": "vertical",
-            "icon_1": "truck",
-            "heading_1": "Free Delivery",
-            "icon_2": "return",
-            "heading_2": "Easy Return",
-            "icon_3": "none",
-            "heading_3": ""
-          }
-        },
-        "collapsible_tab_bcfjyN": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "PRODUCT DETAILS",
-            "icon": "none",
-            "content": "<ul><li>Premium Italian full-grain leather</li><li>Hand-stitched construction</li><li>Soft suede interior lining</li><li>Internal zippered pocket and card slots</li><li>Magnetic closure</li><li>Dimensions: 14\" W x 12\" H x 6\" D</li><li>Handle drop: 8 inches</li></ul>",
-            "page": ""
-          }
-        },
-        "collapsible_tab_aNVmTd": {
-          "type": "collapsible_tab",
-          "settings": {
-            "heading": "CARE INSTRUCTIONS",
-            "icon": "none",
-            "content": "<ul><li>Store in provided dust bag when not in use</li><li>Keep away from direct sunlight and heat</li><li>Clean with a soft, dry cloth</li><li>Avoid contact with water and oils</li><li>Professional leather cleaning recommended</li></ul>",
-            "page": ""
-          }
         }
       },
       "block_order": [
         "title",
+        "collapsible_tab_bcfjyN",
+        "collapsible_tab_aNVmTd",
+        "icon_with_text_Jrmei4",
         "description",
         "wishlistsuite_wishlist_block_ycYjhJ",
         "price",
@@ -104,10 +108,7 @@
         "variant_picker",
         "buy_buttons",
         "vendor",
-        "share",
-        "icon_with_text_Jrmei4",
-        "collapsible_tab_bcfjyN",
-        "collapsible_tab_aNVmTd"
+        "share"
       ],
       "custom_css": [
         ".wishlist-trigger--block {background-color: #4c2202 !important; color: #ebdccb !important; border: none !important; border-radius: 30px !important; height: 5.5rem !important; font-size: 1.6rem !important; font-weight: 500 !important; letter-spacing: 0.1rem !important; cursor: pointer !important; transition: opacity 0.2s ease !important; box-shadow: none !important;}",

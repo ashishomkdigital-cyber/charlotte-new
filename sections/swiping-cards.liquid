@@ -65,7 +65,7 @@
                   <span class="card-price">{{ prod.price | money }}</span>
                 </div>
                 
-                {% comment %} {% if prod.variants.size > 1 %} {% endcomment %}
+                {% if prod.variants.size > 1 %}
                   <div class="card-variants-wrapper" data-swiping-card-variants>
                     {% for option in prod.options_with_values %}
                       <div class="card-variant-option" data-option-index="{{ forloop.index0 }}" data-option-name="{{ option.name | escape }}">
@@ -101,7 +101,7 @@
                       ]
                     </script>
                   </div>
-                {% comment %} {% endif %} {% endcomment %}
+                {% endif %}
               </div>
               
               <div class="swipe-badge swipe-badge-like">ADDED</div>

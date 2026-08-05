@@ -220,3 +220,33 @@ cart-items {
     gap: 1rem;
   }
 }
+
+/* Custom Cart Page Background & Text Styles */
+body.template-cart,
+.template-cart main,
+.template-cart .gradient {
+  background: #4c2202 !important;
+  background-color: #4c2202 !important;
+}
+
+body.template-cart,
+.template-cart h1,
+.template-cart h2,
+.template-cart h3,
+.template-cart h4,
+.template-cart p,
+.template-cart span:not(.svg-wrapper),
+.template-cart a:not(.button),
+.template-cart td,
+.template-cart th,
+.template-cart label,
+.template-cart small,
+.template-cart .totals__total-value,
+.template-cart .totals__total {
+  color: #ebdccb !important;
+}
+
+.template-cart .cart-items td,
+.template-cart .cart-items th {
+  border-bottom: 0.1rem solid rgba(235, 220, 203, 0.1) !important;
+}

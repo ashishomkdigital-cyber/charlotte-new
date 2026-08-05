@@ -336,6 +336,9 @@
       {%- endif -%}
 
       <a href="/pages/contact" class="header__contact-link">Contact Us</a>
+
+      {% render 'header-search', input_id: 'Search-In-Modal' %}
+
     </div>
 
     {%- if request.page_type == 'index' -%}

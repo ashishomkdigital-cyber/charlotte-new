@@ -32,8 +32,16 @@
     <button type="button" id="CloseSwipeDeckBtn" class="swipe-modal-back-btn" aria-label="Back">
       &lsaquo; Back
     </button>
-    <div class="swipe-modal-logo">
-      CHARLOTTE
+    <div class="swipe-logo-and-toggle">
+      <div class="swipe-modal-logo">
+        CHARLOTTE
+      </div>
+      <div class="collection-header-toggle">
+        <label class="theme-toggle-switch">
+          <input type="checkbox" class="layout-toggle-checkbox">
+          <span class="theme-toggle-slider"></span>
+        </label>
+      </div>
     </div>
     <div class="swipe-modal-header-placeholder"></div>
   </div>
@@ -124,6 +132,12 @@
     </div>
 
     <div class="swipe-instruction-btn">Swipe Right to Add • Left to Pass</div>
+    <button type="button" id="SwipeCartBtn" class="swipe-cart-btn">
+      <span class="svg-wrapper" style="width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center;">
+        {{- 'icon-cart.svg' | inline_asset_content -}}
+      </span>
+      <span>View Cart (<span id="SwipeCartCount">{{ cart.item_count }}</span>)</span>
+    </button>
   </div>
 </div>
 
@@ -239,6 +253,46 @@
   letter-spacing: 0.15em;
   text-transform: uppercase;
   text-align: center;
+}
+
+.swipe-logo-and-toggle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.swipe-cart-btn {
+  margin-top: 15px;
+  width: 100%;
+  background: #CBA158;
+  color: #2b170c;
+  border: none;
+  text-align: center;
+  padding: 14px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background var(--duration-default) ease, transform 0.1s ease;
+}
+
+.swipe-cart-btn:hover {
+  background: #dfb264;
+}
+
+.swipe-cart-btn:active {
+  transform: scale(0.98);
+}
+
+.swipe-cart-btn svg {
+  width: 20px;
+  height: 20px;
+  color: currentColor;
 }
 
 .swipe-modal-header-placeholder {
@@ -668,7 +722,39 @@ document.addEventListener('DOMContentLoaded', () => {
   const backdrop = document.getElementById('SwipeModalBackdrop');
   const deck = document.getElementById('SwipeCardsDeck');
   const cards = deck ? deck.querySelectorAll('.swipe-card') : [];
-  const layoutToggle = document.getElementById('layoutToggleCheckbox');
+  
+  // Select all layout toggles (both page elements and modal elements)
+  const layoutToggles = document.querySelectorAll('#layoutToggleCheckbox, .layout-toggle-checkbox');
+
+  // Swipe Cart count initialization and updater
+  const swipeCartCount = document.getElementById('SwipeCartCount');
+  function updateSwipeCartCount() {
+    fetch(window.Shopify.routes.root + 'cart.js')
+      .then(res => res.json())
+      .then(cart => {
+        if (swipeCartCount) {
+          swipeCartCount.textContent = cart.item_count;
+        }
+      })
+      .catch(err => console.error('Error fetching cart:', err));
+  }
+  updateSwipeCartCount();
+
+  // Wire up the SwipeCartBtn click listener
+  const cartBtn = document.getElementById('SwipeCartBtn');
+  if (cartBtn) {
+    cartBtn.addEventListener('click', () => {
+      const cartDrawer = document.querySelector('cart-drawer');
+      if (cartDrawer && typeof cartDrawer.open === 'function') {
+        cartDrawer.open();
+      } else {
+        const cartIconBtn = document.querySelector('#cart-icon-bubble, .header__icon--cart, [data-cart-drawer-toggle], .js-drawer-open-right');
+        if (cartIconBtn) {
+          cartIconBtn.click();
+        }
+      }
+    });
+  }
 
   // Toggle Modal Logic
   const openModal = () => {
@@ -676,9 +762,9 @@ document.addEventListener('DOMContentLoaded', () => {
       modal.classList.add('is-active');
       modal.setAttribute('aria-hidden', 'false');
     }
-    if (layoutToggle) {
-      layoutToggle.checked = true;
-    }
+    layoutToggles.forEach(toggle => {
+      toggle.checked = true;
+    });
   };
 
   const closeModal = () => {
@@ -686,21 +772,21 @@ document.addEventListener('DOMContentLoaded', () => {
       modal.classList.remove('is-active');
       modal.setAttribute('aria-hidden', 'true');
     }
-    if (layoutToggle) {
-      layoutToggle.checked = false;
-    }
+    layoutToggles.forEach(toggle => {
+      toggle.checked = false;
+    });
   };
 
-  if (layoutToggle) {
-    layoutToggle.checked = false;
-    layoutToggle.addEventListener('change', () => {
-      if (layoutToggle.checked) {
+  layoutToggles.forEach(toggle => {
+    toggle.checked = false;
+    toggle.addEventListener('change', () => {
+      if (toggle.checked) {
         openModal();
       } else {
         closeModal();
       }
     });
-  }
+  });
 
   if (closeBtn) {
     closeBtn.addEventListener('click', () => {
@@ -1011,6 +1097,9 @@ document.addEventListener('DOMContentLoaded', () => {
           cartIconBtn.click();
         }
       }
+
+      // Update our swipe cart count
+      updateSwipeCartCount();
     })
     .catch((error) => console.error('Error adding product to cart:', error));
   }

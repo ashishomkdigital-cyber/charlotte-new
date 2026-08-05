@@ -2461,6 +2461,12 @@ input[type='checkbox'] {
   word-break: break-word;
 }
 
+@media(max-width:768px){
+  .header__heading-link{
+    padding: 0.25rem;
+  }
+}
+
 .header__heading-link:hover .h2 {
   color: rgb(var(--color-foreground));
 }

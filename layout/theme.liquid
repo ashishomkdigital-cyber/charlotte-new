@@ -1148,6 +1148,10 @@
       {{ 'accessibility.skip_to_text' | t }}
     </a>
 
+    {%if template.name == 'product' %}
+      {%render 'return-policy-modal' %}
+    {%endif %}
+
     {% render 'loading-animation' %}
 
     {% section 'swiping-cards' %}

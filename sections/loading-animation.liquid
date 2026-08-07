@@ -1,0 +1,94 @@
+<style>
+/* Fullscreen overlay */
+.loader-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #ffffff; /* Change to match your store background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999999; /* Ensures it sits above all theme elements */
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.5s;
+}
+
+/* Container holding logo and spinner */
+.loader-content {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Logo pulse effect */
+.loader-logo {
+  width: 65px;
+  height: auto;
+  object-fit: contain;
+  animation: logoPulse 2s ease-in-out infinite;
+}
+
+/* Soft rotating ring */
+.spinner-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 3px solid rgba(0, 0, 0, 0.06); /* Subtle track ring */
+  border-top-color: #111111; /* Main loader accent color */
+  animation: smoothSpin 1.2s cubic-bezier(0.5, 0.1, 0.4, 0.9) infinite;
+}
+
+/* Hidden state when page finishes loading */
+.loader-wrapper.loader-hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Keyframe Animations */
+@keyframes smoothSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes logoPulse {
+  0%, 100% {
+    transform: scale(0.95);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+</style>
+<div id="page-loader" class="loader-wrapper">
+  <div class="loader-content">
+    <div class="spinner-ring"></div>
+    <!-- Replace the src below with your actual Shopify logo URL -->
+    <img src="https://pm0eyi-na.myshopify.com/cdn/shop/files/img19-removebg-preview_1.png" alt="Loading..." class="loader-logo">
+  </div>
+</div>
+
+<script>
+  window.addEventListener('load', function() {
+    const loader = document.getElementById('page-loader');
+    if (loader) {
+      loader.classList.add('loader-hidden');
+      // Completely remove from DOM after fade-out transition completes
+      setTimeout(() => {
+        loader.style.display = 'none';
+      }, 500);
+    }
+  });
+</script>

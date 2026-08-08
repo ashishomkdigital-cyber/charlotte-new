@@ -59,7 +59,7 @@
         "artwork_TVmJCT": {
           "type": "artwork",
           "settings": {
-            "hover_open_amount": 42,
+            "hover_open_amount": 60,
             "title": "",
             "caption": "",
             "collection": "best-sellers",
@@ -70,7 +70,7 @@
         "artwork_aP9WWR": {
           "type": "artwork",
           "settings": {
-            "hover_open_amount": 46,
+            "hover_open_amount": 60,
             "title": "",
             "caption": "",
             "collection": "all-products",
@@ -81,7 +81,7 @@
         "artwork_cdNmAJ": {
           "type": "artwork",
           "settings": {
-            "hover_open_amount": 50,
+            "hover_open_amount": 60,
             "title": "",
             "caption": "",
             "collection": "frontpage",

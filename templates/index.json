@@ -142,7 +142,7 @@
         "text_color": "#2b2119",
         "muted_text_color": "#8f8171",
         "max_width": 1440,
-        "image_width": 100,
+        "image_width": 95,
         "art_ratio": "1 / 1.17",
         "hover_open_amount": 46,
         "hover_duration": 650,

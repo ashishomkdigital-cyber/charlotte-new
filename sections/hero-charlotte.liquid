@@ -4,13 +4,20 @@
   .hero-charlotte-{{ section.id }} {
     position: relative;
     width: 100%;
-    height: 100%;
-    min-height: 1200px;
+    height: {{ section.settings.desktop_height }}px;
+    min-height: {{ section.settings.desktop_height }}px;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
     background-color: #1a1a1a;
+  }
+
+  @media screen and (max-width: 749px) {
+    .hero-charlotte-{{ section.id }} {
+      height: {{ section.settings.mobile_height }}px;
+      min-height: {{ section.settings.mobile_height }}px;
+    }
   }
 
   .hero-charlotte-{{ section.id }}::before {
@@ -28,6 +35,16 @@
     {% if section.settings.image != blank %}
       background-image: url('{{ section.settings.image | image_url: width: 2000 }}');
     {% endif %}
+  }
+
+  @media screen and (max-width: 749px) {
+    .hero-charlotte-{{ section.id }}::before {
+      {% if section.settings.image_mobile != blank %}
+        background-image: url('{{ section.settings.image_mobile | image_url: width: 1200 }}');
+      {% elsif section.settings.image != blank %}
+        background-image: url('{{ section.settings.image | image_url: width: 1200 }}');
+      {% endif %}
+    }
   }
 
   /* Overlay to make text readable */
@@ -141,7 +158,32 @@
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Background Image (Optional)"
+      "label": "Desktop Background Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Mobile Background Image (Optional)"
+    },
+    {
+      "type": "range",
+      "id": "desktop_height",
+      "min": 400,
+      "max": 1200,
+      "step": 50,
+      "unit": "px",
+      "label": "Desktop Section Height",
+      "default": 800
+    },
+    {
+      "type": "range",
+      "id": "mobile_height",
+      "min": 300,
+      "max": 800,
+      "step": 25,
+      "unit": "px",
+      "label": "Mobile Section Height",
+      "default": 550
     },
     {
       "type": "range",

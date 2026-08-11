@@ -13,6 +13,7 @@
       "type": "hero-charlotte",
       "name": "Hero Charlotte",
       "settings": {
+        "image": "shopify://shop_images/image_8.jpg",
         "image_overlay_opacity": 30,
         "heading": "CHARLOTTE",
         "subheading": "Crafted for quiet moments and everyday grace. Timeless pieces that feel like home.",

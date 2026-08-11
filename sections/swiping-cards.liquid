@@ -154,6 +154,7 @@
         {{- 'icon-cart.svg' | inline_asset_content -}}
       </span>
       <span
+        style="{% if cart.item_count > 0 %}display:none;{% endif %}"
         ><a
           href="/cart"
           style="

@@ -1233,6 +1233,15 @@
     {%- endif -%}
 
     <script>
+
+         {% if template.name == 'collection' or 
+      template.name == 'product' %}
+      document.querySelector('.theme-toggle-switch').click();
+    {% endif %}
+
+
+
+
       document.addEventListener('DOMContentLoaded', (e) => {
         if (window.location.pathname === '/') {
           document.addEventListener('scroll', (e) => {

@@ -755,6 +755,11 @@
     // Select all layout toggles (both page elements and modal elements)
     const layoutToggles = document.querySelectorAll('#layoutToggleCheckbox, .layout-toggle-checkbox');
 
+    {% if template.name == 'collection' or 
+      template.name == 'product' %}
+    document.querySelector('.swipe-modal').classList.add('is-active');
+    {% endif %}
+
     // Swipe Cart count initialization and updater
     const swipeCartCount = document.getElementById('SwipeCartCount');
     function updateSwipeCartCount() {

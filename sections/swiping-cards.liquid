@@ -758,6 +758,7 @@
     {% if template.name == 'collection' or 
       template.name == 'product' %}
     document.querySelector('.swipe-modal').classList.add('is-active');
+    document.querySelector('.swipe-modal input[ytpe="checkbox"]').checked = true;
     {% endif %}
 
     // Swipe Cart count initialization and updater

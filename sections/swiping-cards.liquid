@@ -146,7 +146,12 @@
     </div>
 
     <div class="swipe-instruction-btn">Swipe Right to Add • Left to Pass</div>
-    <button type="button" id="SwipeCartBtn" class="swipe-cart-btn">
+    <button
+      type="button"
+      id="SwipeCartBtn"
+      class="swipe-cart-btn"
+      style="{% if cart.item_count == 0 %}display: none;{% else %}display: flex;{% endif %}"
+    >
       <span
         class="svg-wrapper"
         style="width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center;"
@@ -759,6 +764,7 @@
 
     // Swipe Cart count initialization and updater
     const swipeCartCount = document.getElementById('SwipeCartCount');
+    const swipeCartBtn = document.getElementById('SwipeCartBtn');
     function updateSwipeCartCount() {
       fetch(window.Shopify.routes.root + 'cart.js')
         .then((res) => res.json())
@@ -766,10 +772,20 @@
           if (swipeCartCount) {
             swipeCartCount.textContent = cart.item_count;
           }
+          if (swipeCartBtn) {
+            if (cart.item_count > 0) {
+              swipeCartBtn.style.display = 'flex';
+            } else {
+              swipeCartBtn.style.display = 'none';
+            }
+          }
         })
         .catch((err) => console.error('Error fetching cart:', err));
     }
     updateSwipeCartCount();
+
+    document.addEventListener('cart:refresh', updateSwipeCartCount);
+    document.addEventListener('cart:updated', updateSwipeCartCount);
 
     // Wire up the SwipeCartBtn click listener
     const cartBtn = document.getElementById('SwipeCartBtn');

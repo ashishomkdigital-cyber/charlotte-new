@@ -757,9 +757,7 @@
 
     {% if template.name == 'collection' or 
       template.name == 'product' %}
-      document.addEventListener('DOMContentLoaded', (e)=>{
-        document.querySelector('.theme-toggle-switch').click()
-      })
+      document.querySelector('.theme-toggle-switch').click();
     {% endif %}
 
     // Swipe Cart count initialization and updater

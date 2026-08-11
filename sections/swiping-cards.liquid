@@ -284,10 +284,11 @@
   }
 
   .swipe-logo-and-toggle {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+        display: flex;
+    flex-direction: row-reverse;
     gap: 8px;
+    width: 100%;
+    justify-content: space-around;
   }
 
   .swipe-cart-btn {
@@ -756,7 +757,6 @@
     // Select all layout toggles (both page elements and modal elements)
     const layoutToggles = document.querySelectorAll('#layoutToggleCheckbox, .layout-toggle-checkbox');
 
- 
     // Swipe Cart count initialization and updater
     const swipeCartCount = document.getElementById('SwipeCartCount');
     function updateSwipeCartCount() {

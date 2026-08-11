@@ -1236,7 +1236,9 @@
 
          {% if template.name == 'collection' or 
       template.name == 'product' %}
-      document.querySelector('.theme-toggle-switch').click();
+      setTimeout(()=>{
+        document.querySelector('.theme-toggle-switch').click();
+      }, 1000)
     {% endif %}
 
 

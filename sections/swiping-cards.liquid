@@ -146,7 +146,7 @@
     </div>
 
     <div class="swipe-instruction-btn">Swipe Right to Add • Left to Pass</div>
-    <button type="button" id="SwipeCartBtn" class="swipe-cart-btn">
+    <button type="button" id="SwipeCartBtn" class="swipe-cart-btn" style="{% if cart.item_count > 0 %}display:none;{% endif %}">
       <span
         class="svg-wrapper"
         style="width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center;"
@@ -154,7 +154,6 @@
         {{- 'icon-cart.svg' | inline_asset_content -}}
       </span>
       <span
-        style="{% if cart.item_count > 0 %}display:none;{% endif %}"
         ><a
           href="/cart"
           style="

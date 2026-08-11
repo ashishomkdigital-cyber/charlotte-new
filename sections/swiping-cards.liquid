@@ -72,14 +72,14 @@
                          alt="{{ prod.title }}" 
                          class="card-image {% if forloop.first %}is-active{% endif %}" 
                          data-image-index="{{ forloop.index0 }}"
-                         loading="lazy">
+                         loading="lazy"/>
                   {% endfor %}
                 {% else %}
                   <img src="{{ prod.featured_image | image_url: width: 800 }}" 
                        alt="{{ prod.title }}" 
                        class="card-image is-active" 
                        data-image-index="0"
-                       loading="lazy">
+                       loading="lazy"/>
                 {% endif %}
               </div>
               

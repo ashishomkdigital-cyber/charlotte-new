@@ -758,8 +758,7 @@
     {% if template.name == 'collection' or 
       template.name == 'product' %}
       document.addEventListener('DOMContentLoaded', (e)=>{
-        document.querySelector('.swipe-modal').classList.add('is-active');
-        document.querySelector('.theme-toggle-switch input').checked = true;
+        document.querySelector('.theme-toggle-switch').click()
       })
     {% endif %}
 

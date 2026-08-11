@@ -177,6 +177,7 @@ cart-drawer {
 .cart-drawer tbody {
   display: block;
   width: 100%;
+  padding-right:1rem;
 }
 
 .cart-drawer thead {

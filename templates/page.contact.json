@@ -20,21 +20,21 @@
     "rich_text_njJ74K": {
       "type": "rich-text",
       "blocks": {
-        "heading_hCVWaE": {
-          "type": "heading",
-          "settings": {
-            "heading": "",
-            "heading_size": "h1"
-          }
-        },
-        "heading_gda6YE": {
-          "type": "heading",
-          "settings": {
-            "heading": "",
-            "heading_size": "h1"
-          }
-        },
         "heading_j4674w": {
+          "type": "heading",
+          "settings": {
+            "heading": "",
+            "heading_size": "h1"
+          }
+        },
+        "heading_H9BRc9": {
+          "type": "heading",
+          "settings": {
+            "heading": "",
+            "heading_size": "h1"
+          }
+        },
+        "heading_aRPjAt": {
           "type": "heading",
           "settings": {
             "heading": "Contact Us",
@@ -62,9 +62,9 @@
         }
       },
       "block_order": [
-        "heading_hCVWaE",
-        "heading_gda6YE",
         "heading_j4674w",
+        "heading_H9BRc9",
+        "heading_aRPjAt",
         "text_Xt7tyY",
         "button_A4V8EG"
       ],

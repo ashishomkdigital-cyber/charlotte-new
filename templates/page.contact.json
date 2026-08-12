@@ -38,35 +38,14 @@
           "type": "heading",
           "settings": {
             "heading": "Contact Us",
-            "heading_size": "h1"
-          }
-        },
-        "text_Xt7tyY": {
-          "type": "text",
-          "disabled": true,
-          "settings": {
-            "text": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.</p>"
-          }
-        },
-        "button_A4V8EG": {
-          "type": "button",
-          "disabled": true,
-          "settings": {
-            "button_label": "Button label",
-            "button_link": "",
-            "button_style_secondary": false,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
+            "heading_size": "h0"
           }
         }
       },
       "block_order": [
         "heading_j4674w",
         "heading_H9BRc9",
-        "heading_aRPjAt",
-        "text_Xt7tyY",
-        "button_A4V8EG"
+        "heading_aRPjAt"
       ],
       "name": "t:sections.rich-text.presets.name",
       "settings": {

@@ -23,7 +23,14 @@
         "heading_hCVWaE": {
           "type": "heading",
           "settings": {
-            "heading": "Contact Us",
+            "heading": "",
+            "heading_size": "h1"
+          }
+        },
+        "heading_j4674w": {
+          "type": "heading",
+          "settings": {
+            "heading": "@~Maanya Sogali Ma’am, as discussed today, you mentioned that you would check this if you have time; otherwise, you will look into it tomorrow.Also, please provide the final images, banners, and product data. We will replace the demo content once the real data is uploaded.After the actual product data is updated, we will proceed with the Razorpay application, as Razorpay may not approve the website payment gateway while it is still using demo data.",
             "heading_size": "h1"
           }
         },
@@ -49,6 +56,7 @@
       },
       "block_order": [
         "heading_hCVWaE",
+        "heading_j4674w",
         "text_Xt7tyY",
         "button_A4V8EG"
       ],
@@ -71,11 +79,36 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "rich_text_KWdfTK": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_Rb9pmf": {
+          "type": "heading",
+          "settings": {
+            "heading": "",
+            "heading_size": "h1"
+          }
+        }
+      },
+      "block_order": [
+        "heading_Rb9pmf"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
     }
   },
   "order": [
     "main",
     "rich_text_njJ74K",
-    "form"
+    "form",
+    "rich_text_KWdfTK"
   ]
 }

@@ -34,7 +34,7 @@
             "heading_size": "h1"
           }
         },
-        "heading_aRPjAt": {
+        "heading_tW87Ng": {
           "type": "heading",
           "settings": {
             "heading": "Contact Us",
@@ -45,7 +45,7 @@
       "block_order": [
         "heading_j4674w",
         "heading_H9BRc9",
-        "heading_aRPjAt"
+        "heading_tW87Ng"
       ],
       "name": "t:sections.rich-text.presets.name",
       "settings": {

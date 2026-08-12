@@ -76,12 +76,57 @@
         "title_3": "SECURE CHECKOUT",
         "title_4": "ELEGANT, PROTECTIVE PACKAGING"
       }
+    },
+    "multicolumn_YMQtwe": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_xd9Jyq": {
+          "type": "column",
+          "settings": {
+            "title": "<strong>Email: Info@charlotte.co.in</strong>",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_9CmNXC": {
+          "type": "column",
+          "settings": {
+            "title": "<strong>Phone: xxxxxxxxxx</strong>",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_xd9Jyq",
+        "column_9CmNXC"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "Support",
+        "heading_size": "h1",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "button_label": "Button label",
+        "button_link": "",
+        "columns_desktop": 2,
+        "column_alignment": "left",
+        "background_style": "primary",
+        "color_scheme": "",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
     "main",
     "rich_text_njJ74K",
     "form",
+    "multicolumn_YMQtwe",
     "store_features_mLnejt"
   ]
 }

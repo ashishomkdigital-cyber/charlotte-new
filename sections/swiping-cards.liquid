@@ -684,17 +684,15 @@
       });
     };
 
-    // Auto-open on collection pages by default on first visit.
-    // If user closes/disables it, remember in sessionStorage so it stays closed for rest of session.
+    // Auto-open ONLY on collection pages by default on first visit.
+    // Do NOT auto-open on Homepage or non-collection pages.
     const isCollectionPage = {% if template.name == 'collection' %}true{% else %}false{% endif %};
     const isSwipeDisabled = sessionStorage.getItem('swipe_layout_disabled') === 'true';
 
-    if (isSwipeDisabled) {
-      setSwipeModeDisabled();
-    } else if (isCollectionPage) {
+    if (isCollectionPage && !isSwipeDisabled) {
       setSwipeModeEnabled();
     } else {
-      setSwipeModeEnabled();
+      setSwipeModeDisabled();
     }
 
     layoutToggles.forEach((toggle) => {

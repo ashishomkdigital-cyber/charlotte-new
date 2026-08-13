@@ -661,9 +661,8 @@
       });
     }
 
-    // Toggle Modal State Management
-    const setSwipeModeEnabled = () => {
-      sessionStorage.removeItem('swipe_layout_disabled');
+    // Toggle Modal Controls
+    const openModal = () => {
       if (modal) {
         modal.classList.add('is-active');
         modal.setAttribute('aria-hidden', 'false');
@@ -673,8 +672,7 @@
       });
     };
 
-    const setSwipeModeDisabled = () => {
-      sessionStorage.setItem('swipe_layout_disabled', 'true');
+    const closeModal = () => {
       if (modal) {
         modal.classList.remove('is-active');
         modal.setAttribute('aria-hidden', 'true');
@@ -684,36 +682,30 @@
       });
     };
 
-    // Auto-open ONLY on collection pages by default on first visit.
-    // Do NOT auto-open on Homepage or non-collection pages.
+    // Auto-open ONLY on collection pages by default on load
     const isCollectionPage = {% if template.name == 'collection' %}true{% else %}false{% endif %};
-    const isSwipeDisabled = sessionStorage.getItem('swipe_layout_disabled') === 'true';
 
-    if (isCollectionPage && !isSwipeDisabled) {
-      setSwipeModeEnabled();
+    if (isCollectionPage) {
+      openModal();
     } else {
-      setSwipeModeDisabled();
+      closeModal();
     }
 
     layoutToggles.forEach((toggle) => {
       toggle.addEventListener('change', (e) => {
         if (e.target.checked) {
-          setSwipeModeEnabled();
+          openModal();
         } else {
-          setSwipeModeDisabled();
+          closeModal();
         }
       });
     });
 
     if (closeBtn) {
-      closeBtn.addEventListener('click', () => {
-        setSwipeModeDisabled();
-      });
+      closeBtn.addEventListener('click', closeModal);
     }
     if (backdrop) {
-      backdrop.addEventListener('click', () => {
-        setSwipeModeDisabled();
-      });
+      backdrop.addEventListener('click', closeModal);
     }
 
     // Swipe Engine

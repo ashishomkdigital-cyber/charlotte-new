@@ -828,22 +828,22 @@
       sessionStorage.setItem('swipeModeDismissed', 'true');
     };
 
-    // Show swipe modal once per session:
-    // - Auto-opens for every NEW session (new tab / new browser)
-    // - Once user closes it, sessionStorage marks it dismissed
-    // - Won't auto-open again for the rest of that session
+    // Swipe Mode — dismiss once per session logic:
+    // • New session (new tab/browser): auto-opens by default
+    // • Once user toggles OFF → sessionStorage dismissed flag is set
+    // • Dismissed flag is NEVER cleared within the same session
+    // • On next reload within same session → stays closed
+    // • New session starts fresh (sessionStorage is tab-scoped)
     const isDismissed = sessionStorage.getItem('swipeModeDismissed') === 'true';
 
     layoutToggles.forEach((toggle) => {
-      // Reflect whether modal is currently open
       toggle.checked = !isDismissed;
       toggle.addEventListener('change', () => {
         if (toggle.checked) {
-          // User manually re-opened — clear dismissed flag so it feels active
-          sessionStorage.removeItem('swipeModeDismissed');
+          // User manually re-opened (does NOT clear dismissed — so won't auto-open on next reload)
           openModal();
         } else {
-          // User toggled off — dismiss for this session
+          // User toggled OFF → dismiss for the rest of this session
           closeModal();
         }
       });

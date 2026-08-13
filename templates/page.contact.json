@@ -54,7 +54,7 @@
         "color_scheme": "",
         "full_width": true,
         "padding_top": 40,
-        "padding_bottom": 52
+        "padding_bottom": 20
       }
     },
     "multicolumn_YMQtwe": {
@@ -87,7 +87,7 @@
       "settings": {
         "title": "",
         "heading_size": "h1",
-        "image_width": "full",
+        "image_width": "half",
         "image_ratio": "adapt",
         "button_label": "",
         "button_link": "",

@@ -686,16 +686,12 @@
 
     // On collection pages, open by default
     const isCollectionPage = {% if template.name == 'collection' %}true{% else %}false{% endif %};
-    const isSwipeDisabled = sessionStorage.getItem('swipe_layout_disabled') === 'true';
 
     if (isCollectionPage) {
-      // Always default to open when visiting collection pages unless disabled on current page
-      if (!isSwipeDisabled) {
-        setSwipeModeEnabled();
-      } else {
-        setSwipeModeDisabled();
-      }
+      // Collection pages ALWAYS open by default on load
+      setSwipeModeEnabled();
     } else {
+      const isSwipeDisabled = sessionStorage.getItem('swipe_layout_disabled') === 'true';
       if (isSwipeDisabled) {
         setSwipeModeDisabled();
       } else {

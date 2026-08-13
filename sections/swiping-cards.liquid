@@ -145,11 +145,11 @@
     </div>
 
     <div class="swipe-instruction-btn">Swipe Right to Add • Left to Pass</div>
-    <button
-      type="button"
+    <a
+      href="{{ routes.cart_url }}"
       id="SwipeCartBtn"
       class="swipe-cart-btn"
-      style="{% if cart.item_count == 0 %}display: none;{% else %}display: flex;{% endif %}"
+      style="{% if cart.item_count == 0 %}display: none;{% else %}display: flex;{% endif %}; text-decoration: none;"
     >
       <span
         class="svg-wrapper"
@@ -157,18 +157,10 @@
       >
         {{- 'icon-cart.svg' | inline_asset_content -}}
       </span>
-      <span
-        ><a
-          href="{{routes.cart_url}}"
-          style="
-            text-decoration: none;
-            color: #2b170c;
-          "
-        >
-          View Cart (<span id="SwipeCartCount">{{ cart.item_count }}</span>)</a
-        ></span
-      >
-    </button>
+      <span>
+        View Cart (<span id="SwipeCartCount">{{ cart.item_count }}</span>)
+      </span>
+    </a>
   </div>
 </div>
 
@@ -646,7 +638,11 @@
             swipeCartCount.textContent = cart.item_count;
           }
           if (swipeCartBtn) {
-            swipeCartBtn.style.display = cart.item_count > 0 ? 'flex' : 'none';
+            if (cart.item_count > 0) {
+              swipeCartBtn.style.display = 'flex';
+            } else {
+              swipeCartBtn.style.display = 'none';
+            }
           }
         })
         .catch((err) => console.error('Error fetching cart:', err));
@@ -656,21 +652,12 @@
     document.addEventListener('cart:refresh', updateSwipeCartCount);
     document.addEventListener('cart:updated', updateSwipeCartCount);
 
-    // Wire up the SwipeCartBtn click listener
+    // Direct redirection to Cart page when clicking View Cart button
     const cartBtn = document.getElementById('SwipeCartBtn');
     if (cartBtn) {
-      cartBtn.addEventListener('click', () => {
-        const cartDrawer = document.querySelector('cart-drawer');
-        if (cartDrawer && typeof cartDrawer.open === 'function') {
-          cartDrawer.open();
-        } else {
-          const cartIconBtn = document.querySelector(
-            '#cart-icon-bubble, .header__icon--cart, [data-cart-drawer-toggle], .js-drawer-open-right'
-          );
-          if (cartIconBtn) {
-            cartIconBtn.click();
-          }
-        }
+      cartBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.location.href = '{{ routes.cart_url }}';
       });
     }
 
@@ -697,13 +684,23 @@
       });
     };
 
-    // Check if user disabled swipe mode previously in this session
+    // On collection pages, open by default
+    const isCollectionPage = {% if template.name == 'collection' %}true{% else %}false{% endif %};
     const isSwipeDisabled = sessionStorage.getItem('swipe_layout_disabled') === 'true';
 
-    if (isSwipeDisabled) {
-      setSwipeModeDisabled();
+    if (isCollectionPage) {
+      // Always default to open when visiting collection pages unless disabled on current page
+      if (!isSwipeDisabled) {
+        setSwipeModeEnabled();
+      } else {
+        setSwipeModeDisabled();
+      }
     } else {
-      setSwipeModeEnabled();
+      if (isSwipeDisabled) {
+        setSwipeModeDisabled();
+      } else {
+        setSwipeModeEnabled();
+      }
     }
 
     layoutToggles.forEach((toggle) => {

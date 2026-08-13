@@ -42,7 +42,7 @@
             line-height: 1;
           "
         >
-          swipe mode
+          Swipe Mode
         </span>
       </div>
     </div>
@@ -824,18 +824,30 @@
       layoutToggles.forEach((toggle) => {
         toggle.checked = false;
       });
+      sessionStorage.removeItem('swipeMode_active');
     };
 
+    // Restore toggle state from sessionStorage
+    const swipeModeKey = 'swipeMode_active';
+    const isSwipeModeActive = sessionStorage.getItem(swipeModeKey) === 'true';
+
     layoutToggles.forEach((toggle) => {
-      toggle.checked = false;
+      toggle.checked = isSwipeModeActive;
       toggle.addEventListener('change', () => {
         if (toggle.checked) {
+          sessionStorage.setItem(swipeModeKey, 'true');
           openModal();
         } else {
+          sessionStorage.removeItem(swipeModeKey);
           closeModal();
         }
       });
     });
+
+    // Auto-open modal if session says it was active
+    if (isSwipeModeActive) {
+      openModal();
+    }
 
     if (closeBtn) {
       closeBtn.addEventListener('click', () => {

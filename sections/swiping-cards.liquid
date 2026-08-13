@@ -27,7 +27,6 @@
 
   <!-- Modal Header -->
   <div class="swipe-modal-header">
-    {% comment %} <button type="button" id="CloseSwipeDeckBtn" class="swipe-modal-back-btn" aria-label="Back">&lsaquo; Back</button> {% endcomment %}
     <div class="swipe-logo-and-toggle">
       <div class="swipe-modal-logo">CHARLOTTE</div>
       <div class="collection-header-toggle" style="display: flex;gap: 5px;align-items: center;">
@@ -289,7 +288,7 @@
   }
 
   .swipe-logo-and-toggle {
-        display: flex;
+    display: flex;
     flex-direction: row-reverse;
     gap: 8px;
     width: 100%;
@@ -330,7 +329,7 @@
   }
 
   .swipe-modal-header-placeholder {
-    width: 60px; /* balances the back button */
+    width: 60px;
   }
 
   .swipe-cards-deck {
@@ -625,132 +624,6 @@
   }
 </style>
 
-{% comment %}
-  <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const modal = document.getElementById('SwipeModal');
-    const openBtn = document.getElementById('OpenSwipeDeckBtn');
-    const closeBtn = document.getElementById('CloseSwipeDeckBtn');
-    const backdrop = document.getElementById('SwipeModalBackdrop');
-    const deck = document.getElementById('SwipeCardsDeck');
-    const cards = deck.querySelectorAll('.swipe-card');
-
-    // Toggle Modal Logic
-    const openModal = () => {
-      modal.classList.add('is-active');
-      modal.setAttribute('aria-hidden', 'false');
-    };
-
-    const closeModal = () => {
-      modal.classList.remove('is-active');
-      modal.setAttribute('aria-hidden', 'true');
-    };
-
-    openBtn.addEventListener('click', openModal);
-    closeBtn.addEventListener('click', closeModal);
-    backdrop.addEventListener('click', closeModal);
-
-    // Swipe Engine
-    cards.forEach(card => initSwipe(card));
-
-    function initSwipe(card) {
-      let startX = 0;
-      let startY = 0;
-      let currentX = 0;
-      let currentY = 0;
-      let isDragging = false;
-
-      const likeBadge = card.querySelector('.swipe-badge-like');
-      const passBadge = card.querySelector('.swipe-badge-pass');
-
-      const onStart = (e) => {
-        isDragging = true;
-        startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-        startY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
-        card.style.transition = 'none';
-      };
-
-      const onMove = (e) => {
-        if (!isDragging) return;
-
-        const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-        const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
-
-        currentX = clientX - startX;
-        currentY = clientY - startY;
-
-        const rotate = currentX * 0.08;
-        card.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) rotate(${rotate}deg)`;
-
-        if (currentX > 40) {
-          likeBadge.style.opacity = Math.min(currentX / 100, 1);
-          passBadge.style.opacity = 0;
-        } else if (currentX < -40) {
-          passBadge.style.opacity = Math.min(Math.abs(currentX) / 100, 1);
-          likeBadge.style.opacity = 0;
-        } else {
-          likeBadge.style.opacity = 0;
-          passBadge.style.opacity = 0;
-        }
-      };
-
-      const onEnd = () => {
-        if (!isDragging) return;
-        isDragging = false;
-        card.style.transition = 'transform 0.4s ease, opacity 0.4s ease';
-
-        const threshold = 100;
-
-        if (currentX > threshold) {
-          card.style.transform = `translate3d(${window.innerWidth}px, ${currentY}px, 0) rotate(45deg)`;
-          card.style.opacity = '0';
-          addToCart(card.dataset.variantId);
-          setTimeout(() => card.remove(), 400);
-        } else if (currentX < -threshold) {
-          card.style.transform = `translate3d(-${window.innerWidth}px, ${currentY}px, 0) rotate(-45deg)`;
-          card.style.opacity = '0';
-          setTimeout(() => card.remove(), 400);
-        } else {
-          card.style.transform = 'translate3d(0, 0, 0) rotate(0deg)';
-          likeBadge.style.opacity = 0;
-          passBadge.style.opacity = 0;
-        }
-      };
-
-      card.addEventListener('touchstart', onStart, { passive: true });
-      card.addEventListener('touchmove', onMove, { passive: true });
-      card.addEventListener('touchend', onEnd);
-
-      card.addEventListener('mousedown', onStart);
-      window.addEventListener('mousemove', onMove);
-      window.addEventListener('mouseup', onEnd);
-    }
-
-    // Ajax Add to Cart
-    function addToCart(variantId) {
-      const formData = {
-        items: [{
-          id: parseInt(variantId, 10),
-          quantity: 1
-        }]
-      };
-
-      fetch(window.Shopify.routes.root + 'cart/add.js', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      })
-      .then(response => response.json())
-      .then(() => {
-        document.dispatchEvent(new CustomEvent('cart:refresh'));
-        document.dispatchEvent(new CustomEvent('cart:updated'));
-      })
-      .catch((error) => console.error('Error adding to cart:', error));
-    }
-  });
-  </script>
-{% endcomment %}
-
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('SwipeModal');
@@ -759,7 +632,7 @@
     const deck = document.getElementById('SwipeCardsDeck');
     const cards = deck ? deck.querySelectorAll('.swipe-card') : [];
 
-    // Select all layout toggles (both page elements and modal elements)
+    // Select all layout toggles
     const layoutToggles = document.querySelectorAll('#layoutToggleCheckbox, .layout-toggle-checkbox');
 
     // Swipe Cart count initialization and updater
@@ -773,11 +646,7 @@
             swipeCartCount.textContent = cart.item_count;
           }
           if (swipeCartBtn) {
-            if (cart.item_count > 0) {
-              swipeCartBtn.style.display = 'flex';
-            } else {
-              swipeCartBtn.style.display = 'none';
-            }
+            swipeCartBtn.style.display = cart.item_count > 0 ? 'flex' : 'none';
           }
         })
         .catch((err) => console.error('Error fetching cart:', err));
@@ -805,7 +674,7 @@
       });
     }
 
-    // Toggle Modal Logic
+    // Modal Control Functions
     const openModal = () => {
       if (modal) {
         modal.classList.add('is-active');
@@ -824,32 +693,29 @@
       layoutToggles.forEach((toggle) => {
         toggle.checked = false;
       });
-      // Mark as dismissed for this session so it won't auto-open again
+      // Save dismiss state for this browser session
       sessionStorage.setItem('swipeModeDismissed', 'true');
     };
 
-    // Swipe Mode — dismiss once per session logic:
-    // • New session (new tab/browser): auto-opens by default
-    // • Once user toggles OFF → sessionStorage dismissed flag is set
-    // • Dismissed flag is NEVER cleared within the same session
-    // • On next reload within same session → stays closed
-    // • New session starts fresh (sessionStorage is tab-scoped)
+    // Check session state on load
     const isDismissed = sessionStorage.getItem('swipeModeDismissed') === 'true';
 
+    // Set initial checkbox states & attach listeners
     layoutToggles.forEach((toggle) => {
       toggle.checked = !isDismissed;
       toggle.addEventListener('change', () => {
         if (toggle.checked) {
-          // User manually re-opened (does NOT clear dismissed — so won't auto-open on next reload)
+          // If turned back ON manually, remove dismissal & open
+          sessionStorage.removeItem('swipeModeDismissed');
           openModal();
         } else {
-          // User toggled OFF → dismiss for the rest of this session
+          // If turned OFF, close modal & save dismissal flag for session
           closeModal();
         }
       });
     });
 
-    // Auto-open only if NOT already dismissed this session
+    // Auto-open on load ONLY if not dismissed in this session
     if (!isDismissed) {
       openModal();
     }
@@ -857,7 +723,6 @@
     if (closeBtn) {
       closeBtn.addEventListener('click', () => {
         closeModal();
-        window.location.reload();
       });
     }
     if (backdrop) backdrop.addEventListener('click', closeModal);
@@ -869,42 +734,26 @@
       const variantsWrapper = card.querySelector('[data-swiping-card-variants]');
       if (!variantsWrapper) return;
 
-      // Gather selected values
       const selectedOptions = [];
       const optionEls = variantsWrapper.querySelectorAll('.card-variant-option');
       optionEls.forEach((optionEl) => {
         const activeBtn = optionEl.querySelector('.card-variant-value-btn.is-active');
-        if (activeBtn) {
-          selectedOptions.push(activeBtn.getAttribute('data-value'));
-        } else {
-          selectedOptions.push(null);
-        }
+        selectedOptions.push(activeBtn ? activeBtn.getAttribute('data-value') : null);
       });
 
-      // Parse variants JSON
       const jsonEl = variantsWrapper.querySelector('.card-variants-json');
       if (!jsonEl) return;
       try {
         const variants = JSON.parse(jsonEl.textContent);
-
-        // Find matching variant
         const matchedVariant = variants.find((variant) => {
-          return variant.options.every((optValue, idx) => {
-            return selectedOptions[idx] === optValue;
-          });
+          return variant.options.every((optValue, idx) => selectedOptions[idx] === optValue);
         });
 
         if (matchedVariant) {
-          // Update variant id
           card.setAttribute('data-variant-id', matchedVariant.id);
-
-          // Update price
           const priceEl = card.querySelector('.card-price');
-          if (priceEl) {
-            priceEl.textContent = matchedVariant.price;
-          }
+          if (priceEl) priceEl.textContent = matchedVariant.price;
 
-          // Update availability
           const likeBadge = card.querySelector('.swipe-badge-like');
           if (matchedVariant.available) {
             card.classList.remove('is-sold-out');
@@ -938,12 +787,9 @@
       const likeBadge = card.querySelector('.swipe-badge-like');
       const passBadge = card.querySelector('.swipe-badge-pass');
 
-      // Initialize variant click event handling and event propagation stopping
       const variantsWrapper = card.querySelector('[data-swiping-card-variants]');
       if (variantsWrapper) {
-        const stopDrag = (e) => {
-          e.stopPropagation();
-        };
+        const stopDrag = (e) => e.stopPropagation();
 
         variantsWrapper.addEventListener('touchstart', stopDrag, { passive: true });
         variantsWrapper.addEventListener('touchmove', stopDrag, { passive: true });
@@ -977,17 +823,12 @@
 
         let activeIndex = 0;
         images.forEach((img, index) => {
-          if (img.classList.contains('is-active')) {
-            activeIndex = index;
-          }
+          if (img.classList.contains('is-active')) activeIndex = index;
         });
 
-        let newIndex = activeIndex;
-        if (isLeft) {
-          newIndex = (activeIndex - 1 + images.length) % images.length;
-        } else {
-          newIndex = (activeIndex + 1) % images.length;
-        }
+        let newIndex = isLeft
+          ? (activeIndex - 1 + images.length) % images.length
+          : (activeIndex + 1) % images.length;
 
         images[activeIndex].classList.remove('is-active');
         images[newIndex].classList.add('is-active');
@@ -1040,20 +881,16 @@
         }
       };
 
-      const onEnd = (e) => {
+      const onEnd = () => {
         if (!isDragging) return;
         isDragging = false;
         card.style.transition = 'transform 0.4s ease, opacity 0.4s ease';
 
-        const endTime = Date.now();
-        const duration = endTime - startTime;
+        const duration = Date.now() - startTime;
         const moveThreshold = 10;
         const clickDuration = 250;
 
-        const absX = Math.abs(currentX);
-        const absY = Math.abs(currentY);
-
-        if (absX < moveThreshold && absY < moveThreshold && duration < clickDuration) {
+        if (Math.abs(currentX) < moveThreshold && Math.abs(currentY) < moveThreshold && duration < clickDuration) {
           handleCardTap(startX);
           return;
         }
@@ -1061,7 +898,6 @@
         const threshold = 100;
 
         if (currentX > threshold) {
-          // SWIPE RIGHT: Add to Cart
           if (card.classList.contains('is-sold-out')) {
             card.style.transform = 'translate3d(0, 0, 0) rotate(0deg)';
             likeBadge.style.opacity = 0;
@@ -1075,7 +911,6 @@
           addToCart(card.dataset.variantId);
           setTimeout(() => card.remove(), 400);
         } else if (currentX < -threshold) {
-          // SWIPE LEFT: Pass / Remove
           card.style.transform = `translate3d(-${window.innerWidth}px, ${currentY}px, 0) rotate(-45deg)`;
           card.style.opacity = '0';
           setTimeout(() => card.remove(), 400);
@@ -1100,19 +935,13 @@
       const cartDrawer = document.querySelector('cart-drawer');
       const cartNotification = document.querySelector('cart-notification');
 
-      // Build array of section IDs to request from Shopify API
       const sectionsToFetch = [];
       if (cartDrawer) sectionsToFetch.push('cart-drawer', 'cart-icon-bubble');
       if (cartNotification) sectionsToFetch.push('cart-notification', 'cart-icon-bubble');
 
       const formData = {
-        items: [
-          {
-            id: parseInt(variantId, 10),
-            quantity: 1,
-          },
-        ],
-        sections: sectionsToFetch, // FIXED: Must be an Array
+        items: [{ id: parseInt(variantId, 10), quantity: 1 }],
+        sections: sectionsToFetch,
       };
 
       fetch(window.Shopify.routes.root + 'cart/add.js', {
@@ -1125,39 +954,21 @@
       })
         .then((response) => response.json())
         .then((data) => {
-          // 1. Dawn & OS 2.0 Web Components (Drawer / Notification)
           if (cartDrawer && data.sections && data.sections['cart-drawer']) {
             cartDrawer.renderContents(data);
           } else if (cartNotification && data.sections && data.sections['cart-notification']) {
             cartNotification.renderContents(data);
-          } else if (cartDrawer) {
-            // Fallback: Fetch cart-drawer HTML directly if section parsing was skipped
-            fetch(window.Shopify.routes.root + '?section_id=cart-drawer')
-              .then((res) => res.text())
-              .then((html) => {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-                const newContent = doc.querySelector('.drawer__inner') || doc.querySelector('#CartDrawer');
-                const currentContent =
-                  cartDrawer.querySelector('.drawer__inner') || cartDrawer.querySelector('#CartDrawer');
-                if (newContent && currentContent) {
-                  currentContent.innerHTML = newContent.innerHTML;
-                }
-              });
           }
 
-          // 2. Trigger Shopify PubSub Event (Dawn Standard)
           if (typeof publish === 'function' && window.PUB_SUB_EVENTS) {
             publish(PUB_SUB_EVENTS.cartUpdate, { source: 'swipe-card', cart: data });
           }
 
-          // 3. Custom Theme Dispatchers
           document.dispatchEvent(new CustomEvent('cart:refresh'));
           document.dispatchEvent(new CustomEvent('cart:updated', { detail: { cart: data } }));
           document.dispatchEvent(new CustomEvent('cart:build', { detail: data }));
           document.dispatchEvent(new CustomEvent('theme:cart:change', { detail: { cart: data } }));
 
-          // 4. Open Cart Drawer
           if (cartDrawer && typeof cartDrawer.open === 'function') {
             cartDrawer.open();
           } else {
@@ -1169,7 +980,6 @@
             }
           }
 
-          // Update our swipe cart count
           updateSwipeCartCount();
         })
         .catch((error) => console.error('Error adding product to cart:', error));

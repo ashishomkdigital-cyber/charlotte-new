@@ -101,6 +101,49 @@
         "padding_bottom": 36
       }
     },
+    "rich_text_UfGRBz": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_gjHqwR": {
+          "type": "heading",
+          "settings": {
+            "heading": "Will Fill from for Support",
+            "heading_size": "h1"
+          }
+        },
+        "text_4U6gpp": {
+          "type": "text",
+          "settings": {
+            "text": ""
+          }
+        },
+        "button_JHFdba": {
+          "type": "button",
+          "settings": {
+            "button_label": "",
+            "button_link": "",
+            "button_style_secondary": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_gjHqwR",
+        "text_4U6gpp",
+        "button_JHFdba"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
     "form": {
       "type": "contact-form",
       "settings": {
@@ -126,6 +169,7 @@
     "main",
     "rich_text_njJ74K",
     "multicolumn_YMQtwe",
+    "rich_text_UfGRBz",
     "form",
     "store_features_mLnejt"
   ]

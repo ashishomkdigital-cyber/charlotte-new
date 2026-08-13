@@ -1238,17 +1238,6 @@
     {%- endif -%}
 
     <script>
-
-         {% if template.name == 'collection' or 
-      template.name == 'product' %}
-      setTimeout(()=>{
-        document.querySelector('.theme-toggle-switch').click();
-      }, 1000)
-    {% endif %}
-
-
-
-
       document.addEventListener('DOMContentLoaded', (e) => {
         if (window.location.pathname === '/') {
           document.addEventListener('scroll', (e) => {

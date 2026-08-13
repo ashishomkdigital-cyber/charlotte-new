@@ -31,7 +31,7 @@
       <div class="swipe-modal-logo">CHARLOTTE</div>
       <div class="collection-header-toggle" style="display: flex;gap: 5px;align-items: center;">
         <label class="theme-toggle-switch">
-          <input type="checkbox" class="layout-toggle-checkbox">
+          <input type="checkbox" class="layout-toggle-checkbox" autocomplete="off">
           <span class="theme-toggle-slider"></span>
         </label>
         <span
@@ -674,8 +674,9 @@
       });
     }
 
-    // Modal Control Functions
-    const openModal = () => {
+    // Toggle Modal State Management
+    const setSwipeModeEnabled = () => {
+      sessionStorage.removeItem('swipe_layout_disabled');
       if (modal) {
         modal.classList.add('is-active');
         modal.setAttribute('aria-hidden', 'false');
@@ -685,7 +686,8 @@
       });
     };
 
-    const closeModal = () => {
+    const setSwipeModeDisabled = () => {
+      sessionStorage.setItem('swipe_layout_disabled', 'true');
       if (modal) {
         modal.classList.remove('is-active');
         modal.setAttribute('aria-hidden', 'true');
@@ -693,39 +695,37 @@
       layoutToggles.forEach((toggle) => {
         toggle.checked = false;
       });
-      // Save dismiss state for this browser session
-      sessionStorage.setItem('swipeModeDismissed', 'true');
     };
 
-    // Check session state on load
-    const isDismissed = sessionStorage.getItem('swipeModeDismissed') === 'true';
+    // Check if user disabled swipe mode previously in this session
+    const isSwipeDisabled = sessionStorage.getItem('swipe_layout_disabled') === 'true';
 
-    // Set initial checkbox states & attach listeners
+    if (isSwipeDisabled) {
+      setSwipeModeDisabled();
+    } else {
+      setSwipeModeEnabled();
+    }
+
     layoutToggles.forEach((toggle) => {
-      toggle.checked = !isDismissed;
-      toggle.addEventListener('change', () => {
-        if (toggle.checked) {
-          // If turned back ON manually, remove dismissal & open
-          sessionStorage.removeItem('swipeModeDismissed');
-          openModal();
+      toggle.addEventListener('change', (e) => {
+        if (e.target.checked) {
+          setSwipeModeEnabled();
         } else {
-          // If turned OFF, close modal & save dismissal flag for session
-          closeModal();
+          setSwipeModeDisabled();
         }
       });
     });
 
-    // Auto-open on load ONLY if not dismissed in this session
-    if (!isDismissed) {
-      openModal();
-    }
-
     if (closeBtn) {
       closeBtn.addEventListener('click', () => {
-        closeModal();
+        setSwipeModeDisabled();
       });
     }
-    if (backdrop) backdrop.addEventListener('click', closeModal);
+    if (backdrop) {
+      backdrop.addEventListener('click', () => {
+        setSwipeModeDisabled();
+      });
+    }
 
     // Swipe Engine
     cards.forEach((card) => initSwipe(card));

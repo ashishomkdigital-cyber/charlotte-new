@@ -107,7 +107,7 @@
         "heading_gjHqwR": {
           "type": "heading",
           "settings": {
-            "heading": "Fill in the form for quick support",
+            "heading": "<strong>Fill in the form for quick support</strong>",
             "heading_size": "h1"
           }
         },
